@@ -1,0 +1,27 @@
+{
+    "name": "zablose/navbar",
+    "description": "Navigation Bar",
+    "keywords": [
+        "navigation",
+        "navbar",
+        "view",
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergejs Zablockis",
+            "email": "zablose@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": {
+            "Zablose\\Navbar": "src/"
+        }
+    }
+}
