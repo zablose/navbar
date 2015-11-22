@@ -1,5 +1,7 @@
 <?php
 
+namespace Zablose\Navbar;
+
 use Illuminate\Support\ServiceProvider;
 
 class NavbarServiceProvider extends ServiceProvider
