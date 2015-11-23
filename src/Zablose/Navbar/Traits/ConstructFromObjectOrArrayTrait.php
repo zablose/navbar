@@ -9,10 +9,7 @@ trait ConstructFromObjectOrArrayTrait
     {
         if ($data !== null)
         {
-            if (is_object($data))
-            {
-                $data = get_object_vars($data);
-            }
+            $data = (array) $data;
             $attrs = get_object_vars($this);
 
             foreach ($attrs as $key => $null)

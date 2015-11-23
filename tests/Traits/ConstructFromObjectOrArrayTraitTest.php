@@ -27,6 +27,11 @@ class ConstructFromObjectOrArrayTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, get_object_vars(new TestObject($data)));
     }
 
+    public function test__constructOnEmptyObject()
+    {
+        $this->assertEquals([], get_object_vars(new TestEmptyObject(['id' => 13])));
+    }
+
 }
 
 class TestObject
@@ -36,5 +41,12 @@ class TestObject
 
     public $id   = 4;
     public $name = 'Zablose';
+
+}
+
+class TestEmptyObject
+{
+
+    use \Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 
 }
