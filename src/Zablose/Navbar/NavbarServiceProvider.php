@@ -16,9 +16,18 @@ class NavbarServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../../views/', 'navbar');
 
+        if (!$this->app->routesAreCached())
+        {
+            require __DIR__ . '/../../routes.php';
+        }
+
         $this->publishes([
             __DIR__ . '/../../config/navbar.php' => config_path('navbar.php')
             ], 'config');
+
+        $this->publishes([
+            __DIR__ . '/../../views/' => base_path('resources/views/vendor/zablose/navbar')
+            ], 'views');
 
         $this->publishes([
             __DIR__ . '/../../migrations/' => base_path('/database/migrations')
@@ -27,10 +36,6 @@ class NavbarServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../models/' => base_path('/app/Zablose/Navbar')
             ], 'models');
-
-        $this->publishes([
-            __DIR__ . '/../../views/' => base_path('resources/views/vendor/navbar')
-            ], 'views');
     }
 
     /**

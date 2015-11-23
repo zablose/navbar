@@ -17,7 +17,7 @@ class NavbarData implements NavbarDataContract
      */
     public function getRawNavbarEntities($tagOrPid = null, $titled = null, $positioned = null)
     {
-        $query = DB::table('navbars');
+        $query = DB::table('zablose_navbars');
 
         if(is_string($tagOrPid))
         {

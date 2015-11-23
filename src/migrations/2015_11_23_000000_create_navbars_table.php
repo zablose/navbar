@@ -8,6 +8,8 @@ use Illuminate\Database\Migrations\Migration;
 class CreateNavbarsTable extends Migration
 {
 
+    const TABLE_NAME = 'zablose_navbars';
+
     /**
      * Run the migrations.
      *
@@ -15,7 +17,7 @@ class CreateNavbarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('navbars', function (Blueprint $table)
+        Schema::create(self::TABLE_NAME, function (Blueprint $table)
         {
             $table->increments('id');
 
@@ -42,7 +44,7 @@ class CreateNavbarsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('navbars');
+        Schema::drop(self::TABLE_NAME);
     }
 
 }

@@ -5,7 +5,7 @@ return [
     /**
      * Application URL.
      */
-    'app_url' => 'http://dlite/laradocs',
+    'app_url' => 'http://localhost',
 
     /**
      * If ordering direction is wrong the ordering will be ignored.
@@ -23,6 +23,6 @@ return [
     /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      */
-    'navbar_entity_class' => App\Zablose\Navbar\NavbarEntity::class
+    'navbar_entity_class' => Zablose\Navbar\NavbarEntity::class
 
 ];

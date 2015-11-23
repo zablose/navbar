@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Navbar extends Model
 {
 
+    public $table = 'zablose_navbars';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -103,7 +103,7 @@ class InsertNavbars extends Migration
      */
     public function down()
     {
-        DB::table('navbars')->truncate();
+        DB::table('zablose_navbars')->truncate();
     }
 
 }
