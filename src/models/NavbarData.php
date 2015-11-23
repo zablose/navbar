@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Zablose\Navbar;
+
 use DB;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 

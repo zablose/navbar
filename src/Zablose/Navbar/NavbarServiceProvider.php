@@ -25,6 +25,10 @@ class NavbarServiceProvider extends ServiceProvider
             ], 'migrations');
 
         $this->publishes([
+            __DIR__ . '/../../models/' => base_path('/app/Zablose/Navbar')
+            ], 'models');
+
+        $this->publishes([
             __DIR__ . '/../../views/' => base_path('resources/views/vendor/navbar')
             ], 'views');
     }

@@ -1,7 +1,8 @@
 <?php
 
-use App\Navbar;
+use App\Zablose\Navbar\Navbar;
 use Zablose\Navbar\NavbarEntity;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 
 class InsertNavbars extends Migration

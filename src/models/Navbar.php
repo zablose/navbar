@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Zablose\Navbar;
 
 use Illuminate\Database\Eloquent\Model;
 
