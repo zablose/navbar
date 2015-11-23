@@ -1,0 +1,40 @@
+<?php
+
+class ConstructFromObjectOrArrayTraitTest extends PHPUnit_Framework_TestCase
+{
+
+    public function dataProviderFor_test__construct()
+    {
+        return [
+            [ ['id' => 34, 'name' => 'Sergejs', 'title' => 'Mr'], ['id' => 34, 'name' => 'Sergejs'] ],
+            [ ['id' => 34, 'name' => 'Sergejs'], ['id' => 34, 'name' => 'Sergejs'] ],
+            [ ['id' => 23, 'name' => ''], ['id' => 23, 'name' => ''] ],
+            [ ['id' => 12], ['id' => 12, 'name' => 'Zablose'] ],
+            [ (object) ['id' => 12, 'name' => 'Zablockis'], ['id' => 12, 'name' => 'Zablockis'] ],
+            [ null, ['id' => 4, 'name' => 'Zablose'] ],
+            [ 'hi', ['id' => 4, 'name' => 'Zablose'] ],
+            [ 365, ['id' => 4, 'name' => 'Zablose'] ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderFor_test__construct
+     *
+     * @param array|object $data
+     */
+    public function test__construct($data, $expected)
+    {
+        $this->assertEquals($expected, get_object_vars(new TestObject($data)));
+    }
+
+}
+
+class TestObject
+{
+
+    use \Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+
+    public $id   = 4;
+    public $name = 'Zablose';
+
+}

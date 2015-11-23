@@ -5,7 +5,7 @@ use Zablose\Navbar\Helpers\Tag;
 class TagTest extends PHPUnit_Framework_TestCase
 {
 
-    public function attrsProvider()
+    public function dataProviderFor_testAttrs()
     {
         return [
             [ ['class' => 'active'], 'class="active"' ],
@@ -21,10 +21,12 @@ class TagTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider attrsProvider
-     * @test
+     * @dataProvider dataProviderFor_testAttrs
+     *
+     * @param array $attrs
+     * @param string $expected
      */
-    public function it_renders_tag_attributes($attrs, $expected)
+    public function testAttrs($attrs, $expected)
     {
         $actual = Tag::attrs($attrs);
         $this->assertEquals($expected, $actual);
