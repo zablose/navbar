@@ -34,7 +34,7 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $navbar->isPublic());
     }
 
-    public function dataProviderFor_testAddClass()
+    public function dataProviderFor_testPostfix()
     {
         return [
             [ '', 'active', 'active' ],
@@ -43,19 +43,43 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider dataProviderFor_testAddClass
+     * @dataProvider dataProviderFor_testPostfix
      *
      * @param string $class
      * @param string $classToAdd
      * @param string $expected
      */
-    public function testAddClass($class, $classToAdd, $expected)
+    public function testPostfix($class, $classToAdd, $expected)
     {
         $navbar = new NavbarEntity([
             'class'       => $class,
         ]);
 
-        $this->assertEquals($expected, $navbar->addClass($classToAdd)->class);
+        $this->assertEquals($expected, $navbar->postfix('class', $classToAdd)->class);
+    }
+
+    public function dataProviderFor_testPrefix()
+    {
+        return [
+            [ '', 'Dropdown', 'Dropdown' ],
+            [ 'Dropdown', 'Mega', 'Mega Dropdown' ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderFor_testPrefix
+     *
+     * @param string $title
+     * @param string $titleToInsert
+     * @param string $expected
+     */
+    public function testPrefix($title, $titleToInsert, $expected)
+    {
+        $navbar = new NavbarEntity([
+            'title'       => $title,
+        ]);
+
+        $this->assertEquals($expected, $navbar->prefix('title', $titleToInsert)->title);
     }
 
 }

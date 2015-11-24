@@ -12,7 +12,27 @@ interface NavbarEntityContract
     public function isGroup();
 
     public function isPublic();
-    
-    public function addClass($class);
+
+
+    /**
+     * Prefix attribute with a string.
+     *
+     * @param string $attr Attribute name
+     * @param string $value
+     *
+     * @return NavbarEntityContract
+     */
+    public function prefix($attr, $value);
+
+
+    /**
+     * Postfix attribute with a string.
+     *
+     * @param string $attr Attribute name
+     * @param string $value
+     *
+     * @return NavbarEntityContract
+     */
+    public function postfix($attr, $value);
 
 }

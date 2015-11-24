@@ -3,6 +3,7 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\NavbarEntityCore;
+use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 class NavbarEntity extends NavbarEntityCore
 {
@@ -104,14 +105,47 @@ class NavbarEntity extends NavbarEntityCore
     }
 
     /**
-     * Add an extra class as a string to the navigation bar entity class attribute.
+     * Prefix attribute with a string.
      *
-     * @param string $class
-     * @return string
+     * @param string $attr Attribute name
+     * @param string $value
+     *
+     * @return NavbarEntityContract
      */
-    public function addClass($class)
+    public function prefix($attr, $value)
     {
-        $this->class = ($this->class) ? $this->class . ' ' . $class : $class;
+        return $this->fix($attr, $value, true);
+    }
+
+    /**
+     * Postfix attribute with a string.
+     *
+     * @param string $attr Attribute name
+     * @param string $value
+     *
+     * @return NavbarEntityContract
+     */
+    public function postfix($attr, $value)
+    {
+        return $this->fix($attr, $value, false);
+    }
+
+    /**
+     * Prefix or postfix attribute with a string.
+     *
+     * @param string $attr Attribute name
+     * @param string $value
+     * @param boolean $pre
+     *
+     * @return NavbarEntityContract
+     */
+    protected function fix($attr, $value, $pre = true)
+    {
+        if (property_exists($this, $attr) && $value)
+        {
+            $this->$attr = ($this->$attr) ? (($pre) ? $value.' '.$this->$attr : $this->$attr.' '.$value) : $value;
+        }
+
         return $this;
     }
 

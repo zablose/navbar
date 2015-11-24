@@ -5,6 +5,7 @@ namespace Zablose\Navbar;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
+use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\NavbarDataProcessor;
 use Zablose\Navbar\NavbarEntityCore;
 
@@ -58,6 +59,7 @@ abstract class NavbarBuilderCore
         {
             $this->prepare($tagOrPid, $titled, $positioned);
         }
+
         return $this->renderElements($this->processor->get($tagOrPid));
     }
 
@@ -73,6 +75,7 @@ abstract class NavbarBuilderCore
     {
         $this->prepared = true;
         $this->processor->prepare($tagOrPid, $titled, $positioned);
+
         return $this;
     }
 
@@ -123,13 +126,11 @@ abstract class NavbarBuilderCore
      */
     private function renderNavbar(NavbarElement $element)
     {
-        $html = '<ul class="nav navbar-nav ' . $element->entity->class . '">';
+        $attrs = [
+            'class' => $element->entity->prefix('class', 'nav navbar-nav')->class,
+        ];
 
-        $html .= $this->renderElements($element->content);
-
-        $html .= '</ul>';
-
-        return $html;
+        return Html::tag('ul', $attrs, $this->renderElements($element->content));
     }
 
     /**
@@ -139,13 +140,11 @@ abstract class NavbarBuilderCore
      */
     private function renderSidebar(NavbarElement $element)
     {
-        $html = '<ul class="nav nav-sidebar ' . $element->entity->class . '">';
+        $attrs = [
+            'class' => $element->entity->prefix('class', 'nav nav-sidebar')->class,
+        ];
 
-        $html .= $this->renderElements($element->content);
-
-        $html .= '</ul>';
-
-        return $html;
+        return Html::tag('ul', $attrs, $this->renderElements($element->content));
     }
 
     /**
@@ -156,8 +155,9 @@ abstract class NavbarBuilderCore
     private function renderDropdown(NavbarElement $element)
     {
         $attrs = [
+            'id'               => 'dropdown_'.$element->entity->id,
             'href'             => $element->entity->target,
-            'class'            => implode(' ', ['dropdown-toggle', $element->entity->class]),
+            'class'            => $element->entity->prefix('class', 'dropdown-toggle')->class,
             'data-toggle'      => 'dropdown',
             'role'             => 'button',
             'aria-haspopup'    => 'true',
@@ -166,13 +166,13 @@ abstract class NavbarBuilderCore
             'navbar-container' => 'ul',
         ];
 
-        $element->entity->title .= ' <span class="caret"></span>';
+        $element->entity->postfix('title', '<span class="caret"></span>');
 
         $html = '
           <li class="dropdown">
-            ' . $this->a($element->entity, $attrs) . '
+            '.Html::tag('a', $attrs, $this->icon($element->entity).$element->entity->title).'
             <ul class="dropdown-menu">
-              ' . $this->renderElements($element->content) . '
+              '.$this->renderElements($element->content).'
             </ul>
           </li>';
 
@@ -181,27 +181,59 @@ abstract class NavbarBuilderCore
 
     private function renderHeader(NavbarEntityContract $entity)
     {
-        return $this->li($entity->addClass('dropdown-header'));
+        $attrs = [
+            'class' => $entity->prefix('class', 'dropdown-header')->class,
+        ];
+
+        return Html::tag('li', $attrs, $entity->title);
     }
 
     private function renderSeparator(NavbarEntityContract $entity)
     {
-        return '<li role="separator" class="divider ' . $entity->class . '"></li>';
+        $attrs = [
+            'class' => $entity->prefix('class', 'divider')->class,
+            'role'  => 'separator',
+        ];
+
+        return Html::tag('li', $attrs);
     }
 
     private function renderRelativeLink(NavbarEntityContract $entity)
     {
-        return $this->renderLink($entity);
+        $attrs = [
+            'href' => rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->target), '/'),
+        ];
+
+        return $this->renderLink($entity, $attrs);
     }
 
     private function renderAbsoluteLink(NavbarEntityContract $entity)
     {
-        return $this->renderLink($entity);
+        $attrs = [
+            'href' => $entity->target,
+            'target' => $this->config->absolute_link_target,
+        ];
+
+        return $this->renderLink($entity, $attrs);
     }
 
-    private function renderLink(NavbarEntityContract $entity)
+    private function renderLink(NavbarEntityContract $entity, $attrs = [])
     {
-        return $this->li($entity, $this->a($entity));
+        $li_attrs = [];
+
+        if ($entity->alt)
+        {
+            $li_attrs['title'] = $entity->alt;
+        }
+
+        if ($entity->class)
+        {
+            $li_attrs['class'] = $entity->class;
+        }
+
+        $body = Html::tag('a', $attrs, $this->icon($entity).$entity->title);
+
+        return Html::tag('li', $li_attrs, $body);
     }
 
     private function nb_empty($param = null)
