@@ -23,6 +23,9 @@
     <filter>
         <whitelist>
             <directory>src/Zablose/Navbar</directory>
+            <exclude>
+                <file>src/Zablose/Navbar/NavbarServiceProvider.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <logging>
