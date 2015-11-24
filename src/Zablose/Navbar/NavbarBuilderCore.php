@@ -2,13 +2,11 @@
 
 namespace Zablose\Navbar;
 
-use Zablose\Navbar\Helpers\Tag;
-use Zablose\Navbar\NavbarDataSetup;
-use Zablose\Navbar\NavbarEntityCore;
-use Zablose\Navbar\NavbarDataProcessor;
-use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
+use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
+use Zablose\Navbar\NavbarDataProcessor;
+use Zablose\Navbar\NavbarEntityCore;
 
 abstract class NavbarBuilderCore
 {
@@ -17,14 +15,14 @@ abstract class NavbarBuilderCore
      *
      * @var NavbarDataProcessor
      */
-    protected $data;
+    private $processor;
 
     /**
      * Were data prepared or not. Used to prevent a repeat of preparation.
      *
      * @var boolean
      */
-    protected $prepared;
+    private $prepared;
 
     /**
      *
@@ -35,11 +33,14 @@ abstract class NavbarBuilderCore
     /**
      *
      * @param NavbarDataContract $data
+     * @param NavbarConfigContract $config
+     *
+     * @return void
      */
-    final public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
+    public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
-        $this->data   = new NavbarDataProcessor(new NavbarDataSetup($data, $config));
-        $this->config = $this->data->setup->config;
+        $this->processor = new NavbarDataProcessor($data, $config);
+        $this->config    = $this->processor->config;
     }
 
     /**
@@ -48,6 +49,7 @@ abstract class NavbarBuilderCore
      * @param  mixed  $tagOrPid  Tag that group navbars or parent ID.
      * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
      * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
+     *
      * @return string
      */
     final public function render($tagOrPid, $titled = null, $positioned = null)
@@ -56,7 +58,7 @@ abstract class NavbarBuilderCore
         {
             $this->prepare($tagOrPid, $titled, $positioned);
         }
-        return $this->renderElements($this->data->get($tagOrPid));
+        return $this->renderElements($this->processor->get($tagOrPid));
     }
 
     /**
@@ -64,12 +66,13 @@ abstract class NavbarBuilderCore
      * @param  mixed  $tagOrPid  Tag(s) that group navbars or parent ID.
      * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
      * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
-     * @return \Zablose\Navbar\NavbarBuilder
+     *
+     * @return NavbarBuilder
      */
     final public function prepare($tagOrPid = null, $titled = null, $positioned = null)
     {
         $this->prepared = true;
-        $this->data->prepare($tagOrPid, $titled, $positioned);
+        $this->processor->prepare($tagOrPid, $titled, $positioned);
         return $this;
     }
 
@@ -166,15 +169,12 @@ abstract class NavbarBuilderCore
         $element->entity->title .= ' <span class="caret"></span>';
 
         $html = '
-      <li class="dropdown">
-        ' . $this->a($element->entity, $attrs) . '
-        <ul class="dropdown-menu">';
-
-        $html .= $this->renderElements($element->content);
-
-        $html .= '
-        </ul>
-      </li>';
+          <li class="dropdown">
+            ' . $this->a($element->entity, $attrs) . '
+            <ul class="dropdown-menu">
+              ' . $this->renderElements($element->content) . '
+            </ul>
+          </li>';
 
         return $html;
     }

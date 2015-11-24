@@ -3,18 +3,17 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\NavbarElement;
-use Zablose\Navbar\NavbarDataSetup;
+use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 final class NavbarDataProcessor
 {
-
     /**
-     * Navbar data setup.
      *
-     * @var NavbarDataSetup
+     * @var NavbarDataContract
      */
-    public $setup;
+    private $data;
 
     /**
      * Navbar entities.
@@ -37,12 +36,21 @@ final class NavbarDataProcessor
     private $byPid;
 
     /**
+     * Navbar data configuration.
      *
-     * @param NavbarDataSetup $setup
+     * @var NavbarConfigContract
      */
-    public function __construct(NavbarDataSetup $setup)
+    public $config;
+
+    /**
+     *
+     * @param NavbarDataContract $data
+     * @param NavbarConfigContract $config
+     */
+    public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
-        $this->setup = $setup;
+        $this->data = $data;
+        $this->config = ($config) ?: new NavbarConfig();
     }
 
     /**
@@ -66,8 +74,19 @@ final class NavbarDataProcessor
      */
     public function prepare($tagOrPid = null, $titled = null, $positioned = null)
     {
-        $this->entities = $this->validate($this->setup->data->getRawNavbarEntities($tagOrPid, $titled, $positioned));
+        if (!$titled)
+        {
+            $titled = $this->config->titled;
+        }
+
+        if (!$positioned)
+        {
+            $positioned = $this->config->positioned;
+        }
+
+        $this->entities = $this->validate($this->data->getRawNavbarEntities($tagOrPid, $titled, $positioned));
         $this->elements = $this->elements($this->byPid($tagOrPid));
+
         return $this;
     }
 
@@ -155,7 +174,7 @@ final class NavbarDataProcessor
         $entities = [];
         foreach ($raw_entities as $raw_entity)
         {
-            $class = $this->setup->config->navbar_entity_class;
+            $class = $this->config->navbar_entity_class;
             $entity = new $class($raw_entity);
             if ($entity->isPublic() || $this->hasAccess($entity->role_id, $entity->permission_id))
             {
@@ -173,7 +192,7 @@ final class NavbarDataProcessor
      */
     private function activate(NavbarEntityContract $entity)
     {
-        if ($this->setup->path === $entity->target || stripos(trim($this->setup->path, '/'), trim($entity->target, '/')) !== false)
+        if ($this->config->path() === $entity->target || stripos(trim($this->config->path(), '/'), trim($entity->target, '/')) !== false)
         {
             $entity->class = ($entity->class) ? $entity->class . ' active' : 'active';
         }
@@ -201,7 +220,7 @@ final class NavbarDataProcessor
      */
     private function hasRole($role_id)
     {
-        return in_array($role_id, $this->setup->roles);
+        return in_array($role_id, $this->config->roles());
     }
 
     /**
@@ -212,7 +231,7 @@ final class NavbarDataProcessor
      */
     private function hasPermission($permission_id)
     {
-        return in_array($permission_id, $this->setup->permissions);
+        return in_array($permission_id, $this->config->permissions());
     }
 
 }

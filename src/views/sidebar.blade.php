@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ url('/') }}">Navbar Demo</a>
+                    <a class="navbar-brand" href="{{ url('/zablose/navbar/demo') }}">Navbar Demo</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     {!! $navbar->prepare()->render('main'); !!}
