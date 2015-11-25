@@ -13,26 +13,32 @@ interface NavbarEntityContract
 
     public function isPublic();
 
+    /**
+     * Render Class with or without prefix and postfix.
+     *
+     * @param type $prefix
+     * @param type $postfix
+     *
+     * @return string
+     */
+    public function renderClass($prefix = null, $postfix = null);
 
     /**
-     * Prefix attribute with a string.
+     * Render Title with or without prefix and postfix.
      *
-     * @param string $attr Attribute name
-     * @param string $value
+     * @param string $prefix
+     * @param string $postfix
      *
-     * @return NavbarEntityContract
+     * @return string
      */
-    public function prefix($attr, $value);
+    public function renderTitle($prefix = null, $postfix = null);
 
 
     /**
-     * Postfix attribute with a string.
+     * Render Icon.
      *
-     * @param string $attr Attribute name
-     * @param string $value
-     *
-     * @return NavbarEntityContract
+     * @return string
      */
-    public function postfix($attr, $value);
+    public function renderIcon();
 
 }

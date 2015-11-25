@@ -34,52 +34,47 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $navbar->isPublic());
     }
 
-    public function dataProviderFor_testPostfix()
+    public function dataProviderFor_renderWithPrefixPostfix()
     {
         return [
-            [ '', 'active', 'active' ],
-            [ 'nav navbar', 'active', 'nav navbar active' ],
+            [ '', '', '', '' ],
+            [ 'fa', '', '', 'fa' ],
+            [ 'fa', '', 'fa-book', 'fa fa-book' ],
+            [ '', 'fa', 'fa-book', 'fa fa-book' ],
+            [ 'fa', 'active', 'fa-book', 'active fa fa-book' ],
         ];
     }
 
     /**
-     * @dataProvider dataProviderFor_testPostfix
+     * @dataProvider dataProviderFor_renderWithPrefixPostfix
      *
-     * @param string $class
-     * @param string $classToAdd
+     * @param string $string
+     * @param string $prefix
+     * @param string $postfix
      * @param string $expected
      */
-    public function testPostfix($class, $classToAdd, $expected)
+    public function testRenderWithPrefixPostfix($string, $prefix, $postfix, $expected)
     {
-        $navbar = new NavbarEntity([
-            'class'       => $class,
-        ]);
+        $navbar = new NavbarEntity();
+        $navbar->class = $string;
+        $navbar->title = $string;
 
-        $this->assertEquals($expected, $navbar->postfix('class', $classToAdd)->class);
+        $this->assertEquals($expected, $navbar->renderClass($prefix, $postfix));
+        $this->assertEquals($expected, $navbar->renderTitle($prefix, $postfix));
     }
 
-    public function dataProviderFor_testPrefix()
+    public function testRenderIcon()
     {
-        return [
-            [ '', 'Dropdown', 'Dropdown' ],
-            [ 'Dropdown', 'Mega', 'Mega Dropdown' ],
-        ];
-    }
+        $navbar = new NavbarEntity();
 
-    /**
-     * @dataProvider dataProviderFor_testPrefix
-     *
-     * @param string $title
-     * @param string $titleToInsert
-     * @param string $expected
-     */
-    public function testPrefix($title, $titleToInsert, $expected)
-    {
-        $navbar = new NavbarEntity([
-            'title'       => $title,
-        ]);
+        $navbar->icon = 'fa fa-book';
+        $this->assertEquals('<span class="fa fa-book"></span>', $navbar->renderIcon());
 
-        $this->assertEquals($expected, $navbar->prefix('title', $titleToInsert)->title);
+        $navbar->icon = '';
+        $this->assertEquals('', $navbar->renderIcon());
+
+        $navbar->icon = null;
+        $this->assertEquals('', $navbar->renderIcon());
     }
 
 }

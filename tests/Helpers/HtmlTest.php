@@ -52,4 +52,44 @@ class HtmlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Html::attrs($attrs));
     }
 
+    public function dataProviderFor_testPostfix()
+    {
+        return [
+            [ '', 'active', 'active' ],
+            [ 'nav navbar', 'active', 'nav navbar active' ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderFor_testPostfix
+     *
+     * @param string $string
+     * @param string $postfix
+     * @param string $expected
+     */
+    public function testPostfix($string, $postfix, $expected)
+    {
+        $this->assertEquals($expected, Html::postfix($string, $postfix));
+    }
+
+    public function dataProviderFor_testPrefix()
+    {
+        return [
+            [ '', 'Dropdown', 'Dropdown' ],
+            [ 'Dropdown', 'Mega', 'Mega Dropdown' ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderFor_testPrefix
+     *
+     * @param string $string
+     * @param string $prefix
+     * @param string $expected
+     */
+    public function testPrefix($string, $prefix, $expected)
+    {
+        $this->assertEquals($expected, Html::prefix($string, $prefix));
+    }
+
 }

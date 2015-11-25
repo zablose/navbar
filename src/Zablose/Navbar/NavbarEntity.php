@@ -2,8 +2,8 @@
 
 namespace Zablose\Navbar;
 
+use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\NavbarEntityCore;
-use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 class NavbarEntity extends NavbarEntityCore
 {
@@ -105,48 +105,37 @@ class NavbarEntity extends NavbarEntityCore
     }
 
     /**
-     * Prefix attribute with a string.
+     * Render Class with or without prefix and postfix.
      *
-     * @param string $attr Attribute name
-     * @param string $value
-     *
-     * @return NavbarEntityContract
+     * @param string $prefix
+     * @param string $postfix
+     * @return string
      */
-    public function prefix($attr, $value)
+    public function renderClass($prefix = null, $postfix = null)
     {
-        return $this->fix($attr, $value, true);
+        return Html::postfix(Html::prefix($this->class, $prefix), $postfix);
     }
 
     /**
-     * Postfix attribute with a string.
+     * Render Title with or without prefix and postfix.
      *
-     * @param string $attr Attribute name
-     * @param string $value
-     *
-     * @return NavbarEntityContract
+     * @param string $prefix
+     * @param string $postfix
+     * @return string
      */
-    public function postfix($attr, $value)
+    public function renderTitle($prefix = null, $postfix = null)
     {
-        return $this->fix($attr, $value, false);
+        return Html::postfix(Html::prefix($this->title, $prefix), $postfix);
     }
 
     /**
-     * Prefix or postfix attribute with a string.
+     * Render Icon.
      *
-     * @param string $attr Attribute name
-     * @param string $value
-     * @param boolean $pre
-     *
-     * @return NavbarEntityContract
+     * @return string
      */
-    protected function fix($attr, $value, $pre = true)
+    public function renderIcon()
     {
-        if (property_exists($this, $attr) && $value)
-        {
-            $this->$attr = ($this->$attr) ? (($pre) ? $value.' '.$this->$attr : $this->$attr.' '.$value) : $value;
-        }
-
-        return $this;
+        return ($this->icon) ? '<span class="'.$this->icon.'"></span>' : '';
     }
 
 }

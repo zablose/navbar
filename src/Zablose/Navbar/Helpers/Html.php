@@ -38,4 +38,46 @@ class Html
         return $prefix.implode(' ', $html);
     }
 
+    /**
+     * Prefix or postfix string with a string.
+     *
+     * @param string $string
+     * @param string $value
+     * @param boolean $pre
+     *
+     * @return string
+     */
+    public static function fix($string, $value, $pre = true)
+    {
+        return ($string && $value) ? (($pre) ? $value.' '.$string : $string.' '.$value) : $string.$value;
+    }
+
+
+    /**
+     * Prefix string with a string.
+     *
+     * @param string $string
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function prefix($string, $value)
+    {
+        return self::fix($string, $value);
+    }
+
+
+    /**
+     * Postfix string with a string.
+     *
+     * @param string $string
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function postfix($string, $value)
+    {
+        return self::fix($string, $value, false);
+    }
+
 }
