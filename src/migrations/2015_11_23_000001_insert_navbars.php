@@ -17,7 +17,7 @@ class InsertNavbars extends Migration
     {
         $navbars = [
             [
-                'type' => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 1
+                'type' => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 1
             ],
             [
                 'pid'    => 1,
@@ -31,13 +31,13 @@ class InsertNavbars extends Migration
                 'icon'   => 'fa fa-home fa-lg',
             ],
             [
-                'type'  => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 4
+                'type'  => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 4
                 'class' => 'navbar-right',
             ],
             [
                 'pid'   => 4, // id = 5
                 'title' => 'Dropdown',
-                'type'  => NavbarEntity::TYPE_NAVBAR_DROPDOWN,
+                'type'  => NavbarEntity::TYPE_BOOTSTRAP_DROPDOWN,
                 'icon'  => 'fa fa-bars fa-lg'
             ],
             [
@@ -57,12 +57,12 @@ class InsertNavbars extends Migration
             ],
             [
                 'pid'  => 5,
-                'type' => NavbarEntity::TYPE_NAVBAR_SEPARATOR,
+                'type' => NavbarEntity::TYPE_BOOTSTRAP_SEPARATOR,
             ],
             [
                 'pid'   => 5,
                 'title' => 'Links to explore',
-                'type'  => NavbarEntity::TYPE_NAVBAR_HEADER,
+                'type'  => NavbarEntity::TYPE_BOOTSTRAP_HEADER,
             ],
             [
                 'pid'   => 5,
@@ -71,8 +71,9 @@ class InsertNavbars extends Migration
                 'icon'  => 'fa fa-dashboard',
             ],
             [
-                'tag'  => 'dashboard',
-                'type' => NavbarEntity::TYPE_NAVBAR_SIDEBAR, // id = 12
+                'tag'   => 'dashboard',
+                'type'  => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 12
+                'class' => 'nav nav-sidebar',
             ],
             [
                 'pid'   => 12,

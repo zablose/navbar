@@ -95,16 +95,6 @@ class NavbarEntity extends NavbarEntityCore
     public $position;
 
     /**
-     * Check if navigation bar entity is publicly accessible.
-     *
-     * @return boolean
-     */
-    public function isPublic()
-    {
-        return ($this->permission_id > 0 || $this->role_id > 0) ? false : true;
-    }
-
-    /**
      * Render Class with or without prefix and postfix.
      *
      * @param string $prefix

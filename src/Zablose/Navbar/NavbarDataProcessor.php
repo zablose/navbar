@@ -172,44 +172,30 @@ final class NavbarDataProcessor
     private function validate($raw_entities)
     {
         $entities = [];
+
         foreach ($raw_entities as $raw_entity)
         {
-            $class = $this->config->navbar_entity_class;
-            $entity = new $class($raw_entity);
-            if ($entity->isPublic() || $this->hasAccess($entity->role_id, $entity->permission_id))
+            $raw_object = (object) $raw_entity;
+
+            if ($this->isAccessible($raw_object->role_id, $raw_object->permission_id))
             {
-                $entities[$entity->id] = $this->activate($entity);
+                $entities[$raw_object->id] = new $this->config->navbar_entity_class($raw_entity);
             }
         }
+
         return $entities;
     }
 
     /**
-     * Add 'active' class to the Navbar if it is currently active.
-     *
-     * @param  NavbarEntityContract  $entity
-     * @return NavbarEntityContract
-     */
-    private function activate(NavbarEntityContract $entity)
-    {
-        if ($this->config->path() === $entity->target || stripos(trim($this->config->path(), '/'), trim($entity->target, '/')) !== false)
-        {
-            $entity->class = ($entity->class) ? $entity->class . ' active' : 'active';
-        }
-
-        return $entity;
-    }
-
-    /**
-     * Check if the Navbar is accessible by the user.
+     * Check if the Navbar entity is accessible by the user.
      *
      * @param  integer  $role_id
      * @param  integer  $permission_id
      * @return type
      */
-    private function hasAccess($role_id, $permission_id)
+    private function isAccessible($role_id, $permission_id)
     {
-        return ($this->hasRole($role_id) || $this->hasPermission($permission_id)) ? true : false;
+        return ((!$role_id && !$permission_id) || ($this->hasRole($role_id) || $this->hasPermission($permission_id)));
     }
 
     /**

@@ -28,7 +28,7 @@ class NavbarBuilder extends NavbarBuilderCore
      * @param NavbarElement $element
      * @return string
      */
-    protected function renderNavbar(NavbarElement $element)
+    protected function bootstrap_navbar(NavbarElement $element)
     {
         $attrs = [
             'class' => $element->entity->renderClass('nav navbar-nav'),
@@ -42,10 +42,10 @@ class NavbarBuilder extends NavbarBuilderCore
      * @param NavbarElement $element
      * @return string
      */
-    protected function renderSidebar(NavbarElement $element)
+    protected function navbar_navbar(NavbarElement $element)
     {
         $attrs = [
-            'class' => $element->entity->renderClass('nav nav-sidebar'),
+            'class' => $element->entity->renderClass(),
         ];
 
         return Html::tag('ul', $attrs, $this->renderElements($element->content));
@@ -56,7 +56,7 @@ class NavbarBuilder extends NavbarBuilderCore
      * @param NavbarElement $element
      * @return string
      */
-    protected function renderDropdown(NavbarElement $element)
+    protected function bootstrap_dropdown(NavbarElement $element)
     {
         $attrs = [
             'id'               => 'dropdown_'.$element->entity->id,
@@ -83,7 +83,7 @@ class NavbarBuilder extends NavbarBuilderCore
         return $html;
     }
 
-    protected function renderHeader(NavbarEntityContract $entity)
+    protected function bootstrap_header(NavbarEntityContract $entity)
     {
         $attrs = [
             'class' => $entity->renderClass('dropdown-header'),
@@ -92,7 +92,7 @@ class NavbarBuilder extends NavbarBuilderCore
         return Html::tag('li', $attrs, $entity->title);
     }
 
-    protected function renderSeparator(NavbarEntityContract $entity)
+    protected function bootstrap_separator(NavbarEntityContract $entity)
     {
         $attrs = [
             'role'  => 'separator',
@@ -102,7 +102,20 @@ class NavbarBuilder extends NavbarBuilderCore
         return Html::tag('li', $attrs);
     }
 
-    protected function renderRelativeLink(NavbarEntityContract $entity)
+    /**
+     * Check if the entity related to current path.
+     *
+     * @param  NavbarEntityContract  $entity
+     * @return string
+     */
+    protected function isActive(NavbarEntityContract $entity)
+    {
+        $isTargetInPath = stripos(trim($this->config->path(), '/'), trim($entity->target, '/')) !== false;
+
+        return ($this->config->path() === $entity->target || $isTargetInPath);
+    }
+
+    protected function navbar_link_relative(NavbarEntityContract $entity)
     {
         $attrs = [
             'href' => rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->target), '/'),
@@ -111,7 +124,7 @@ class NavbarBuilder extends NavbarBuilderCore
         return $this->renderLink($entity, $attrs);
     }
 
-    protected function renderAbsoluteLink(NavbarEntityContract $entity)
+    protected function navbar_link_absolute(NavbarEntityContract $entity)
     {
         $attrs = [
             'href' => $entity->target,
@@ -123,21 +136,38 @@ class NavbarBuilder extends NavbarBuilderCore
 
     protected function renderLink(NavbarEntityContract $entity, $attrs = [])
     {
-        $li_attrs = [];
+
+        $link = Html::tag($this->config->link_tag, $attrs, $entity->renderTitle($entity->renderIcon()));
+
+        if ($this->config->link_container_tag)
+        {
+            return $this->renderLinkContainer($entity, $link);
+        }
+
+        return $link;
+    }
+
+    /**
+     *
+     * @param NavbarEntityContract $entity
+     * @param string $body
+     * @return string
+     */
+    protected function renderLinkContainer(NavbarEntityContract $entity, $body)
+    {
+        $container_attrs = [];
 
         if ($entity->alt)
         {
-            $li_attrs['title'] = $entity->alt;
+            $container_attrs['title'] = $entity->alt;
         }
 
-        if ($entity->class)
+        if ($this->isActive($entity))
         {
-            $li_attrs['class'] = $entity->class;
+            $container_attrs['class'] = $this->config->class_for_active_link;
         }
 
-        $body = Html::tag('a', $attrs, $entity->renderTitle($entity->renderIcon()));
-
-        return Html::tag('li', $li_attrs, $body);
+        return Html::tag($this->config->link_container_tag, $container_attrs, $body);
     }
 
 }

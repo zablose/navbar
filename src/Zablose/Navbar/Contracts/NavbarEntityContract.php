@@ -11,8 +11,6 @@ interface NavbarEntityContract
 
     public function isGroup();
 
-    public function isPublic();
-
     /**
      * Render Class with or without prefix and postfix.
      *

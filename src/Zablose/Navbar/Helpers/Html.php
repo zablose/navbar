@@ -13,7 +13,7 @@ class Html
      */
     public static function tag($name, $attrs, $body = null)
     {
-        return '<'.$name.self::attrs($attrs).'>'.$body.'</'.$name.'>';
+        return ($name) ? '<'.$name.self::attrs($attrs).'>'.$body.'</'.$name.'>' : '';
     }
 
     /**

@@ -32,6 +32,24 @@ class NavbarConfig implements NavbarConfigContract
     public $positioned;
 
     /**
+     *
+     * @var string
+     */
+    public $link_tag = 'a';
+
+    /**
+     *
+     * @var string
+     */
+    public $link_container_tag = 'li';
+
+    /**
+     *
+     * @var string
+     */
+    public $class_for_active_link = 'active';
+
+    /**
      * Target for absolute link. Default: '_blank'.
      *
      * @var string

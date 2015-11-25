@@ -13,13 +13,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     /**
      * Keep in mind that values are also used as methods names by Navbar builder.
      */
-    const TYPE_NAVBAR_LINK_RELATIVE = 'renderRelativeLink';
-    const TYPE_NAVBAR_LINK_ABSOLUTE = 'renderAbsoluteLink';
-    const TYPE_NAVBAR_NAVBAR        = 'renderNavbar';
-    const TYPE_NAVBAR_DROPDOWN      = 'renderDropdown';
-    const TYPE_NAVBAR_HEADER        = 'renderHeader';
-    const TYPE_NAVBAR_SEPARATOR     = 'renderSeparator';
-    const TYPE_NAVBAR_SIDEBAR       = 'renderSidebar';
+    const TYPE_NAVBAR_LINK_RELATIVE = 'navbar_link_relative';
+    const TYPE_NAVBAR_LINK_ABSOLUTE = 'navbar_link_absolute';
+    const TYPE_NAVBAR_NAVBAR        = 'navbar_navbar';
+    const TYPE_BOOTSTRAP_NAVBAR     = 'bootstrap_navbar';
+    const TYPE_BOOTSTRAP_DROPDOWN   = 'bootstrap_dropdown';
+    const TYPE_BOOTSTRAP_HEADER     = 'bootstrap_header';
+    const TYPE_BOOTSTRAP_SEPARATOR  = 'bootstrap_separator';
 
     public static $custom_types       = [];
     public static $custom_group_types = [];
@@ -27,13 +27,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     final public static function getTypes()
     {
         $types = [
-            self::TYPE_NAVBAR_HEADER,
-            self::TYPE_NAVBAR_SEPARATOR,
-            self::TYPE_NAVBAR_DROPDOWN,
-            self::TYPE_NAVBAR_LINK_ABSOLUTE,
             self::TYPE_NAVBAR_LINK_RELATIVE,
+            self::TYPE_NAVBAR_LINK_ABSOLUTE,
             self::TYPE_NAVBAR_NAVBAR,
-            self::TYPE_NAVBAR_SIDEBAR
+            self::TYPE_BOOTSTRAP_NAVBAR,
+            self::TYPE_BOOTSTRAP_DROPDOWN,
+            self::TYPE_BOOTSTRAP_HEADER,
+            self::TYPE_BOOTSTRAP_SEPARATOR,
         ];
 
         return array_unique(array_merge($types, NavbarEntityCore::$custom_types));
@@ -43,8 +43,8 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     {
         $gtypes = [
             self::TYPE_NAVBAR_NAVBAR,
-            self::TYPE_NAVBAR_DROPDOWN,
-            self::TYPE_NAVBAR_SIDEBAR
+            self::TYPE_BOOTSTRAP_NAVBAR,
+            self::TYPE_BOOTSTRAP_DROPDOWN,
         ];
 
         return array_unique(array_merge($gtypes, NavbarEntityCore::$custom_group_types));

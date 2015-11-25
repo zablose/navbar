@@ -107,14 +107,14 @@ abstract class NavbarBuilderCore
         return $html;
     }
 
-    protected function renderElementAsEntity(NavbarElement $dataset)
+    protected function renderElementAsEntity(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($dataset->entity->type)}($dataset->entity);
+        return $this->{$this->validateMethod($element->entity->type)}($element->entity);
     }
 
-    protected function renderElementAsGroup(NavbarElement $dataset)
+    protected function renderElementAsGroup(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($dataset->entity->type)}($dataset);
+        return $this->{$this->validateMethod($element->entity->type)}($element);
     }
 
     private function nb_empty($param = null)
