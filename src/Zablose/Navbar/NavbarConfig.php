@@ -111,7 +111,7 @@ class NavbarConfig implements NavbarConfigContract
     {
         if (!$roles)
         {
-            return $roles;
+            return $this->roles;
         }
 
         $this->roles = (array) $roles;

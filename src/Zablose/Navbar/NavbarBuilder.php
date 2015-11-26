@@ -72,13 +72,13 @@ class NavbarBuilder extends NavbarBuilderCore
 
         $body = $element->entity->renderTitle($element->entity->renderIcon(), '<span class="caret"></span>');
 
-        $html = '
-          <li class="dropdown">
-            '.Html::tag('a', $attrs, $body).'
-            <ul class="dropdown-menu">
-              '.$this->renderElements($element->content).'
-            </ul>
-          </li>';
+        $html =
+            '<li class="dropdown">'.
+              Html::tag('a', $attrs, $body).
+              '<ul class="dropdown-menu">'.
+                $this->renderElements($element->content).
+              '</ul>'.
+            '</li>';
 
         return $html;
     }
@@ -134,6 +134,12 @@ class NavbarBuilder extends NavbarBuilderCore
         return $this->renderLink($entity, $attrs);
     }
 
+    /**
+     *
+     * @param NavbarEntityContract $entity
+     * @param array $attrs
+     * @return string
+     */
     protected function renderLink(NavbarEntityContract $entity, $attrs = [])
     {
 
