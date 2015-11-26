@@ -22,7 +22,7 @@ class CreateNavbarsTable extends Migration
             $table->increments('id');
 
             $table->integer('pid')->unsigned()->default(0);
-            $table->string('tag', 16)->default('main');
+            $table->string('tag', 32)->nullable();
             $table->string('type', 32)->default(NavbarEntityCore::TYPE_NAVBAR_LINK_RELATIVE);
             $table->string('title', 64)->nullable();
             $table->string('alt')->nullable();
