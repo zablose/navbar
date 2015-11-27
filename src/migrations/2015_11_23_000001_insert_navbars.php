@@ -17,76 +17,96 @@ class InsertNavbars extends Migration
     {
         $navbars = [
             [
-                'type' => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 1
+                'pid'           => 0,
+                'filter'        => 'main',
+                'type'          => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 1
+                'body'          => '',
+                'title'         => '',
+                'href'          => '',
+                'class'         => '',
+                'icon'          => '',
+                'role_id'       => '',
+                'permission_id' => '',
+                'position'      => '',
             ],
             [
                 'pid'    => 1,
-                'title'  => 'Index',
-                'target' => '/',
+                'filter' => 'main',
+                'body'   => 'Index',
+                'href'   => '/',
             ],
             [
                 'pid'    => 1,
-                'title'  => 'Home',
-                'target' => '/home',
+                'filter' => 'main',
+                'body'   => 'Home',
+                'href'   => '/home',
                 'icon'   => 'fa fa-home fa-lg',
             ],
             [
-                'type'  => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 4
-                'class' => 'navbar-right',
+                'filter' => 'main',
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 4
+                'class'  => 'navbar-right',
             ],
             [
-                'pid'   => 4, // id = 5
-                'title' => 'Dropdown',
-                'type'  => NavbarEntity::TYPE_BOOTSTRAP_DROPDOWN,
-                'icon'  => 'fa fa-bars fa-lg'
-            ],
-            [
-                'pid'    => 5,
-                'title'  => 'Login',
-                'target' => '/auth/login',
+                'pid'    => 4, // id = 5
+                'filter' => 'main',
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_DROPDOWN,
+                'body'   => 'Dropdown',
+                'icon'   => 'fa fa-bars fa-lg'
             ],
             [
                 'pid'    => 5,
-                'title'  => 'Register',
-                'target' => '/auth/register',
+                'filter' => 'main',
+                'body'   => 'Login',
+                'href'   => '/auth/login',
             ],
             [
                 'pid'    => 5,
-                'title'  => 'Logout',
-                'target' => '/auth/logout',
+                'filter' => 'main',
+                'body'   => 'Register',
+                'href'   => '/auth/register',
             ],
             [
-                'pid'  => 5,
-                'type' => NavbarEntity::TYPE_BOOTSTRAP_SEPARATOR,
+                'pid'    => 5,
+                'filter' => 'main',
+                'body'   => 'Logout',
+                'href'   => '/auth/logout',
             ],
             [
-                'pid'   => 5,
-                'title' => 'Links to explore',
-                'type'  => NavbarEntity::TYPE_BOOTSTRAP_HEADER,
+                'pid'    => 5,
+                'filter' => 'main',
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_SEPARATOR,
             ],
             [
-                'pid'   => 5,
-                'title' => 'Dashboard',
-                'alt'   => 'Admin area',
-                'icon'  => 'fa fa-dashboard',
+                'pid'    => 5,
+                'filter' => 'main',
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_HEADER,
+                'body'   => 'Links to explore',
             ],
             [
-                'tag'   => 'dashboard',
-                'type'  => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 12
-                'class' => 'nav nav-sidebar',
+                'pid'    => 5,
+                'filter' => 'main',
+                'body'   => 'Dashboard',
+                'title'  => 'Admin area',
+                'icon'   => 'fa fa-dashboard',
             ],
             [
-                'pid'   => 12,
-                'tag'   => 'dashboard',
-                'title' => 'Users',
-                'icon'  => 'fa fa-book fa-fw',
+                'filter' => 'dashboard',
+                'type'   => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 12
+                'class'  => 'nav nav-sidebar',
             ],
             [
                 'pid'    => 12,
-                'tag'    => 'dashboard',
-                'title'  => 'Laravel',
-                'target' => 'http://laravel.com/',
+                'filter' => 'dashboard',
+                'body'   => 'Users',
+                'icon'   => 'fa fa-book fa-fw',
+            ],
+            [
+                'pid'    => 12,
+                'filter' => 'dashboard',
                 'type'   => NavbarEntity::TYPE_NAVBAR_LINK_ABSOLUTE,
+                'body'   => 'Laravel',
+                'href'   => 'http://laravel.com/',
                 'icon'   => 'fa fa-external-link fa-fw',
             ]
         ];

@@ -21,12 +21,12 @@ class NavbarData implements NavbarDataContract
 
         if(is_string($tagOrPid))
         {
-            $query->where('tag', $tagOrPid);
+            $query->where('filter', $tagOrPid);
         }
 
         if (is_array($tagOrPid))
         {
-            $query->whereIn('tag', $tagOrPid);
+            $query->whereIn('filter', $tagOrPid);
         }
 
         if(is_integer($tagOrPid))
@@ -36,7 +36,7 @@ class NavbarData implements NavbarDataContract
 
         if (in_array($titled, ['asc', 'desc']))
         {
-            $query->orderBy('title', $titled);
+            $query->orderBy('body', $titled);
         }
 
         if (in_array($positioned, ['asc', 'desc']))

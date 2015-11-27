@@ -16,11 +16,11 @@ class Navbar extends Model
      */
     protected $fillable = [
         'pid',
-        'tag',
+        'filter',
         'type',
+        'body',
         'title',
-        'alt',
-        'target',
+        'href',
         'class',
         'icon',
         'role_id',

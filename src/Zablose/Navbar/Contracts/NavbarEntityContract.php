@@ -29,7 +29,7 @@ interface NavbarEntityContract
      *
      * @return string
      */
-    public function renderTitle($prefix = null, $postfix = null);
+    public function renderBody($prefix = null, $postfix = null);
 
 
     /**

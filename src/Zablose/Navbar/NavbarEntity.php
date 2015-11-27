@@ -23,12 +23,11 @@ class NavbarEntity extends NavbarEntityCore
     public $pid;
 
     /**
-     * A unique tag for the navigation bar entities group which together represents a Navigation bar.<br/>
-     * Simply a filter to grab what you need in one go.
+     * A filter to grab what you need in one go.
      *
      * @var string
      */
-    public $tag;
+    public $filter;
 
     /**
      * Navbar entity type.
@@ -38,50 +37,49 @@ class NavbarEntity extends NavbarEntityCore
     public $type;
 
     /**
-     * Navigation bar entity title.
+     * Tag's body content.
+     *
+     * @var string
+     */
+    public $body;
+
+    /**
+     * Tag's title attribute.
      *
      * @var string
      */
     public $title;
 
     /**
-     * Navigation bar entity alt string used in tag's title attribute.
+     * Tag's href attribute.
      *
      * @var string
      */
-    public $alt;
+    public $href;
 
     /**
-     * Navbar target, or simply link's href attribute.
-     *
-     * @var string
-     */
-    public $target;
-
-    /**
-     * Navigation bar entity tag's class attribute.<br/>
-     * Use it to add extra classes to the entity.
+     * Tag's class attribute.
      *
      * @var string
      */
     public $class;
 
     /**
-     * An icon for the navigation bar entity.
+     * An icon for the entity.
      *
      * @var string
      */
     public $icon;
 
     /**
-     * Permission ID that required to access navigation bar entity.
+     * Permission ID that required to access navigation entity.
      *
      * @var integer
      */
     public $permission_id;
 
     /**
-     * Role ID that required to access navigation bar entity.
+     * Role ID that required to access navigation entity.
      *
      * @var integer
      */
@@ -113,9 +111,9 @@ class NavbarEntity extends NavbarEntityCore
      * @param string $postfix
      * @return string
      */
-    public function renderTitle($prefix = null, $postfix = null)
+    public function renderBody($prefix = null, $postfix = null)
     {
-        return Html::postfix(Html::prefix($this->title, $prefix), $postfix);
+        return Html::postfix(Html::prefix($this->body, $prefix), $postfix);
     }
 
     /**

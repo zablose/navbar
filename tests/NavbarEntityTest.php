@@ -28,10 +28,10 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
     {
         $navbar = new NavbarEntity();
         $navbar->class = $string;
-        $navbar->title = $string;
+        $navbar->body = $string;
 
         $this->assertEquals($expected, $navbar->renderClass($prefix, $postfix));
-        $this->assertEquals($expected, $navbar->renderTitle($prefix, $postfix));
+        $this->assertEquals($expected, $navbar->renderBody($prefix, $postfix));
     }
 
     public function testRenderIcon()

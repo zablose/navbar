@@ -22,11 +22,11 @@ class CreateNavbarsTable extends Migration
             $table->increments('id');
 
             $table->integer('pid')->unsigned()->default(0);
-            $table->string('tag', 32)->nullable();
+            $table->string('filter', 32)->nullable();
             $table->string('type', 32)->default(NavbarEntityCore::TYPE_NAVBAR_LINK_RELATIVE);
-            $table->string('title', 64)->nullable();
-            $table->string('alt')->nullable();
-            $table->string('target', 2000)->nullable();
+            $table->string('body', 64)->nullable();
+            $table->string('title')->nullable();
+            $table->string('href', 2000)->nullable();
             $table->string('class')->nullable();
             $table->string('icon')->nullable();
             $table->integer('role_id')->unsigned()->default(0);

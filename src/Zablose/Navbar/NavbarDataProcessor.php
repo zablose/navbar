@@ -121,9 +121,9 @@ final class NavbarDataProcessor
             if ($data->pid === $pid)
             {
                 unset($this->entities[$data->id]);
-                if ($pid === 0 && $data->tag && !$this->byPid)
+                if ($pid === 0 && $data->filter && !$this->byPid)
                 {
-                    $navbars[$data->tag][$data->id] = $this->element($data);
+                    $navbars[$data->filter][$data->id] = $this->element($data);
                 }
                 elseif($this->byPid)
                 {

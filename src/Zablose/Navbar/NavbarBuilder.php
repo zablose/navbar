@@ -60,7 +60,7 @@ class NavbarBuilder extends NavbarBuilderCore
     {
         $attrs = [
             'id'               => 'dropdown_'.$element->entity->id,
-            'href'             => $element->entity->target,
+            'href'             => $element->entity->href,
             'class'            => $element->entity->renderClass('dropdown-toggle'),
             'data-toggle'      => 'dropdown',
             'role'             => 'button',
@@ -70,7 +70,7 @@ class NavbarBuilder extends NavbarBuilderCore
             'navbar-container' => 'ul',
         ];
 
-        $body = $element->entity->renderTitle($element->entity->renderIcon(), '<span class="caret"></span>');
+        $body = $element->entity->renderBody($element->entity->renderIcon(), '<span class="caret"></span>');
 
         $html =
             '<li class="dropdown">'.
@@ -89,7 +89,7 @@ class NavbarBuilder extends NavbarBuilderCore
             'class' => $entity->renderClass('dropdown-header'),
         ];
 
-        return Html::tag('li', $attrs, $entity->title);
+        return Html::tag('li', $attrs, $entity->body);
     }
 
     protected function bootstrap_separator(NavbarEntityContract $entity)
@@ -110,15 +110,15 @@ class NavbarBuilder extends NavbarBuilderCore
      */
     protected function isActive(NavbarEntityContract $entity)
     {
-        $isTargetInPath = stripos(trim($this->config->path(), '/'), trim($entity->target, '/')) !== false;
+        $isTargetInPath = stripos(trim($this->config->path(), '/'), trim($entity->href, '/')) !== false;
 
-        return ($this->config->path() === $entity->target || $isTargetInPath);
+        return ($this->config->path() === $entity->href || $isTargetInPath);
     }
 
     protected function navbar_link_relative(NavbarEntityContract $entity)
     {
         $attrs = [
-            'href' => rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->target), '/'),
+            'href' => rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->href), '/'),
         ];
 
         return $this->renderLink($entity, $attrs);
@@ -127,7 +127,7 @@ class NavbarBuilder extends NavbarBuilderCore
     protected function navbar_link_absolute(NavbarEntityContract $entity)
     {
         $attrs = [
-            'href' => $entity->target,
+            'href' => $entity->href,
             'target' => $this->config->absolute_link_target,
         ];
 
@@ -143,7 +143,7 @@ class NavbarBuilder extends NavbarBuilderCore
     protected function renderLink(NavbarEntityContract $entity, $attrs = [])
     {
 
-        $link = Html::tag($this->config->link_tag, $attrs, $entity->renderTitle($entity->renderIcon()));
+        $link = Html::tag($this->config->link_tag, $attrs, $entity->renderBody($entity->renderIcon()));
 
         if ($this->config->link_container_tag)
         {
@@ -163,9 +163,9 @@ class NavbarBuilder extends NavbarBuilderCore
     {
         $container_attrs = [];
 
-        if ($entity->alt)
+        if ($entity->title)
         {
-            $container_attrs['title'] = $entity->alt;
+            $container_attrs['title'] = $entity->title;
         }
 
         if ($this->isActive($entity))
