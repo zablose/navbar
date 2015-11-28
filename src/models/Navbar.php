@@ -23,8 +23,8 @@ class Navbar extends Model
         'href',
         'class',
         'icon',
-        'role_id',
-        'permission_id',
+        'role',
+        'permission',
         'position'
     ];
 
