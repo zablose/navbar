@@ -7,12 +7,12 @@ class NavbarEntityCoreTest extends PHPUnit_Framework_TestCase
 
     public function testGetTypes()
     {
-        $this->assertEquals(9, count(NavbarTestEntity::getTypes()));
+        $this->assertEquals(8, count(NavbarTestEntity::getTypes()));
     }
 
     public function testGetGroupTypes()
     {
-        $this->assertEquals(4, count(NavbarTestEntity::getGroupTypes()));
+        $this->assertEquals(3, count(NavbarTestEntity::getGroupTypes()));
     }
 
     public function testIsGroup()

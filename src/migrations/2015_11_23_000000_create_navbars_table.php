@@ -23,14 +23,14 @@ class CreateNavbarsTable extends Migration
 
             $table->integer('pid')->unsigned()->default(0);
             $table->string('filter', 32)->nullable();
-            $table->string('type', 32)->default(NavbarEntityCore::TYPE_NAVBAR_LINK_RELATIVE);
+            $table->string('type', 32)->default(NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL);
             $table->string('body', 64)->nullable();
             $table->string('title')->nullable();
             $table->string('href', 2000)->nullable();
             $table->string('class')->nullable();
             $table->string('icon')->nullable();
-            $table->integer('role_id')->unsigned()->default(0);
-            $table->integer('permission_id')->unsigned()->default(0);
+            $table->integer('role')->unsigned()->default(0);
+            $table->integer('permission')->unsigned()->default(0);
             $table->integer('position')->unsigned()->default(0);
 
             $table->timestamps();

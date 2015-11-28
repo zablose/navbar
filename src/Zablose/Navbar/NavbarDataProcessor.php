@@ -54,62 +54,61 @@ final class NavbarDataProcessor
     }
 
     /**
-     * Get Navbar datasets by tag.
+     * Get navigation elements by filter or parent ID.
      *
-     * @param  mixed  $tagOrPid  Tag that group navbars.
+     * @param  string|integer  $filterOrPid
      * @return NavbarElement[]
      */
-    public function get($tagOrPid = null)
+    public function get($filterOrPid = null)
     {
-        return (isset($this->elements[$tagOrPid])) ? $this->elements[$tagOrPid] : [];
+        return (isset($this->elements[$filterOrPid])) ? $this->elements[$filterOrPid] : [];
     }
 
     /**
-     * Get raw Navbars data from the DB. All or by tag. Ordered by title, position or model default.
+     * Get raw navigation entities from the database, validate them and transform to the navigation elements.<b/>
+     * Filtered by filter(s) or parent ID.<b/>
+     * Ordered by 'culumn:direction'.
      *
-     * @param  mixed  $tagOrPid  Tag(s) that group navbars.
-     * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
-     * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
+     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
+     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
+     *
      * @return NavbarDataProcessor
      */
-    public function prepare($tagOrPid = null, $titled = null, $positioned = null)
+    public function prepare($filterOrPid = null, $order_by = null)
     {
-        if (!$titled)
+        if (!$order_by)
         {
-            $titled = $this->config->titled;
+            $order_by = $this->config->order_by;
         }
 
-        if (!$positioned)
-        {
-            $positioned = $this->config->positioned;
-        }
+        $this->entities = $this->validate($this->data->getRawNavbarEntities($filterOrPid, $order_by));
 
-        $this->entities = $this->validate($this->data->getRawNavbarEntities($tagOrPid, $titled, $positioned));
-        $this->elements = $this->elements($this->byPid($tagOrPid));
+        $this->elements = $this->elements($this->byPid($filterOrPid));
 
         return $this;
     }
 
     /**
      *
-     * @param mixed $tagOrPid
+     * @param mixed $filterOrPid
+     *
      * @return int
      */
-    private function byPid($tagOrPid)
+    private function byPid($filterOrPid)
     {
-        if (((int) $tagOrPid > 0))
+        if (((int) $filterOrPid > 0))
         {
             $this->byPid = true;
-            return $tagOrPid;
+            return $filterOrPid;
         }
         return 0;
     }
 
     /**
-     * Get Navbar elements by parent ID or tag.
+     * Get navigation elements from the navigation entities by parent ID.
      *
      * @param  integer  $pid
-     * @param  string  $tag  Tag that group navbars.
+     *
      * @return NavbarElement[]
      */
     private function elements($pid = 0)
@@ -142,10 +141,10 @@ final class NavbarDataProcessor
     }
 
     /**
-     * Form a Navbar element object by adding Navbar entity to it and<br/>
-     * fill the content if Navbar entity is an element.
+     * Form navigation element.
      *
-     * @param  NavbarEntityContract  $entity Navbar entity
+     * @param  NavbarEntityContract  $entity  Navigation entity
+     *
      * @return NavbarElement
      */
     private function element(NavbarEntityContract $entity)
@@ -164,10 +163,11 @@ final class NavbarDataProcessor
     }
 
     /**
-     * Remove all Navbars that user do not have access to and check which of them is active.
+     * Get navigation entities by transformation from the raw entities.
      *
      * @param array $raw_entities An array of raw entities.
-     * @return \Zablose\Navbar\NavbarEntityContract[]
+     *
+     * @return NavbarEntityContract[]
      */
     private function validate($raw_entities)
     {
@@ -177,7 +177,7 @@ final class NavbarDataProcessor
         {
             $raw_object = (object) $raw_entity;
 
-            if ($this->isAccessible($raw_object->role_id, $raw_object->permission_id))
+            if ($this->isAccessible($raw_object->role, $raw_object->permission))
             {
                 $entities[$raw_object->id] = new $this->config->navbar_entity_class($raw_entity);
             }
@@ -187,37 +187,37 @@ final class NavbarDataProcessor
     }
 
     /**
-     * Check if the Navbar entity is accessible by the user.
+     * Check if the navigation entity is accessible by the user.
      *
-     * @param  integer  $role_id
-     * @param  integer  $permission_id
+     * @param  integer|string  $role
+     * @param  integer|string  $permission
      * @return type
      */
-    private function isAccessible($role_id, $permission_id)
+    private function isAccessible($role, $permission)
     {
-        return ((!$role_id && !$permission_id) || ($this->hasRole($role_id) || $this->hasPermission($permission_id)));
+        return ((!$role && !$permission) || ($this->hasRole($role) || $this->hasPermission($permission)));
     }
 
     /**
-     * Check if the user has a role to access the Navbar.
+     * Check if the user has a role to access the navigation entity.
      *
-     * @param  integer  $role_id
+     * @param  integer|string  $role
      * @return boolean
      */
-    private function hasRole($role_id)
+    private function hasRole($role)
     {
-        return in_array($role_id, $this->config->roles());
+        return in_array($role, $this->config->roles());
     }
 
     /**
-     * Check if the user has a permission to access the Navbar.
+     * Check if the user has a permission to access the navigation entity.
      *
-     * @param  integer  $permission_id
+     * @param  integer|string  $permission
      * @return boolean
      */
-    private function hasPermission($permission_id)
+    private function hasPermission($permission)
     {
-        return in_array($permission_id, $this->config->permissions());
+        return in_array($permission, $this->config->permissions());
     }
 
 }

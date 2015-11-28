@@ -7,11 +7,9 @@ interface NavbarDataContract
 
     /**
      *
-     * @param  mixed  $tagOrPid  Tag(s) that group navbars or parent ID.
-     * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
-     * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
+     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
+     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
      * @return array
      */
-    public function getRawNavbarEntities($tagOrPid = null, $titled = null, $positioned = null);
-
+    public function getRawNavbarEntities($filterOrPid = null, $order_by = null);
 }

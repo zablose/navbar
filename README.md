@@ -1,8 +1,17 @@
 # Navbar
 
-Dynamic navigation bars stored in the database as Navbar entities.
-Rendered by this package inside your view.
+Renders HTML from the navigation entities.
 
+>Meant to be used with a database to store entities. This is optional, but recommended.
+
+Key features:
+* Bootstrap support
+* Roles and Permissions
+* Recursive
+* Extendable
+* Ajax in mind
+
+## Readme Index
 - [Installation](#installation)
     - [Composer](#composer)
     - [Quick Tips](#quick-tips)
@@ -65,20 +74,45 @@ Run commands to copy files and migrate database
 
 ##### Navbar Demo
 
-Finally visit the Navbar Demo page: [http://localhost/zablose/navbar/demo](http://localhost/zablose/navbar/demo)
+Finally visit the Navbar Demo page: [/zablose/navbar/demo](/zablose/navbar/demo)
 
 ## Usage
 
 ```php
 $navbar = new \Zablose\Navbar\NavbarBuilder(new App\Zablose\Navbar\NavbarData());
+
+$navbar->render('main');
+
+// Two Navbars but one database query.
+$navbar->prepare(['main','dashboard'])->render('main');
+$navbar->render('dashboard');
+
+// Same as above but prepares all Navbars by their filters.
 $navbar->prepare()->render('main');
+$navbar->render('dashboard');
+
+// If you are not sure about the order.
+// Prepare runs only ones, that is why it is important in some cases.
+$navbar->prepare()->render('main');
+$navbar->prepare()->render('dashboard');
+
+// Renders entities by parent ID.
+// Prepare method will not work.
+// The main idea is to use it with an Ajax, to render on request.
+$navbar->render(1);
 ```
 
 Where `NavbarData` is a class that implements `NavbarDataContract` interface with one method and written by you.
 
 ## Config File
 
-Write notes about config file.
+| Key                    | Default Value | Examples | Description |
+| :--------------------- | ------------- | -------- | ----------- |
+| `app_url`              | `'/'` | `'http://domain.com'` | Application URL. |
+| `order_by`             | `''` | `'id:desc'`, `'position:asc'` | Order by `'column:direction'`. Implemented by you. |
+| `active_link_class`    | `'active'` |  | Tag's class attribute value for an active link. |
+| `external_link_target` | `'_blank'` | `'_self'` | Tag's target attribute value for an external link. |
+| `navbar_entity_class`  | `NavbarEntity::class` |  | Class to be used by `NavbarDataProcessor` to represent `NavbarEntity`. |
 
 ## License
 

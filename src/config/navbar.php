@@ -5,24 +5,27 @@ return [
     /**
      * Application URL.
      */
-    'app_url' => 'http://localhost',
+    'app_url' => '/',
 
     /**
-     * If ordering direction is wrong the ordering will be ignored.
-     *
-     * Don't use them both.
+     * Order by column in the database 'asc' or 'desc'.<b/>
+     * Examples: 'body:asc', 'position:desc', 'id:asc'.
      */
-    'titled'     => false, // Order by title 'asc' or 'desc'.
-    'positioned' => false, // Order by position 'asc' or 'desc'.
+    'order_by' => '',
 
     /**
-     * Target for absolute link.
+     * Tag's class attribute value for an active link.
      */
-    'absolute_target' => '_blank',
+    'active_link_class' => 'active',
+
+    /**
+     * Tag's target attribute value for an external link.
+     */
+    'external_link_target' => '_blank',
 
     /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      */
-    'navbar_entity_class' => Zablose\Navbar\NavbarEntity::class
+    'navbar_entity_class' => Zablose\Navbar\NavbarEntity::class,
 
 ];

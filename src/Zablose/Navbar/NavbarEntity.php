@@ -72,18 +72,18 @@ class NavbarEntity extends NavbarEntityCore
     public $icon;
 
     /**
-     * Permission ID that required to access navigation entity.
+     * Role that is required to access the entity of navigation.
      *
-     * @var integer
+     * @var integer|string
      */
-    public $permission_id;
+    public $role;
 
     /**
-     * Role ID that required to access navigation entity.
+     * Permission that is required to access the entity of navigation.
      *
-     * @var integer
+     * @var integer|string
      */
-    public $role_id;
+    public $permission;
 
     /**
      * Navigation bar entity's position.
@@ -93,19 +93,7 @@ class NavbarEntity extends NavbarEntityCore
     public $position;
 
     /**
-     * Render Class with or without prefix and postfix.
-     *
-     * @param string $prefix
-     * @param string $postfix
-     * @return string
-     */
-    public function renderClass($prefix = null, $postfix = null)
-    {
-        return Html::postfix(Html::prefix($this->class, $prefix), $postfix);
-    }
-
-    /**
-     * Render Title with or without prefix and postfix.
+     * Render body with or without prefix and/or postfix.
      *
      * @param string $prefix
      * @param string $postfix
@@ -114,6 +102,18 @@ class NavbarEntity extends NavbarEntityCore
     public function renderBody($prefix = null, $postfix = null)
     {
         return Html::postfix(Html::prefix($this->body, $prefix), $postfix);
+    }
+
+    /**
+     * Render class with or without prefix and/or postfix.
+     *
+     * @param string $prefix
+     * @param string $postfix
+     * @return string
+     */
+    public function renderClass($prefix = null, $postfix = null)
+    {
+        return Html::postfix(Html::prefix($this->class, $prefix), $postfix);
     }
 
     /**

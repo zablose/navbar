@@ -17,17 +17,17 @@ class InsertNavbars extends Migration
     {
         $navbars = [
             [
-                'pid'           => 0,
-                'filter'        => 'main',
-                'type'          => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 1
-                'body'          => '',
-                'title'         => '',
-                'href'          => '',
-                'class'         => '',
-                'icon'          => '',
-                'role_id'       => '',
-                'permission_id' => '',
-                'position'      => '',
+                'pid'        => 0,
+                'filter'     => 'main',
+                'type'       => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 1
+                'body'       => '',
+                'title'      => '',
+                'href'       => '',
+                'class'      => 'nav navbar-nav',
+                'icon'       => '',
+                'role'       => '',
+                'permission' => '',
+                'position'   => '',
             ],
             [
                 'pid'    => 1,
@@ -45,7 +45,7 @@ class InsertNavbars extends Migration
             [
                 'filter' => 'main',
                 'type'   => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 4
-                'class'  => 'navbar-right',
+                'class'  => 'nav navbar-nav navbar-right',
             ],
             [
                 'pid'    => 4, // id = 5
@@ -92,7 +92,7 @@ class InsertNavbars extends Migration
             ],
             [
                 'filter' => 'dashboard',
-                'type'   => NavbarEntity::TYPE_NAVBAR_NAVBAR, // id = 12
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_NAVBAR, // id = 12
                 'class'  => 'nav nav-sidebar',
             ],
             [
@@ -104,7 +104,7 @@ class InsertNavbars extends Migration
             [
                 'pid'    => 12,
                 'filter' => 'dashboard',
-                'type'   => NavbarEntity::TYPE_NAVBAR_LINK_ABSOLUTE,
+                'type'   => NavbarEntity::TYPE_BOOTSTRAP_LINK_EXTERNAL,
                 'body'   => 'Laravel',
                 'href'   => 'http://laravel.com/',
                 'icon'   => 'fa fa-external-link fa-fw',

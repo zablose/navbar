@@ -24,18 +24,19 @@ class Html
     public static function attrs($attrs)
     {
         $html   = [];
-        $prefix = '';
 
         if (is_array($attrs) && count($attrs) > 0)
         {
-            $prefix = ' ';
             foreach ($attrs as $key => $value)
             {
-                $html[] = (is_numeric($key)) ? $value.'="'.$value.'"' : $key.'="'.$value.'"';
+                if (!empty($value))
+                {
+                    $html[] = (is_numeric($key)) ? $value.'="'.$value.'"' : $key.'="'.$value.'"';
+                }
             }
         }
 
-        return $prefix.implode(' ', $html);
+        return (count($html) > 0) ? ' '.implode(' ', $html) : '';
     }
 
     /**
@@ -52,7 +53,6 @@ class Html
         return ($string && $value) ? (($pre) ? $value.' '.$string : $string.' '.$value) : $string.$value;
     }
 
-
     /**
      * Prefix string with a string.
      *
@@ -65,7 +65,6 @@ class Html
     {
         return self::fix($string, $value);
     }
-
 
     /**
      * Postfix string with a string.

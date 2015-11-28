@@ -11,50 +11,33 @@ class NavbarConfig implements NavbarConfigContract
     use ConstructFromObjectOrArrayTrait;
 
     /**
-     * Application URL.
+     * Application's URL.
      *
      * @var string
      */
-    public $app_url = 'http://localhost';
+    public $app_url = '/';
 
     /**
-     * Order by title 'asc' or 'desc'.
+     * Order by column in the database 'asc' or 'desc'.<b/>
+     * Examples: 'body:asc', 'position:desc', 'id:asc'.
      *
      * @var string
      */
-    public $titled;
+    public $order_by;
 
     /**
-     * Order by position 'asc' or 'desc'.
+     * Tag's class attribute value for an active link.
      *
      * @var string
      */
-    public $positioned;
+    public $active_link_class = 'active';
 
     /**
+     * Tag's target attribute value for an external link.
      *
      * @var string
      */
-    public $link_tag = 'a';
-
-    /**
-     *
-     * @var string
-     */
-    public $link_container_tag = 'li';
-
-    /**
-     *
-     * @var string
-     */
-    public $class_for_active_link = 'active';
-
-    /**
-     * Target for absolute link. Default: '_blank'.
-     *
-     * @var string
-     */
-    public $absolute_link_target = '_blank';
+    public $external_link_target = '_blank';
 
     /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
@@ -64,25 +47,28 @@ class NavbarConfig implements NavbarConfigContract
     public $navbar_entity_class = NavbarEntity::class;
 
     /**
+     * The current path of the application.
      *
      * @var string
      */
     protected $path = '/';
 
     /**
+     * Roles of the logged user.
      *
      * @var array
      */
     protected $roles = [];
 
     /**
+     * Permissions of the logged user.
      *
      * @var array
      */
     protected $permissions = [];
 
     /**
-     * Set or get current path.
+     * Set or get current path of the application.
      *
      * @param string $path
      *
@@ -101,9 +87,9 @@ class NavbarConfig implements NavbarConfigContract
     }
 
     /**
-     * Set roles as array of integers or get them.
+     * Set or get roles of the logged user.
      *
-     * @param array $roles
+     * @param array $roles An array of strings or integers.
      *
      * @return NavbarConfigContract|array
      */
@@ -120,9 +106,9 @@ class NavbarConfig implements NavbarConfigContract
     }
 
     /**
-     * Set permissions as array of integers or get them.
+     * Set or get permissions of the logged user.
      *
-     * @param array $permissions
+     * @param array $permissions An array of strings or integers.
      *
      * @return NavbarConfigContract|array
      */

@@ -30,8 +30,8 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     {
         return [
             [ ['class' => 'active'], ' class="active"'],
-            [ ['class' => ''], ' class=""'],
-            [ ['class' => null], ' class=""'],
+            [ ['class' => ''], ''],
+            [ ['class' => null], ''],
             [ ['disabled'], ' disabled="disabled"'],
             [ null, ''],
             [ '', ''],

@@ -13,13 +13,12 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     /**
      * Keep in mind that values are also used as methods names by Navbar builder.
      */
-    const TYPE_NAVBAR_LINK_RELATIVE = 'navbar_link_relative';
-    const TYPE_NAVBAR_LINK_ABSOLUTE = 'navbar_link_absolute';
-    const TYPE_NAVBAR_NAVBAR        = 'navbar_navbar';
-    const TYPE_BOOTSTRAP_NAVBAR     = 'bootstrap_navbar';
-    const TYPE_BOOTSTRAP_DROPDOWN   = 'bootstrap_dropdown';
-    const TYPE_BOOTSTRAP_HEADER     = 'bootstrap_header';
-    const TYPE_BOOTSTRAP_SEPARATOR  = 'bootstrap_separator';
+    const TYPE_BOOTSTRAP_LINK_INTERNAL = 'bootstrap_link_internal';
+    const TYPE_BOOTSTRAP_LINK_EXTERNAL = 'bootstrap_link_external';
+    const TYPE_BOOTSTRAP_NAVBAR        = 'bootstrap_navbar';
+    const TYPE_BOOTSTRAP_DROPDOWN      = 'bootstrap_dropdown';
+    const TYPE_BOOTSTRAP_HEADER        = 'bootstrap_header';
+    const TYPE_BOOTSTRAP_SEPARATOR     = 'bootstrap_separator';
 
     public static $custom_types       = [];
     public static $custom_group_types = [];
@@ -27,9 +26,8 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     final public static function getTypes()
     {
         $types = [
-            self::TYPE_NAVBAR_LINK_RELATIVE,
-            self::TYPE_NAVBAR_LINK_ABSOLUTE,
-            self::TYPE_NAVBAR_NAVBAR,
+            self::TYPE_BOOTSTRAP_LINK_INTERNAL,
+            self::TYPE_BOOTSTRAP_LINK_EXTERNAL,
             self::TYPE_BOOTSTRAP_NAVBAR,
             self::TYPE_BOOTSTRAP_DROPDOWN,
             self::TYPE_BOOTSTRAP_HEADER,
@@ -42,7 +40,6 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     final public static function getGroupTypes()
     {
         $gtypes = [
-            self::TYPE_NAVBAR_NAVBAR,
             self::TYPE_BOOTSTRAP_NAVBAR,
             self::TYPE_BOOTSTRAP_DROPDOWN,
         ];

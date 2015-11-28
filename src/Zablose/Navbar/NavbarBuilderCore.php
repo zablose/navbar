@@ -43,36 +43,36 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * Render Navbars to the HTML string.
+     * Render navigation entities to HTML string.
      *
-     * @param  mixed  $tagOrPid  Tag that group navbars or parent ID.
-     * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
-     * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
+     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
+     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return string
      */
-    final public function render($tagOrPid, $titled = null, $positioned = null)
+    final public function render($filterOrPid, $order_by = null)
     {
-        if (!$this->prepared || is_integer($tagOrPid))
+        if (!$this->prepared || is_integer($filterOrPid))
         {
-            $this->prepare($tagOrPid, $titled, $positioned);
+            $this->prepare($filterOrPid, $order_by);
         }
 
-        return $this->renderElements($this->processor->get($tagOrPid));
+        return $this->renderElements($this->processor->get($filterOrPid));
     }
 
     /**
+     * Prepare navigation entities for rendering.
      *
-     * @param  mixed  $tagOrPid  Tag(s) that group navbars or parent ID.
-     * @param  string  $titled  Order direction for ordering by title 'asc' or 'desc'.
-     * @param  string  $positioned  Order direction for ordering by position 'asc' or 'desc'.
+     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
+     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return NavbarBuilder
      */
-    final public function prepare($tagOrPid = null, $titled = null, $positioned = null)
+    final public function prepare($filterOrPid = null, $order_by = null)
     {
         $this->prepared = true;
-        $this->processor->prepare($tagOrPid, $titled, $positioned);
+
+        $this->processor->prepare($filterOrPid, $order_by);
 
         return $this;
     }
