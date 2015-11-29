@@ -76,6 +76,10 @@ Run commands to copy files and migrate database
 
 Finally visit the Navbar Demo page: [/zablose/navbar/demo](/zablose/navbar/demo)
 
+![https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1](https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1)
+
+>Please keep in mind that this package itself is not responsible for the CSS and JavaScript. This is only a demo that shows you how it may look like if you will use [Bootstrap](http://getbootstrap.com/), [jQuery](http://jquery.com/) and [Font Awesome](http://fortawesome.github.io/Font-Awesome/).
+
 ## Usage
 
 ```php
