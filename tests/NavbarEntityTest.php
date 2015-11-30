@@ -8,11 +8,11 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_renderWithPrefixPostfix()
     {
         return [
-            [ '', '', '', '' ],
-            [ 'fa', '', '', 'fa' ],
-            [ 'fa', '', 'fa-book', 'fa fa-book' ],
-            [ '', 'fa', 'fa-book', 'fa fa-book' ],
-            [ 'fa', 'active', 'fa-book', 'active fa fa-book' ],
+            ['', '', '', ''],
+            ['fa', '', '', 'fa'],
+            ['fa', '', 'fa-book', 'fa fa-book'],
+            ['', 'fa', 'fa-book', 'fa fa-book'],
+            ['fa', 'active', 'fa-book', 'active fa fa-book'],
         ];
     }
 
@@ -26,9 +26,9 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
      */
     public function testRenderWithPrefixPostfix($string, $prefix, $postfix, $expected)
     {
-        $navbar = new NavbarEntity();
+        $navbar        = new NavbarEntity();
         $navbar->class = $string;
-        $navbar->body = $string;
+        $navbar->body  = $string;
 
         $this->assertEquals($expected, $navbar->renderClass($prefix, $postfix));
         $this->assertEquals($expected, $navbar->renderBody($prefix, $postfix));

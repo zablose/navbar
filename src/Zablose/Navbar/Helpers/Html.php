@@ -6,10 +6,13 @@ class Html
 {
 
     /**
+     * Render a normal tag.
      *
      * @param string $name
      * @param array $attrs
      * @param string $body
+     *
+     * @return void
      */
     public static function tag($name, $attrs, $body = null)
     {
@@ -17,13 +20,17 @@ class Html
     }
 
     /**
+     * Render tag's attributes to a string from the given array of key-values or values.<br/>
+     * Examples: 'key="value"', 'value="value"', etc.<br/>
+     * Ignore empty values even if the key is not.
      *
      * @param array $attrs
+     *
      * @return string
      */
     public static function attrs($attrs)
     {
-        $html   = [];
+        $html = [];
 
         if (is_array($attrs) && count($attrs) > 0)
         {

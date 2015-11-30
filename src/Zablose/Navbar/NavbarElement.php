@@ -12,19 +12,16 @@ class NavbarElement
     const TYPE_GROUP  = 'renderElementAsGroup';
 
     /**
-     *
      * @var string
      */
     public $type;
 
     /**
-     *
      * @var \Zablose\Navbar\Contracts\NavbarEntityContract
      */
     public $entity;
 
     /**
-     *
      * @var \Zablose\Navbar\NavbarElement[]
      */
     public $content;

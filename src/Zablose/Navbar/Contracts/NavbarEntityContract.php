@@ -5,10 +5,19 @@ namespace Zablose\Navbar\Contracts;
 interface NavbarEntityContract
 {
 
+    /**
+     * @return array
+     */
     public static function getTypes();
 
+    /**
+     * @return array
+     */
     public static function getGroupTypes();
 
+    /**
+     * @return boolean
+     */
     public function isGroup();
 
     /**
@@ -31,12 +40,10 @@ interface NavbarEntityContract
      */
     public function renderBody($prefix = null, $postfix = null);
 
-
     /**
      * Render Icon.
      *
      * @return string
      */
     public function renderIcon();
-
 }

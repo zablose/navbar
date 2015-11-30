@@ -8,9 +8,9 @@ class NavbarElementTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_testCheckAttributes()
     {
         return [
-            [ 'type' ],
-            [ 'entity' ],
-            [ 'content' ],
+            ['type'],
+            ['entity'],
+            ['content'],
         ];
     }
 

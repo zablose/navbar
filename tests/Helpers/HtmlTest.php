@@ -8,8 +8,8 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_testTag()
     {
         return [
-            [ 'li', [], null, '<li></li>'],
-            [ 'div', [], 'Div', '<div>Div</div>'],
+            ['li', [], null, '<li></li>'],
+            ['div', [], 'Div', '<div>Div</div>'],
         ];
     }
 
@@ -29,15 +29,27 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_testAttrs()
     {
         return [
-            [ ['class' => 'active'], ' class="active"'],
-            [ ['class' => ''], ''],
-            [ ['class' => null], ''],
-            [ ['disabled'], ' disabled="disabled"'],
-            [ null, ''],
-            [ '', ''],
-            [ 2, ''],
-            [ [], ''],
-            [ 'adfgsh', ''],
+            [
+                ['class' => 'active'],
+                ' class="active"'
+            ],
+            [
+                ['class' => ''],
+                ''
+            ],
+            [
+                ['class' => null],
+                ''
+            ],
+            [
+                ['disabled'],
+                ' disabled="disabled"'
+            ],
+            [null, ''],
+            ['', ''],
+            [2, ''],
+            [[], ''],
+            ['adfgsh', ''],
         ];
     }
 
@@ -55,8 +67,8 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_testPostfix()
     {
         return [
-            [ '', 'active', 'active' ],
-            [ 'nav navbar', 'active', 'nav navbar active' ],
+            ['', 'active', 'active'],
+            ['nav navbar', 'active', 'nav navbar active'],
         ];
     }
 
@@ -75,8 +87,8 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     public function dataProviderFor_testPrefix()
     {
         return [
-            [ '', 'Dropdown', 'Dropdown' ],
-            [ 'Dropdown', 'Mega', 'Mega Dropdown' ],
+            ['', 'Dropdown', 'Dropdown'],
+            ['Dropdown', 'Mega', 'Mega Dropdown'],
         ];
     }
 

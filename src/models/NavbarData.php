@@ -9,9 +9,28 @@ class NavbarData implements NavbarDataContract
 {
 
     /**
+     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor<br/>
+     * to transform to navigation entities.<br/>
      *
-     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
-     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
+     * Example of an array element structure.<br/>
+     *
+     *     [
+     *         'id'         => 1,
+     *         'pid'        => 0,
+     *         'filter'     => 'main',
+     *         'type'       => 'bootstrap_navbar',
+     *         'body'       => '',
+     *         'title'      => '',
+     *         'href'       => '',
+     *         'class'      => 'nav navbar-nav',
+     *         'icon'       => '',
+     *         'role'       => '',
+     *         'permission' => '',
+     *         'position'   => '',
+     *     ]
+     *
+     * @param string|array|integer $filterOrPid Filter(s) or parent ID.
+     * @param string $order_by Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
      *
      * @return array
      */

@@ -6,31 +6,30 @@ use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\NavbarDataProcessor;
 use Zablose\Navbar\NavbarEntityCore;
+use Zablose\Navbar\NavbarElement;
 
 abstract class NavbarBuilderCore
 {
 
     /**
-     *
      * @var NavbarDataProcessor
      */
     private $processor;
 
     /**
-     * Were data prepared or not. Used to prevent a repeat of preparation.
+     * Were data prepared or not. Used to prevent a repeat of preparation.<br/>
+     * Ignored in case of rendering by parent ID.
      *
      * @var boolean
      */
     private $prepared;
 
     /**
-     *
      * @var NavbarConfigContract
      */
     protected $config;
 
     /**
-     *
      * @param NavbarDataContract $data
      * @param NavbarConfigContract $config
      *
@@ -43,10 +42,10 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * Render navigation entities to HTML string.
+     * Render navigation entities to the HTML string.
      *
-     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
-     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
+     * @param string|array|integer $filterOrPid Filter or parent ID.
+     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return string
      */
@@ -63,10 +62,10 @@ abstract class NavbarBuilderCore
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
-     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
+     * @param string|array|integer $filterOrPid Filter or parent ID.
+     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
-     * @return NavbarBuilder
+     * @return \Zablose\Navbar\NavbarBuilderCore
      */
     final public function prepare($filterOrPid = null, $order_by = null)
     {
@@ -77,18 +76,24 @@ abstract class NavbarBuilderCore
         return $this;
     }
 
+    /**
+     * @param string $method
+     * @return string
+     */
     private function validateMethod($method)
     {
-        return in_array($method, $this->getValidMethods()) ? $method : 'nb_empty';
+        return in_array($method, $this->getValidMethods()) ? $method : 'renderEmptyString';
     }
 
+    /**
+     * @return array
+     */
     private function getValidMethods()
     {
         return array_unique(array_merge(NavbarElement::getTypes(), NavbarEntityCore::getTypes()));
     }
 
     /**
-     *
      * @param NavbarElement[] $elements
      * @return string
      */
@@ -107,17 +112,29 @@ abstract class NavbarBuilderCore
         return $html;
     }
 
+    /**
+     * @param NavbarElement $element
+     * @return string
+     */
     protected function renderElementAsEntity(NavbarElement $element)
     {
         return $this->{$this->validateMethod($element->entity->type)}($element->entity);
     }
 
+    /**
+     * @param NavbarElement $element
+     * @return string
+     */
     protected function renderElementAsGroup(NavbarElement $element)
     {
         return $this->{$this->validateMethod($element->entity->type)}($element);
     }
 
-    private function nb_empty($param = null)
+    /**
+     * @param mixed $param
+     * @return string
+     */
+    private function renderEmptyString($param = null)
     {
         return '';
     }

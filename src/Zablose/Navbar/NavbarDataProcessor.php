@@ -9,6 +9,7 @@ use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 final class NavbarDataProcessor
 {
+
     /**
      *
      * @var NavbarDataContract
@@ -49,8 +50,8 @@ final class NavbarDataProcessor
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
-        $this->data = $data;
-        $this->config = ($config) ?: new NavbarConfig();
+        $this->data   = $data;
+        $this->config = ($config) ? : new NavbarConfig();
     }
 
     /**
@@ -124,7 +125,7 @@ final class NavbarDataProcessor
                 {
                     $navbars[$data->filter][$data->id] = $this->element($data);
                 }
-                elseif($this->byPid)
+                elseif ($this->byPid)
                 {
                     $navbars[$data->pid][$data->id] = $this->element($data);
                 }

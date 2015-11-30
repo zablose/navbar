@@ -43,7 +43,7 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
         $data[] = [
             'external',
             '<li title="Coding"><a href="http://laravel.com" target="_blank" class="lar">'.
-              '<span class="fa fa-book"></span> Laravel</a></li>',
+            '<span class="fa fa-book"></span> Laravel</a></li>',
         ];
 
         $data[] = [
@@ -57,12 +57,12 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataProviderFor_testRender
      *
-     * @param string|integer $tagOrPid
+     * @param string|integer $filterOrPid
      * @param string $expected
      */
-    public function testRender($tagOrPid, $expected)
+    public function testRender($filterOrPid, $expected)
     {
-        $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData()))->render($tagOrPid));
+        $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData()))->render($filterOrPid));
     }
 
     public function testRenderWithRole()
@@ -94,7 +94,7 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
 class NavbarTestData implements NavbarDataContract
 {
 
-    public function getRawNavbarEntities($tagOrPid = null, $order_by = null)
+    public function getRawNavbarEntities($filterOrPid = null, $order_by = null)
     {
         $data = [];
 
@@ -248,7 +248,7 @@ class NavbarTestData implements NavbarDataContract
             'position'   => '',
         ];
 
-        return $data[$tagOrPid];
+        return $data[$filterOrPid];
     }
 
 }

@@ -20,9 +20,19 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     const TYPE_BOOTSTRAP_HEADER        = 'bootstrap_header';
     const TYPE_BOOTSTRAP_SEPARATOR     = 'bootstrap_separator';
 
-    public static $custom_types       = [];
+    /**
+     * @var array
+     */
+    public static $custom_types = [];
+
+    /**
+     * @var array
+     */
     public static $custom_group_types = [];
 
+    /**
+     * @return array
+     */
     final public static function getTypes()
     {
         $types = [
@@ -37,6 +47,9 @@ abstract class NavbarEntityCore implements NavbarEntityContract
         return array_unique(array_merge($types, NavbarEntityCore::$custom_types));
     }
 
+    /**
+     * @return array
+     */
     final public static function getGroupTypes()
     {
         $gtypes = [
@@ -47,6 +60,9 @@ abstract class NavbarEntityCore implements NavbarEntityContract
         return array_unique(array_merge($gtypes, NavbarEntityCore::$custom_group_types));
     }
 
+    /**
+     * @return boolean
+     */
     final public function isGroup()
     {
         return in_array($this->type, NavbarEntityCore::getGroupTypes());
