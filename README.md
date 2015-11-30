@@ -1,11 +1,11 @@
 # Navbar
 
-Renders HTML from the navigation entities.
+Renders navigation entities to an HTML to form navigation.
 
->Meant to be used with a database to store entities. This is optional, but recommended.
+>Meant to be used with a database to store entities.
 
 Key features:
-* Bootstrap support
+* Bootstrap
 * Roles and Permissions
 * Recursive
 * Extendable
@@ -19,6 +19,8 @@ Key features:
             - [Service Provider](#service-provider)
             - [Migrations and Models](#migrations-and-models)
             - [Navbar Demo](#navbar-demo)
+            - [Some Extras](#some-extras)
+            - [Cleanup](#cleanup)
 - [Usage](#usage)
 - [Config File](#config-file)
 - [License](#license)
@@ -37,7 +39,7 @@ Pull this package in through Composer (file `composer.json`).
 }
 ```
 
-> This package in development for now...
+>This package in development for now...
 
 Run this command inside your terminal.
 
@@ -67,7 +69,7 @@ Add service provider to your `config/app.php` file.
 
 ##### Migrations and Models
 
-Run commands to copy files and migrate database
+Run commands to copy files and migrate database:
 
     php artisan vendor:publish --provider='Zablose\Navbar\NavbarServiceProvider' --tag=migrations --tag=models
     php artisan migrate
@@ -78,7 +80,38 @@ Finally visit the Navbar Demo page: [/zablose/navbar/demo](/zablose/navbar/demo)
 
 ![https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1](https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1)
 
->Please keep in mind that this package itself is not responsible for the CSS and JavaScript. This is only a demo that shows you how it may look like if you will use [Bootstrap](http://getbootstrap.com/), [jQuery](http://jquery.com/) and [Font Awesome](http://fortawesome.github.io/Font-Awesome/).
+>Please keep in mind that this package itself is not responsible for the CSS and JavaScript.
+This is only a demo that shows you how it may look like if you will use [Bootstrap](http://getbootstrap.com/),
+[jQuery](http://jquery.com/) and [Font Awesome](http://fortawesome.github.io/Font-Awesome/).
+
+##### Some Extras
+
+For the configuration file run:
+
+    php artisan vendor:publish --provider='Zablose\Navbar\NavbarServiceProvider' --tag=config
+
+For views run:
+
+    php artisan vendor:publish --provider='Zablose\Navbar\NavbarServiceProvider' --tag=views
+
+Route file content that used by service provider for the Navbar Demo:
+
+```php
+<?php
+
+use App\Zablose\Navbar\NavbarData;
+use Zablose\Navbar\NavbarBuilder;
+
+Route::get('/zablose/navbar/demo', function ()
+{
+    $navbar = new NavbarBuilder(new NavbarData());
+    return view('navbar::sidebar', compact('navbar'));
+});
+```
+
+##### Cleanup
+
+>Do not forget to remove Navbar service provider. It was used to make setup easier for you and show a usage example.
 
 ## Usage
 
@@ -103,20 +136,47 @@ $navbar->prepare()->render('dashboard');
 // Renders entities by parent ID.
 // Prepare method will not work.
 // The main idea is to use it with an Ajax, to render on request.
-$navbar->render(1);
+$navbar->render(2015);
 ```
 
 Where `NavbarData` is a class that implements `NavbarDataContract` interface with one method and written by you.
 
 ## Config File
 
-| Key                    | Default Value | Examples | Description |
-| :--------------------- | ------------- | -------- | ----------- |
-| `app_url`              | `'/'` | `'http://domain.com'` | Application URL. |
-| `order_by`             | `''` | `'id:desc'`, `'position:asc'` | Order by `'column:direction'`. Implemented by you. |
-| `active_link_class`    | `'active'` |  | Tag's class attribute value for an active link. |
-| `external_link_target` | `'_blank'` | `'_self'` | Tag's target attribute value for an external link. |
-| `navbar_entity_class`  | `NavbarEntity::class` |  | Class to be used by `NavbarDataProcessor` to represent `NavbarEntity`. |
+```php
+<?php
+
+return [
+
+    /**
+     * Application URL.
+     */
+    'app_url' => '/',
+
+    /**
+     * Order by column in the database 'asc' or 'desc'.<b/>
+     * Examples: 'body:asc', 'position:desc', 'id:asc'.
+     */
+    'order_by' => '',
+
+    /**
+     * Tag's class attribute value for an active link.
+     */
+    'active_link_class' => 'active',
+
+    /**
+     * Tag's target attribute value for an external link.
+     */
+    'external_link_target' => '_blank',
+
+    /**
+     * Class to be used by NavbarDataProcessor to represent NavbarEntity.
+     */
+    'navbar_entity_class' => Zablose\Navbar\NavbarEntity::class,
+
+];
+
+```
 
 ## License
 

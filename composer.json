@@ -1,6 +1,6 @@
 {
     "name": "zablose/navbar",
-    "description": "Navigation Bar",
+    "description": "Navigation Builder",
     "keywords": [
         "navigation",
         "navbar",
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0"
+        "php": ">=5.4.0"
     },
     "require-dev": {
     },
