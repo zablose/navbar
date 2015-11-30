@@ -11,7 +11,6 @@ final class NavbarDataProcessor
 {
 
     /**
-     *
      * @var NavbarDataContract
      */
     private $data;
@@ -31,7 +30,6 @@ final class NavbarDataProcessor
     private $elements;
 
     /**
-     *
      * @var boolean
      */
     private $byPid;
@@ -44,9 +42,10 @@ final class NavbarDataProcessor
     public $config;
 
     /**
-     *
      * @param NavbarDataContract $data
      * @param NavbarConfigContract $config
+     *
+     * @return void
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
@@ -57,7 +56,8 @@ final class NavbarDataProcessor
     /**
      * Get navigation elements by filter or parent ID.
      *
-     * @param  string|integer  $filterOrPid
+     * @param string|integer $filterOrPid
+     *
      * @return NavbarElement[]
      */
     public function get($filterOrPid = null)
@@ -70,8 +70,8 @@ final class NavbarDataProcessor
      * Filtered by filter(s) or parent ID.<b/>
      * Ordered by 'culumn:direction'.
      *
-     * @param  string|array|integer  $filterOrPid  Filter or parent ID.
-     * @param  string  $order_by  Order by column in the database 'id:asc' or 'id:desc'.
+     * @param string|array|integer $filterOrPid Filter or parent ID.
+     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return NavbarDataProcessor
      */
@@ -90,10 +90,9 @@ final class NavbarDataProcessor
     }
 
     /**
-     *
      * @param mixed $filterOrPid
      *
-     * @return int
+     * @return integer
      */
     private function byPid($filterOrPid)
     {
@@ -108,7 +107,7 @@ final class NavbarDataProcessor
     /**
      * Get navigation elements from the navigation entities by parent ID.
      *
-     * @param  integer  $pid
+     * @param integer $pid
      *
      * @return NavbarElement[]
      */
@@ -144,7 +143,7 @@ final class NavbarDataProcessor
     /**
      * Form navigation element.
      *
-     * @param  NavbarEntityContract  $entity  Navigation entity
+     * @param NavbarEntityContract $entity Navigation entity
      *
      * @return NavbarElement
      */
@@ -190,8 +189,9 @@ final class NavbarDataProcessor
     /**
      * Check if the navigation entity is accessible by the user.
      *
-     * @param  integer|string  $role
-     * @param  integer|string  $permission
+     * @param integer|string $role
+     * @param integer|string $permission
+     *
      * @return type
      */
     private function isAccessible($role, $permission)
@@ -202,7 +202,8 @@ final class NavbarDataProcessor
     /**
      * Check if the user has a role to access the navigation entity.
      *
-     * @param  integer|string  $role
+     * @param integer|string $role
+     *
      * @return boolean
      */
     private function hasRole($role)
@@ -213,7 +214,8 @@ final class NavbarDataProcessor
     /**
      * Check if the user has a permission to access the navigation entity.
      *
-     * @param  integer|string  $permission
+     * @param integer|string $permission
+     *
      * @return boolean
      */
     private function hasPermission($permission)

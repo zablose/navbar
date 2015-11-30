@@ -78,6 +78,7 @@ abstract class NavbarBuilderCore
 
     /**
      * @param string $method
+     *
      * @return string
      */
     private function validateMethod($method)
@@ -95,6 +96,7 @@ abstract class NavbarBuilderCore
 
     /**
      * @param NavbarElement[] $elements
+     *
      * @return string
      */
     protected function renderElements($elements)
@@ -114,6 +116,7 @@ abstract class NavbarBuilderCore
 
     /**
      * @param NavbarElement $element
+     *
      * @return string
      */
     protected function renderElementAsEntity(NavbarElement $element)
@@ -123,6 +126,7 @@ abstract class NavbarBuilderCore
 
     /**
      * @param NavbarElement $element
+     *
      * @return string
      */
     protected function renderElementAsGroup(NavbarElement $element)
@@ -132,6 +136,7 @@ abstract class NavbarBuilderCore
 
     /**
      * @param mixed $param
+     *
      * @return string
      */
     private function renderEmptyString($param = null)

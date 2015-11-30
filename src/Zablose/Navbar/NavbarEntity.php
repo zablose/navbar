@@ -97,6 +97,7 @@ class NavbarEntity extends NavbarEntityCore
      *
      * @param string $prefix
      * @param string $postfix
+     *
      * @return string
      */
     public function renderBody($prefix = null, $postfix = null)
@@ -109,6 +110,7 @@ class NavbarEntity extends NavbarEntityCore
      *
      * @param string $prefix
      * @param string $postfix
+     * 
      * @return string
      */
     public function renderClass($prefix = null, $postfix = null)
