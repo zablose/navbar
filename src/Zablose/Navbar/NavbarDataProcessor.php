@@ -32,7 +32,7 @@ final class NavbarDataProcessor
     /**
      * @var boolean
      */
-    private $byPid;
+    private $isFilterPid;
 
     /**
      * Navbar data configuration.
@@ -84,7 +84,7 @@ final class NavbarDataProcessor
 
         $this->entities = $this->validate($this->data->getRawNavbarEntities($filterOrPid, $order_by));
 
-        $this->elements = $this->elements($this->byPid($filterOrPid));
+        $this->elements = $this->elements($this->getValidPid($filterOrPid));
 
         return $this;
     }
@@ -94,13 +94,14 @@ final class NavbarDataProcessor
      *
      * @return integer
      */
-    private function byPid($filterOrPid)
+    private function getValidPid($filterOrPid)
     {
         if ((is_int($filterOrPid) && $filterOrPid >= 0))
         {
-            $this->byPid = true;
+            $this->isFilterPid = true;
+            return (int) $filterOrPid;
         }
-        return $filterOrPid;
+        return 0;
     }
 
     /**
@@ -121,11 +122,11 @@ final class NavbarDataProcessor
             if ((int) $data->pid === $iPid)
             {
                 unset($this->entities[$data->id]);
-                if ($iPid === 0 && $data->filter && !$this->byPid)
+                if ($iPid === 0 && $data->filter && !$this->isFilterPid)
                 {
                     $navbars[$data->filter][$data->id] = $this->element($data);
                 }
-                elseif ($this->byPid)
+                elseif ($this->isFilterPid)
                 {
                     $navbars[$data->pid][$data->id] = $this->element($data);
                 }
@@ -136,7 +137,7 @@ final class NavbarDataProcessor
             }
         }
 
-        $this->byPid = false;
+        $this->isFilterPid = false;
 
         return $navbars;
     }
@@ -157,7 +158,7 @@ final class NavbarDataProcessor
         if ($entity->isGroup())
         {
             $element->type    = NavbarElement::TYPE_GROUP;
-            $element->content = ($this->byPid) ? [] : $this->elements($entity->id);
+            $element->content = ($this->isFilterPid) ? [] : $this->elements($entity->id);
         }
 
         return $element;

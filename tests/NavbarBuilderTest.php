@@ -89,7 +89,7 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('permission'));
     }
 
-    public function testRenderToCheckIdenticalComparision()
+    public function testRenderToCheckIdenticalComparison()
     {
         $config = new NavbarConfig();
 
@@ -102,6 +102,17 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
             '</ul></li>';
 
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('identical'));
+    }
+
+    public function testRenderWithPrepareByFilterAsArray()
+    {
+        $config = new NavbarConfig();
+
+        $expected = '<li title="Go Home!"><a href="/home"><span class="fa"></span> Home</a></li>';
+
+        $navbar = new NavbarBuilder(new NavbarTestData(), $config);
+
+        $this->assertEquals($expected, $navbar->prepare(['identical', 'relative'])->render('relative'));
     }
 
 }
@@ -219,7 +230,7 @@ class NavbarTestData implements NavbarDataContract
         ];
 
         $data['relative'][] = [
-            'id'         => 1,
+            'id'         => 4,
             'pid'        => 0,
             'filter'     => 'relative',
             'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
@@ -307,6 +318,16 @@ class NavbarTestData implements NavbarDataContract
             'permission' => '',
             'position'   => '',
         ];
+
+        if (is_array($filterOrPid))
+        {
+            $return = [];
+            foreach ($filterOrPid as $filter)
+            {
+                $return = array_merge($return, $data[$filter]);
+            }
+            return $return;
+        }
 
         return $data[$filterOrPid];
     }
