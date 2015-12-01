@@ -34,12 +34,10 @@ Pull this package in through Composer (file `composer.json`).
 ```js
 {
     "require": {
-        "zablose/navbar": "dev-master"
+        "zablose/navbar": "1.*"
     }
 }
 ```
-
->This package in development for now...
 
 Run this command inside your terminal.
 
@@ -117,14 +115,22 @@ Route::get('/zablose/navbar/demo', function ()
 
 ### Rest of the World
 
+Check `examples` folder.
 
+There you will find:
+* MySQL database structure and demo data
+* Very simple straight forward NavbarData class example
+* Simple usage in `index.php`
+* `composer.json` file example
+
+Check `src/views/sidebar.blade.php` file for Bootstrap beauties. File needs some tweaking.
 
 ## Usage
 
 ```php
 $navbar = new \Zablose\Navbar\NavbarBuilder(new App\Zablose\Navbar\NavbarData());
 
-$navbar->render('main');
+$navbar->render('main', 'id:desc');
 
 // Two Navbars but one database query.
 $navbar->prepare(['main','dashboard'])->render('main');
