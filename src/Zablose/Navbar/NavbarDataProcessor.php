@@ -96,12 +96,11 @@ final class NavbarDataProcessor
      */
     private function byPid($filterOrPid)
     {
-        if (((int) $filterOrPid > 0))
+        if ((is_int($filterOrPid) && $filterOrPid >= 0))
         {
             $this->byPid = true;
-            return $filterOrPid;
         }
-        return 0;
+        return $filterOrPid;
     }
 
     /**
@@ -115,12 +114,14 @@ final class NavbarDataProcessor
     {
         $navbars = [];
 
+        $iPid = (int) $pid;
+
         foreach ($this->entities as $data)
         {
-            if ($data->pid === $pid)
+            if ((int) $data->pid === $iPid)
             {
                 unset($this->entities[$data->id]);
-                if ($pid === 0 && $data->filter && !$this->byPid)
+                if ($iPid === 0 && $data->filter && !$this->byPid)
                 {
                     $navbars[$data->filter][$data->id] = $this->element($data);
                 }

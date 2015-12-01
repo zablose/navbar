@@ -89,6 +89,21 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('permission'));
     }
 
+    public function testRenderToCheckIdenticalComparision()
+    {
+        $config = new NavbarConfig();
+
+        $expected = '<li class="dropdown">'.
+            '<a id="dropdown_1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" '.
+            'aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="caret"></span></a>'.
+            '<ul class="dropdown-menu">'.
+            '<li role="separator" class="divider"></li>'.
+            '<li><a href="/cool">Identical</a></li>'.
+            '</ul></li>';
+
+        $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('identical'));
+    }
+
 }
 
 class NavbarTestData implements NavbarDataContract
@@ -235,7 +250,7 @@ class NavbarTestData implements NavbarDataContract
 
         $data['permission'][] = [
             'id'         => 1,
-            'pid'        => 0,
+            'pid'        => '0',
             'filter'     => 'permission',
             'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
             'body'       => '',
@@ -245,6 +260,51 @@ class NavbarTestData implements NavbarDataContract
             'icon'       => '',
             'role'       => '',
             'permission' => 12,
+            'position'   => '',
+        ];
+
+        $data['identical'][] = [
+            'id'         => '1',
+            'pid'        => '0',
+            'filter'     => 'identical',
+            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_DROPDOWN,
+            'body'       => '',
+            'title'      => '',
+            'href'       => '',
+            'class'      => '',
+            'icon'       => '',
+            'role'       => '',
+            'permission' => '',
+            'position'   => '',
+        ];
+
+        $data['identical'][] = [
+            'id'         => '2',
+            'pid'        => '1',
+            'filter'     => 'identical',
+            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_SEPARATOR,
+            'body'       => '',
+            'title'      => '',
+            'href'       => '',
+            'class'      => '',
+            'icon'       => '',
+            'role'       => '',
+            'permission' => '',
+            'position'   => '',
+        ];
+
+        $data['identical'][] = [
+            'id'         => 3,
+            'pid'        => '1',
+            'filter'     => 'identical',
+            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
+            'body'       => 'Identical',
+            'title'      => '',
+            'href'       => '/cool',
+            'class'      => '',
+            'icon'       => '',
+            'role'       => '',
+            'permission' => '',
             'position'   => '',
         ];
 

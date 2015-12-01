@@ -19,8 +19,8 @@ Key features:
             - [Service Provider](#service-provider)
             - [Migrations and Models](#migrations-and-models)
             - [Navbar Demo](#navbar-demo)
-            - [Some Extras](#some-extras)
-            - [Cleanup](#cleanup)
+            - [Real Use](#real-use)
+        - [Rest of the World](#rest-of-the-world)
 - [Usage](#usage)
 - [Config File](#config-file)
 - [License](#license)
@@ -76,7 +76,7 @@ Run commands to copy files and migrate database:
 
 ##### Navbar Demo
 
-Finally visit the Navbar Demo page: [/zablose/navbar/demo](/zablose/navbar/demo)
+Finally visit the Navbar Demo page: http://yourmegaproject.com `/zablose/navbar/demo`.
 
 ![https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1](https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1)
 
@@ -84,34 +84,40 @@ Finally visit the Navbar Demo page: [/zablose/navbar/demo](/zablose/navbar/demo)
 This is only a demo that shows you how it may look like if you will use [Bootstrap](http://getbootstrap.com/),
 [jQuery](http://jquery.com/) and [Font Awesome](http://fortawesome.github.io/Font-Awesome/).
 
-##### Some Extras
+##### Real Use
+
+Copy configuration file and view to your application for real use of the package.
 
 For the configuration file run:
 
     php artisan vendor:publish --provider='Zablose\Navbar\NavbarServiceProvider' --tag=config
 
-For views run:
+For view run:
 
     php artisan vendor:publish --provider='Zablose\Navbar\NavbarServiceProvider' --tag=views
 
-Route file content that used by service provider for the Navbar Demo:
+Remove Navbar service provider.
+
+>It was used to make setup easier for you and show a usage example.
+
+Add to your `app/Http/routes.php` file:
 
 ```php
-<?php
-
 use App\Zablose\Navbar\NavbarData;
 use Zablose\Navbar\NavbarBuilder;
+use Zablose\Navbar\NavbarConfig;
 
 Route::get('/zablose/navbar/demo', function ()
 {
-    $navbar = new NavbarBuilder(new NavbarData());
-    return view('navbar::sidebar', compact('navbar'));
+    $config = new NavbarConfig(config('navbar'));
+    $navbar = new NavbarBuilder(new NavbarData(), $config);
+    return view('vendor.zablose.navbar.sidebar', compact('navbar'));
 });
 ```
 
-##### Cleanup
+### Rest of the World
 
->Do not forget to remove Navbar service provider. It was used to make setup easier for you and show a usage example.
+
 
 ## Usage
 
