@@ -93,7 +93,7 @@ class NavbarBuilder extends NavbarBuilderCore
     }
 
     /**
-     * Check if the entity related to current path.
+     * Check if the entity's href attribute matches the current path of the application.
      *
      * @param NavbarEntityContract $entity
      *
@@ -101,9 +101,7 @@ class NavbarBuilder extends NavbarBuilderCore
      */
     protected function isActive(NavbarEntityContract $entity)
     {
-        $isTargetInPath = stripos(trim($this->config->path(), '/'), trim($entity->href, '/')) !== false;
-
-        return ($this->config->path() === $entity->href || $isTargetInPath);
+        return (trim($this->config->path(), '/') === trim($entity->href, '/'));
     }
 
     /**
