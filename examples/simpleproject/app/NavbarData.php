@@ -7,9 +7,19 @@ use Zablose\Navbar\Contracts\NavbarDataContract;
 class NavbarData implements NavbarDataContract
 {
 
+    /**
+     * @var \PDO
+     */
+    private $db;
+
+    public function __construct()
+    {
+        $dsn      = 'mysql:host=localhost;dbname=dbname;charset=utf8';
+        $this->db = new \PDO($dsn, 'dbuser', 'password');
+    }
+
     public function getRawNavbarEntities($filterOrPid = null, $order_by = null)
     {
-        $db     = new \PDO('mysql:host=localhost;dbname=dbname;charset=utf8', 'dbuser', 'password');
         $query  = 'SELECT * FROM `zablose_navbars`';
         $aWhere = [];
 
@@ -43,7 +53,7 @@ class NavbarData implements NavbarDataContract
             }
         }
 
-        return $db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
+        return $this->db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
     }
 
 }
