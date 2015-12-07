@@ -22,7 +22,6 @@ Key features:
             - [Real Use](#real-use)
         - [Rest of the World](#rest-of-the-world)
 - [Usage](#usage)
-- [Config File](#config-file)
 - [License](#license)
 
 ## Installation
@@ -152,43 +151,6 @@ $navbar->render(2015);
 ```
 
 Where `NavbarData` is a class that implements `NavbarDataContract` interface with one method and written by you.
-
-## Config File
-
-```php
-<?php
-
-return [
-
-    /**
-     * Application URL.
-     */
-    'app_url' => '/',
-
-    /**
-     * Order by column in the database 'asc' or 'desc'.<b/>
-     * Examples: 'body:asc', 'position:desc', 'id:asc'.
-     */
-    'order_by' => '',
-
-    /**
-     * Tag's class attribute value for an active link.
-     */
-    'active_link_class' => 'active',
-
-    /**
-     * Tag's target attribute value for an external link.
-     */
-    'external_link_target' => '_blank',
-
-    /**
-     * Class to be used by NavbarDataProcessor to represent NavbarEntity.
-     */
-    'navbar_entity_class' => Zablose\Navbar\NavbarEntity::class,
-
-];
-
-```
 
 ## License
 

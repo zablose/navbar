@@ -8,7 +8,7 @@ return [
     'app_url' => '/',
 
     /**
-     * Order by column in the database 'asc' or 'desc'.<b/>
+     * Order by column in the database 'asc' or 'desc'.
      * Examples: 'body:asc', 'position:desc', 'id:asc'.
      */
     'order_by' => '',
