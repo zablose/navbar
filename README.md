@@ -1,5 +1,7 @@
 # Navbar
 
+[![Build Status](https://travis-ci.org/zablose/Navbar.svg?branch=master)](https://travis-ci.org/zablose/Navbar)
+
 Renders navigation entities to an HTML to form navigation.
 
 >Meant to be used with a database to store entities.
@@ -46,7 +48,8 @@ Run this command inside your terminal.
 
 #### Laravel Users
 
-Quick tips for Laravel 5.1.* users.
+Quick tips for Laravel users.
+Verified versions: `5.1.*` and `5.2.*`.
 
 ##### Service Provider
 
@@ -73,7 +76,7 @@ Run commands to copy files and migrate database:
 
 ##### Navbar Demo
 
-Finally visit the Navbar Demo page: http://yourmegaproject.com `/zablose/navbar/demo`.
+Finally visit the Navbar Demo page: http://localhost `/zablose/navbar/demo`.
 
 ![https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1](https://www.dropbox.com/s/4g7r0awf9f4ek04/navbar-demo.png?raw=1)
 
