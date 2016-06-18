@@ -1,11 +1,11 @@
 {
     "name": "zablose/navbar",
-    "description": "Navbar - Renders navigation entities to an HTML to form navigation.",
+    "description": "Navbar - Build an HTML from the navigation entities, stored in a database.",
     "keywords": [
-        "navigation",
         "navbar",
-        "view",
-        "laravel"
+        "navigation",
+        "html",
+        "builder"
     ],
     "license": "MIT",
     "authors": [
