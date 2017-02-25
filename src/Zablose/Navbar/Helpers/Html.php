@@ -12,7 +12,7 @@ class Html
      * @param array $attrs
      * @param string $body
      *
-     * @return void
+     * @return string
      */
     public static function tag($name, $attrs, $body = null)
     {

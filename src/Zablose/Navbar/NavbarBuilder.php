@@ -6,7 +6,6 @@ use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
 use Zablose\Navbar\Helpers\Html;
-use Zablose\Navbar\NavbarBuilderCore;
 
 class NavbarBuilder extends NavbarBuilderCore
 {
@@ -14,8 +13,6 @@ class NavbarBuilder extends NavbarBuilderCore
     /**
      * @param NavbarDataContract $data
      * @param NavbarConfigContract $config
-     *
-     * @return void
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
@@ -55,11 +52,11 @@ class NavbarBuilder extends NavbarBuilderCore
 
         $body = $element->entity->renderBody($element->entity->renderIcon(), '<span class="caret"></span>');
 
-        $html = '<li class="dropdown">'.
-            Html::tag('a', $attrs, $body).
-            '<ul class="dropdown-menu">'.
-            $this->renderElements($element->content).
-            '</ul>'.
+        $html = '<li class="dropdown">' .
+            Html::tag('a', $attrs, $body) .
+            '<ul class="dropdown-menu">' .
+            $this->renderElements($element->content) .
+            '</ul>' .
             '</li>';
 
         return $html;
@@ -106,10 +103,11 @@ class NavbarBuilder extends NavbarBuilderCore
 
     /**
      * @param NavbarEntityContract $entity
+     * @param array $attrs
      *
      * @return string
      */
-    protected function bootstrap_link_internal(NavbarEntityContract $entity)
+    protected function bootstrap_link_internal(NavbarEntityContract $entity, $attrs = [])
     {
         $attrs['href'] = rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->href), '/');
 
@@ -118,15 +116,14 @@ class NavbarBuilder extends NavbarBuilderCore
 
     /**
      * @param NavbarEntityContract $entity
+     * @param array $attrs
      *
      * @return string
      */
-    protected function bootstrap_link_external(NavbarEntityContract $entity)
+    protected function bootstrap_link_external(NavbarEntityContract $entity, $attrs = [])
     {
-        $attrs = [
-            'href'   => $entity->href,
-            'target' => $this->config->external_link_target,
-        ];
+        $attrs['href'] = $entity->href;
+        $attrs['target'] = $this->config->external_link_target;
 
         return $this->renderBootstrapLink($entity, $attrs);
     }
