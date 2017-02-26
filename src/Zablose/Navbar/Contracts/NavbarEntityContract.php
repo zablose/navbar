@@ -23,8 +23,8 @@ interface NavbarEntityContract
     /**
      * Render Class with or without prefix and postfix.
      *
-     * @param type $prefix
-     * @param type $postfix
+     * @param string $prefix
+     * @param string $postfix
      *
      * @return string
      */

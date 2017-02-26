@@ -11,7 +11,7 @@ class NavbarBuilder extends NavbarBuilderCore
 {
 
     /**
-     * @param NavbarDataContract $data
+     * @param NavbarDataContract   $data
      * @param NavbarConfigContract $config
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
@@ -39,7 +39,7 @@ class NavbarBuilder extends NavbarBuilderCore
     protected function bootstrap_dropdown(NavbarElement $element)
     {
         $attrs = [
-            'id'               => 'dropdown_'.$element->entity->id,
+            'id'               => 'dropdown_' . $element->entity->id,
             'href'             => $element->entity->href,
             'class'            => $element->entity->renderClass('dropdown-toggle'),
             'data-toggle'      => 'dropdown',
@@ -52,18 +52,14 @@ class NavbarBuilder extends NavbarBuilderCore
 
         $body = $element->entity->renderBody($element->entity->renderIcon(), '<span class="caret"></span>');
 
-        $html = '<li class="dropdown">' .
-            Html::tag('a', $attrs, $body) .
-            '<ul class="dropdown-menu">' .
-            $this->renderElements($element->content) .
-            '</ul>' .
+        return
+            '<li class="dropdown">' . Html::tag('a', $attrs, $body) .
+            '<ul class="dropdown-menu">' . $this->renderElements($element->content) . '</ul>' .
             '</li>';
-
-        return $html;
     }
 
     /**
-     * @param NavbarEntityContract $entity
+     * @param NavbarEntity|NavbarEntityContract $entity
      *
      * @return string
      */
@@ -92,7 +88,7 @@ class NavbarBuilder extends NavbarBuilderCore
     /**
      * Check if the entity's href attribute matches the current path of the application.
      *
-     * @param NavbarEntityContract $entity
+     * @param NavbarEntity|NavbarEntityContract $entity
      *
      * @return string
      */
@@ -102,35 +98,35 @@ class NavbarBuilder extends NavbarBuilderCore
     }
 
     /**
-     * @param NavbarEntityContract $entity
-     * @param array $attrs
+     * @param NavbarEntity|NavbarEntityContract $entity
+     * @param array                             $attrs
      *
      * @return string
      */
     protected function bootstrap_link_internal(NavbarEntityContract $entity, $attrs = [])
     {
-        $attrs['href'] = rtrim($this->config->app_url, '/').'/'.ltrim(trim($entity->href), '/');
+        $attrs['href'] = rtrim($this->config->app_url, '/') . '/' . ltrim(trim($entity->href), '/');
 
         return $this->renderBootstrapLink($entity, $attrs);
     }
 
     /**
-     * @param NavbarEntityContract $entity
-     * @param array $attrs
+     * @param NavbarEntity|NavbarEntityContract $entity
+     * @param array                             $attrs
      *
      * @return string
      */
     protected function bootstrap_link_external(NavbarEntityContract $entity, $attrs = [])
     {
-        $attrs['href'] = $entity->href;
+        $attrs['href']   = $entity->href;
         $attrs['target'] = $this->config->external_link_target;
 
         return $this->renderBootstrapLink($entity, $attrs);
     }
 
     /**
-     * @param NavbarEntityContract $entity
-     * @param array $attrs
+     * @param NavbarEntity|NavbarEntityContract $entity
+     * @param array                             $attrs
      *
      * @return string
      */

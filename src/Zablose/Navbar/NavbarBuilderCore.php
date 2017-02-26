@@ -4,9 +4,6 @@ namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarDataContract;
-use Zablose\Navbar\NavbarDataProcessor;
-use Zablose\Navbar\NavbarEntityCore;
-use Zablose\Navbar\NavbarElement;
 
 abstract class NavbarBuilderCore
 {
@@ -17,8 +14,7 @@ abstract class NavbarBuilderCore
     private $processor;
 
     /**
-     * Were data prepared or not. Used to prevent a repeat of preparation.<br/>
-     * Ignored in case of rendering by parent ID.
+     * Were data prepared or not. Used to prevent a repeat of preparation. Ignored in case of rendering by parent ID.
      *
      * @var boolean
      */
@@ -30,10 +26,8 @@ abstract class NavbarBuilderCore
     protected $config;
 
     /**
-     * @param NavbarDataContract $data
+     * @param NavbarDataContract   $data
      * @param NavbarConfigContract $config
-     *
-     * @return void
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
@@ -44,14 +38,14 @@ abstract class NavbarBuilderCore
     /**
      * Render navigation entities to the HTML string.
      *
-     * @param string|array|integer $filterOrPid Filter or parent ID.
-     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filterOrPid Filter or parent ID.
+     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return string
      */
     final public function render($filterOrPid, $order_by = null)
     {
-        if (!$this->prepared || is_integer($filterOrPid))
+        if (! $this->prepared || is_integer($filterOrPid))
         {
             $this->prepare($filterOrPid, $order_by);
         }
@@ -62,10 +56,10 @@ abstract class NavbarBuilderCore
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param string|array|integer $filterOrPid Filter or parent ID.
-     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filterOrPid Filter or parent ID.
+     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
      *
-     * @return \Zablose\Navbar\NavbarBuilderCore
+     * @return NavbarBuilderCore
      */
     final public function prepare($filterOrPid = null, $order_by = null)
     {
@@ -135,13 +129,12 @@ abstract class NavbarBuilderCore
     }
 
     /**
+     * Used by validateMethod() when method is invalid.
+     *
      * @param mixed $param
      *
      * @return string
      */
-    private function renderEmptyString($param = null)
-    {
-        return '';
-    }
+    private function renderEmptyString($param = null) { return ''; }
 
 }

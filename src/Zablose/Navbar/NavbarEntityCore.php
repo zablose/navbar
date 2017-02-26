@@ -21,6 +21,90 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     const TYPE_BOOTSTRAP_SEPARATOR     = 'bootstrap_separator';
 
     /**
+     * Unique identifier.
+     *
+     * @var integer
+     */
+    public $id;
+
+    /**
+     * Parent unique identifier.
+     *
+     * @var integer
+     */
+    public $pid;
+
+    /**
+     * A filter to grab what you need in one go.
+     *
+     * @var string
+     */
+    public $filter;
+
+    /**
+     * Navbar entity type.
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Tag's body content.
+     *
+     * @var string
+     */
+    public $body;
+
+    /**
+     * Tag's title attribute.
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
+     * Tag's href attribute.
+     *
+     * @var string
+     */
+    public $href;
+
+    /**
+     * Tag's class attribute.
+     *
+     * @var string
+     */
+    public $class;
+
+    /**
+     * An icon for the entity.
+     *
+     * @var string
+     */
+    public $icon;
+
+    /**
+     * Role that is required to access the entity of navigation.
+     *
+     * @var integer|string
+     */
+    public $role;
+
+    /**
+     * Permission that is required to access the entity of navigation.
+     *
+     * @var integer|string
+     */
+    public $permission;
+
+    /**
+     * Navigation bar entity's position.
+     *
+     * @var integer
+     */
+    public $position;
+
+    /**
      * @var array
      */
     public static $custom_types = [];
@@ -52,12 +136,12 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      */
     final public static function getGroupTypes()
     {
-        $gtypes = [
+        $group_types = [
             self::TYPE_BOOTSTRAP_NAVBAR,
             self::TYPE_BOOTSTRAP_DROPDOWN,
         ];
 
-        return array_unique(array_merge($gtypes, NavbarEntityCore::$custom_group_types));
+        return array_unique(array_merge($group_types, NavbarEntityCore::$custom_group_types));
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Zablose\Navbar;
 
-use Zablose\Navbar\NavbarElement;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
@@ -42,15 +41,13 @@ final class NavbarDataProcessor
     public $config;
 
     /**
-     * @param NavbarDataContract $data
+     * @param NavbarDataContract   $data
      * @param NavbarConfigContract $config
-     *
-     * @return void
      */
     public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
     {
         $this->data   = $data;
-        $this->config = ($config) ? : new NavbarConfig();
+        $this->config = ($config) ?: new NavbarConfig();
     }
 
     /**
@@ -58,7 +55,7 @@ final class NavbarDataProcessor
      *
      * @param string|integer $filterOrPid
      *
-     * @return NavbarElement[]
+     * @return NavbarElement[]|NavbarElement
      */
     public function get($filterOrPid = null)
     {
@@ -66,18 +63,18 @@ final class NavbarDataProcessor
     }
 
     /**
-     * Get raw navigation entities from the database, validate them and transform to the navigation elements.<b/>
-     * Filtered by filter(s) or parent ID.<b/>
-     * Ordered by 'culumn:direction'.
+     * Get raw navigation entities from the database, validate them and transform to the navigation elements.
+     * Filtered by filter(s) or parent ID.
+     * Ordered by 'column:direction'.
      *
-     * @param string|array|integer $filterOrPid Filter or parent ID.
-     * @param string $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filterOrPid Filter or parent ID.
+     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return NavbarDataProcessor
      */
     public function prepare($filterOrPid = null, $order_by = null)
     {
-        if (!$order_by)
+        if (! $order_by)
         {
             $order_by = $this->config->order_by;
         }
@@ -99,8 +96,10 @@ final class NavbarDataProcessor
         if ((is_int($filterOrPid) && $filterOrPid >= 0))
         {
             $this->isFilterPid = true;
-            return (int) $filterOrPid;
+
+            return (int)$filterOrPid;
         }
+
         return 0;
     }
 
@@ -115,24 +114,25 @@ final class NavbarDataProcessor
     {
         $navbars = [];
 
-        $iPid = (int) $pid;
+        $pid = (int)$pid;
 
-        foreach ($this->entities as $data)
+        /** @var NavbarEntity $entity */
+        foreach ($this->entities as $entity)
         {
-            if ((int) $data->pid === $iPid)
+            if ((int)$entity->pid === $pid)
             {
-                unset($this->entities[$data->id]);
-                if ($iPid === 0 && $data->filter && !$this->isFilterPid)
+                unset($this->entities[$entity->id]);
+                if ($pid === 0 && $entity->filter && ! $this->isFilterPid)
                 {
-                    $navbars[$data->filter][$data->id] = $this->element($data);
+                    $navbars[$entity->filter][$entity->id] = $this->element($entity);
                 }
                 elseif ($this->isFilterPid)
                 {
-                    $navbars[$data->pid][$data->id] = $this->element($data);
+                    $navbars[$entity->pid][$entity->id] = $this->element($entity);
                 }
                 else
                 {
-                    $navbars[$data->id] = $this->element($data);
+                    $navbars[$entity->id] = $this->element($entity);
                 }
             }
         }
@@ -145,7 +145,7 @@ final class NavbarDataProcessor
     /**
      * Form navigation element.
      *
-     * @param NavbarEntityContract $entity Navigation entity
+     * @param NavbarEntity|NavbarEntityContract $entity Navigation entity
      *
      * @return NavbarElement
      */
@@ -177,7 +177,7 @@ final class NavbarDataProcessor
 
         foreach ($raw_entities as $raw_entity)
         {
-            $raw_object = (object) $raw_entity;
+            $raw_object = (object)$raw_entity;
 
             if ($this->isAccessible($raw_object->role, $raw_object->permission))
             {
@@ -194,11 +194,11 @@ final class NavbarDataProcessor
      * @param integer|string $role
      * @param integer|string $permission
      *
-     * @return type
+     * @return bool
      */
     private function isAccessible($role, $permission)
     {
-        return ((!$role && !$permission) || ($this->hasRole($role) || $this->hasPermission($permission)));
+        return ((! $role && ! $permission) || ($this->hasRole($role) || $this->hasPermission($permission)));
     }
 
     /**
@@ -206,7 +206,7 @@ final class NavbarDataProcessor
      *
      * @param integer|string $role
      *
-     * @return boolean
+     * @return bool
      */
     private function hasRole($role)
     {
@@ -218,7 +218,7 @@ final class NavbarDataProcessor
      *
      * @param integer|string $permission
      *
-     * @return boolean
+     * @return bool
      */
     private function hasPermission($permission)
     {

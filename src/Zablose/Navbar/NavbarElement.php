@@ -17,12 +17,12 @@ class NavbarElement
     public $type;
 
     /**
-     * @var \Zablose\Navbar\Contracts\NavbarEntityContract
+     * @var NavbarEntity
      */
     public $entity;
 
     /**
-     * @var \Zablose\Navbar\NavbarElement[]
+     * @var NavbarElement[]
      */
     public $content;
 
@@ -35,7 +35,7 @@ class NavbarElement
     {
         return [
             self::TYPE_ENTITY,
-            self::TYPE_GROUP
+            self::TYPE_GROUP,
         ];
     }
 

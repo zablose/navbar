@@ -10,7 +10,7 @@ interface NavbarConfigContract
      *
      * @param string $path
      *
-     * @return NavbarConfigContract|array
+     * @return NavbarConfigContract|string
      */
     public function path($path = null);
 

@@ -6,10 +6,10 @@ interface NavbarDataContract
 {
 
     /**
-     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor<br/>
-     * to transform to navigation entities.<br/>
+     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
+     * to transform to navigation entities.
      *
-     * Example of an array element structure.<br/>
+     * Example of an array element structure.
      *
      *     [
      *         'id'         => 1,
@@ -26,8 +26,8 @@ interface NavbarDataContract
      *         'position'   => '',
      *     ]
      *
-     * @param string|array|integer $filterOrPid Filter(s) or parent ID.
-     * @param string $order_by Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string|integer $filterOrPid Filter(s) or parent ID.
+     * @param string               $order_by    Order by 'column:direction' like 'id:asc', 'position:desc', etc.
      *
      * @return array
      */

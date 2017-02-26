@@ -9,14 +9,14 @@ class Html
      * Render a normal tag.
      *
      * @param string $name
-     * @param array $attrs
+     * @param array  $attrs
      * @param string $body
      *
      * @return string
      */
     public static function tag($name, $attrs, $body = null)
     {
-        return ($name) ? '<'.$name.self::attrs($attrs).'>'.$body.'</'.$name.'>' : '';
+        return ($name) ? '<' . $name . self::attrs($attrs) . '>' . $body . '</' . $name . '>' : '';
     }
 
     /**
@@ -36,28 +36,28 @@ class Html
         {
             foreach ($attrs as $key => $value)
             {
-                if (!empty($value))
+                if (! empty($value))
                 {
-                    $html[] = (is_numeric($key)) ? $value.'="'.$value.'"' : $key.'="'.$value.'"';
+                    $html[] = (is_numeric($key)) ? $value . '="' . $value . '"' : $key . '="' . $value . '"';
                 }
             }
         }
 
-        return (count($html) > 0) ? ' '.implode(' ', $html) : '';
+        return (count($html) > 0) ? ' ' . implode(' ', $html) : '';
     }
 
     /**
      * Prefix or postfix string with a string.
      *
-     * @param string $string
-     * @param string $value
+     * @param string  $string
+     * @param string  $value
      * @param boolean $pre
      *
      * @return string
      */
     public static function fix($string, $value, $pre = true)
     {
-        return ($string && $value) ? (($pre) ? $value.' '.$string : $string.' '.$value) : $string.$value;
+        return ($string && $value) ? (($pre) ? $value . ' ' . $string : $string . ' ' . $value) : $string . $value;
     }
 
     /**

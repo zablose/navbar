@@ -72,11 +72,11 @@ class NavbarConfig implements NavbarConfigContract
      *
      * @param string $path
      *
-     * @return NavbarConfigContract|array
+     * @return NavbarConfigContract|string
      */
     public function path($path = null)
     {
-        if (!$path)
+        if (! $path)
         {
             return $this->path;
         }
@@ -89,18 +89,18 @@ class NavbarConfig implements NavbarConfigContract
     /**
      * Set or get roles of the logged user.
      *
-     * @param array $roles An array of strings or integers.
+     * @param array|string $roles An array of strings or integers.
      *
      * @return NavbarConfigContract|array
      */
     public function roles($roles = null)
     {
-        if (!$roles)
+        if (! $roles)
         {
             return $this->roles;
         }
 
-        $this->roles = (array) $roles;
+        $this->roles = (array)$roles;
 
         return $this;
     }
@@ -108,18 +108,18 @@ class NavbarConfig implements NavbarConfigContract
     /**
      * Set or get permissions of the logged user.
      *
-     * @param array $permissions An array of strings or integers.
+     * @param array|string $permissions An array of strings or integers.
      *
      * @return NavbarConfigContract|array
      */
     public function permissions($permissions = null)
     {
-        if (!$permissions)
+        if (! $permissions)
         {
             return $this->permissions;
         }
 
-        $this->permissions = (array) $permissions;
+        $this->permissions = (array)$permissions;
 
         return $this;
     }
