@@ -1,17 +1,8 @@
 # Navbar
 
-[![Build Status](https://travis-ci.org/zablose/Navbar.svg?branch=master)](https://travis-ci.org/zablose/Navbar)
+[![Build Status](https://travis-ci.org/zablose/navbar.svg?branch=master)](https://travis-ci.org/zablose/navbar)
 
-Renders navigation entities to an HTML to form navigation.
-
->Meant to be used with a database to store entities.
-
-Key features:
-* Bootstrap
-* Roles and Permissions
-* Recursive
-* Extendable
-* Ajax in mind
+Renders navigation entities, stored in a database, to an HTML to form navigation.
 
 ## Readme Index
 - [Installation](#installation)
@@ -32,7 +23,7 @@ Key features:
 
 Pull this package in through Composer (file `composer.json`).
 
-```js
+```json
 {
     "require": {
         "zablose/navbar": "1.*"
