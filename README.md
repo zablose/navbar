@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/zablose/navbar.svg?branch=master)](https://travis-ci.org/zablose/navbar)
 
-Renders navigation entities, stored in a database, to an HTML to form navigation.
+Render an HTML from the navigation entities, stored in a database.
 
 ## Readme Index
 - [Installation](#installation)
