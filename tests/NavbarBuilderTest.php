@@ -120,7 +120,7 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
 class NavbarTestData implements NavbarDataContract
 {
 
-    public function getRawNavbarEntities($filterOrPid = null, $order_by = null)
+    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
     {
         $data = [];
 
@@ -319,17 +319,17 @@ class NavbarTestData implements NavbarDataContract
             'position'   => '',
         ];
 
-        if (is_array($filterOrPid))
+        if (is_array($filter_or_pid))
         {
             $return = [];
-            foreach ($filterOrPid as $filter)
+            foreach ($filter_or_pid as $filter)
             {
                 $return = array_merge($return, $data[$filter]);
             }
             return $return;
         }
 
-        return $data[$filterOrPid];
+        return $data[$filter_or_pid];
     }
 
 }

@@ -3,16 +3,17 @@
 namespace App\Zablose\Navbar;
 
 use DB;
+use Illuminate\Support\Collection;
 use Zablose\Navbar\Contracts\NavbarDataContract;
 
 class NavbarData implements NavbarDataContract
 {
 
     /**
-     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor<br/>
-     * to transform to navigation entities.<br/>
+     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
+     * to transform to navigation entities.
      *
-     * Example of an array element structure.<br/>
+     * Example of an array element structure.
      *
      *     [
      *         'id'         => 1,
@@ -29,28 +30,28 @@ class NavbarData implements NavbarDataContract
      *         'position'   => '',
      *     ]
      *
-     * @param string|array|integer $filterOrPid Filter(s) or parent ID.
-     * @param string $order_by Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string|int|null $filter_or_pid Filter(s) or parent ID.
+     * @param string|null           $order_by      Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
      *
-     * @return array
+     * @return Collection
      */
-    public function getRawNavbarEntities($filterOrPid = null, $order_by = null)
+    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
     {
-        $query = DB::table('zablose_navbars');
+        $query = DB::table('navbars');
 
-        if (is_string($filterOrPid))
+        if (is_string($filter_or_pid))
         {
-            $query->where('filter', $filterOrPid);
+            $query->where('filter', $filter_or_pid);
         }
 
-        if (is_array($filterOrPid))
+        if (is_array($filter_or_pid))
         {
-            $query->whereIn('filter', $filterOrPid);
+            $query->whereIn('filter', $filter_or_pid);
         }
 
-        if (is_integer($filterOrPid))
+        if (is_integer($filter_or_pid))
         {
-            $query->where('pid', $filterOrPid);
+            $query->where('pid', $filter_or_pid);
         }
 
         if ($order_by)

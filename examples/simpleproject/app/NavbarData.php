@@ -18,29 +18,35 @@ class NavbarData implements NavbarDataContract
         $this->db = new \PDO($dsn, 'dbuser', 'password');
     }
 
-    public function getRawNavbarEntities($filterOrPid = null, $order_by = null)
+    /**
+     * @param array|string|int|null $filter_or_pid
+     * @param string|null           $order_by
+     *
+     * @return array
+     */
+    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
     {
-        $query  = 'SELECT * FROM `zablose_navbars`';
+        $query  = 'SELECT * FROM `navbars`';
         $aWhere = [];
 
-        if (is_string($filterOrPid))
+        if (is_string($filter_or_pid))
         {
-            $aWhere[] = "`filter` = '$filterOrPid'";
+            $aWhere[] = "`filter` = '$filter_or_pid'";
         }
 
-        if (is_array($filterOrPid))
+        if (is_array($filter_or_pid))
         {
-            $aWhere[] = "`filter` IN ('".implode("','", $filterOrPid)."')";
+            $aWhere[] = "`filter` IN ('" . implode("','", $filter_or_pid) . "')";
         }
 
-        if (is_integer($filterOrPid))
+        if (is_integer($filter_or_pid))
         {
-            $aWhere[] = "`pid` = '$filterOrPid'";
+            $aWhere[] = "`pid` = '$filter_or_pid'";
         }
 
         if ($aWhere)
         {
-            $query .= ' WHERE '.implode(' AND ', $aWhere);
+            $query .= ' WHERE ' . implode(' AND ', $aWhere);
         }
 
         if ($order_by)
@@ -49,7 +55,7 @@ class NavbarData implements NavbarDataContract
 
             if (isset($order[1]) && in_array($order[1], ['asc', 'desc']))
             {
-                $query .= " ORDER BY `$order[0]` ".strtoupper($order[1]);
+                $query .= " ORDER BY `$order[0]` " . strtoupper($order[1]);
             }
         }
 

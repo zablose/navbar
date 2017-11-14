@@ -26,10 +26,10 @@ interface NavbarDataContract
      *         'position'   => '',
      *     ]
      *
-     * @param array|string|integer $filterOrPid Filter(s) or parent ID.
-     * @param string               $order_by    Order by 'column:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string|int|null $filter_or_pid Filter(s) or parent ID.
+     * @param string|null           $order_by      Order by 'column:direction' like 'id:asc', 'position:desc', etc.
      *
      * @return array
      */
-    public function getRawNavbarEntities($filterOrPid = null, $order_by = null);
+    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null);
 }
