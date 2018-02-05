@@ -6,122 +6,153 @@ class HtmlTest extends PHPUnit\Framework\TestCase
 {
 
     /**
-     * @return array
-     */
-    public function dataProviderFor_testTag()
-    {
-        return [
-            ['li', [], null, '<li></li>'],
-            ['div', [], 'Div', '<div>Div</div>'],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderFor_testTag
-     *
-     * @param string $name
-     * @param array  $attrs
-     * @param string $body
-     * @param string $expected
+     * @test
      *
      * @throws Exception
      */
-    public function testTag($name, $attrs, $body, $expected)
+    public function render_tag_with_null_body()
     {
-        $this->assertEquals($expected, Html::tag($name, $attrs, $body));
+        $this->assertSame('<li></li>', Html::tag('li', [], null));
     }
 
     /**
-     * @return array
-     */
-    public function dataProviderFor_testAttrs()
-    {
-        return [
-            [
-                ['class' => 'active'],
-                ' class="active"',
-            ],
-            [
-                ['class' => ''],
-                '',
-            ],
-            [
-                ['class' => null],
-                '',
-            ],
-            [
-                ['disabled'],
-                ' disabled="disabled"',
-            ],
-            [null, ''],
-            ['', ''],
-            [2, ''],
-            [[], ''],
-            ['adfgsh', ''],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderFor_testAttrs
-     *
-     * @param array  $attrs
-     * @param string $expected
+     * @test
      *
      * @throws Exception
      */
-    public function testAttrs($attrs, $expected)
+    public function render_tag_with_body()
     {
-        $this->assertEquals($expected, Html::attrs($attrs));
+        $this->assertSame('<div>Div</div>', Html::tag('div', [], 'Div'));
     }
 
     /**
-     * @return array
-     */
-    public function dataProviderFor_testPostfix()
-    {
-        return [
-            ['', 'active', 'active'],
-            ['nav navbar', 'active', 'nav navbar active'],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderFor_testPostfix
-     *
-     * @param string $string
-     * @param string $postfix
-     * @param string $expected
+     * @test
      *
      * @throws Exception
      */
-    public function testPostfix($string, $postfix, $expected)
+    public function render_attribute_with_key_and_value()
     {
-        $this->assertEquals($expected, Html::postfix($string, $postfix));
+        $this->assertSame(' class="active"', Html::attrs(['class' => 'active']));
     }
 
     /**
-     * @return array
-     */
-    public function dataProviderFor_testPrefix()
-    {
-        return [
-            ['', 'Dropdown', 'Dropdown'],
-            ['Dropdown', 'Mega', 'Mega Dropdown'],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderFor_testPrefix
-     *
-     * @param string $string
-     * @param string $prefix
-     * @param string $expected
+     * @test
      *
      * @throws Exception
      */
-    public function testPrefix($string, $prefix, $expected)
+    public function render_attribute_with_value()
     {
-        $this->assertEquals($expected, Html::prefix($string, $prefix));
+        $this->assertSame(' disabled="disabled"', Html::attrs(['disabled']));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function ignore_attribute_with_key_and_empty_value()
+    {
+        $this->assertSame('', Html::attrs(['class' => '']));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function ignore_attribute_with_key_and_null_value()
+    {
+        $this->assertSame('', Html::attrs(['class' => null]));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function ignore_attribute_with_null_value()
+    {
+        $this->assertSame('', Html::attrs(null));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function render_attributes_from_an_empty_string()
+    {
+        $this->assertSame('', Html::attrs(''));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function render_attributes_from_an_integer()
+    {
+        $this->assertSame('', Html::attrs(2));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function render_attributes_from_a_string()
+    {
+        $this->assertSame('', Html::attrs('class'));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function render_attributes_from_an_empty_array()
+    {
+        $this->assertSame('', Html::attrs([]));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function postfix_a_string()
+    {
+        $this->assertSame('nav navbar active', Html::postfix('nav navbar', 'active'));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function postfix_an_empty_string()
+    {
+        $this->assertSame('active', Html::postfix('', 'active'));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function prefix_a_string()
+    {
+        $this->assertSame('Mega Dropdown', Html::prefix('Dropdown', 'Mega'));
+    }
+
+    /**
+     * @test
+     *
+     * @throws Exception
+     */
+    public function prefix_an_empty_string()
+    {
+        $this->assertSame('Dropdown', Html::prefix('', 'Dropdown'));
     }
 
 }

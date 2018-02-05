@@ -29,17 +29,4 @@ class NavbarElementTest extends PHPUnit\Framework\TestCase
         $this->assertClassHasAttribute($name, NavbarElement::class);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function testGetTypes()
-    {
-        $types = [
-            'renderElementAsEntity',
-            'renderElementAsGroup',
-        ];
-
-        $this->assertEquals($types, NavbarElement::getTypes());
-    }
-
 }
