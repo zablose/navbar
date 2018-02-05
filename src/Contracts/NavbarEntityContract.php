@@ -6,21 +6,6 @@ interface NavbarEntityContract
 {
 
     /**
-     * @return array
-     */
-    public static function getTypes();
-
-    /**
-     * @return array
-     */
-    public static function getGroupTypes();
-
-    /**
-     * @return boolean
-     */
-    public function isGroup();
-
-    /**
      * Render Class with or without prefix and postfix.
      *
      * @param string $prefix
@@ -46,4 +31,5 @@ interface NavbarEntityContract
      * @return string
      */
     public function renderIcon();
+
 }

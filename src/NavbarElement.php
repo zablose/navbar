@@ -26,17 +26,4 @@ class NavbarElement
      */
     public $content;
 
-    /**
-     * Get Navbar element types as array of strings.
-     *
-     * @return array
-     */
-    public static function getTypes()
-    {
-        return [
-            self::TYPE_ENTITY,
-            self::TYPE_GROUP,
-        ];
-    }
-
 }

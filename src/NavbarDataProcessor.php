@@ -155,7 +155,7 @@ final class NavbarDataProcessor
         $element->type   = NavbarElement::TYPE_ENTITY;
         $element->entity = $entity;
 
-        if ($entity->isGroup())
+        if ($entity->group)
         {
             $element->type    = NavbarElement::TYPE_GROUP;
             $element->content = ($this->isFilterPid) ? [] : $this->elements($entity->id);

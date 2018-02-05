@@ -71,21 +71,14 @@ abstract class NavbarBuilderCore
     }
 
     /**
+     * @param mixed  $object
      * @param string $method
      *
      * @return string
      */
-    private function validateMethod($method)
+    private function validateMethod($object, $method)
     {
-        return in_array($method, $this->getValidMethods()) ? $method : 'renderEmptyString';
-    }
-
-    /**
-     * @return array
-     */
-    private function getValidMethods()
-    {
-        return array_unique(array_merge(NavbarElement::getTypes(), NavbarEntityCore::getTypes()));
+        return method_exists(get_class($object), $method) ? $method : 'renderEmptyString';
     }
 
     /**
@@ -101,7 +94,7 @@ abstract class NavbarBuilderCore
         {
             foreach ($elements as $element)
             {
-                $html .= $this->{$this->validateMethod($element->type)}($element);
+                $html .= $this->{$this->validateMethod($this, $element->type)}($element);
             }
         }
 
@@ -115,7 +108,7 @@ abstract class NavbarBuilderCore
      */
     protected function renderElementAsEntity(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($element->entity->type)}($element->entity);
+        return $this->{$this->validateMethod($this, $element->entity->type)}($element->entity);
     }
 
     /**
@@ -125,7 +118,7 @@ abstract class NavbarBuilderCore
      */
     protected function renderElementAsGroup(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($element->entity->type)}($element);
+        return $this->{$this->validateMethod($this, $element->entity->type)}($element);
     }
 
     /**

@@ -32,14 +32,14 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @var integer
      */
-    public $pid;
+    public $pid = 0;
 
     /**
      * A filter to grab what you need in one go.
      *
      * @var string
      */
-    public $filter;
+    public $filter = 'main';
 
     /**
      * Navbar entity type.
@@ -47,6 +47,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      * @var string
      */
     public $type;
+
+    /**
+     * Is this entity represents a group element?
+     *
+     * @var boolean
+     */
+    public $group = false;
 
     /**
      * Tag's body content.
@@ -68,6 +75,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      * @var string
      */
     public $href;
+
+    /**
+     * Is this link external or not, if it's a link entity?
+     *
+     * @var boolean
+     */
+    public $external = false;
 
     /**
      * Tag's class attribute.
@@ -105,51 +119,91 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     public $position;
 
     /**
-     * @var array
+     * @param integer $id
+     *
+     * @return $this
      */
-    public static $custom_types = [];
-
-    /**
-     * @var array
-     */
-    public static $custom_group_types = [];
-
-    /**
-     * @return array
-     */
-    final public static function getTypes()
+    public function id($id)
     {
-        $types = [
-            self::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            self::TYPE_BOOTSTRAP_LINK_EXTERNAL,
-            self::TYPE_BOOTSTRAP_NAVBAR,
-            self::TYPE_BOOTSTRAP_DROPDOWN,
-            self::TYPE_BOOTSTRAP_HEADER,
-            self::TYPE_BOOTSTRAP_SEPARATOR,
-        ];
+        $this->id = $id;
 
-        return array_unique(array_merge($types, NavbarEntityCore::$custom_types));
+        return $this;
+    }
+
+    /**
+     * @param integer $pid
+     *
+     * @return $this
+     */
+    public function pid($pid)
+    {
+        $this->pid = $pid;
+
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return $this
+     */
+    public function type($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function group()
+    {
+        $this->group = true;
+
+        return $this;
+    }
+
+    /**
+     * @param string $body
+     *
+     * @return $this
+     */
+    public function body($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * @param string $href
+     *
+     * @return $this
+     */
+    public function href($href)
+    {
+        $this->href = $href;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function external()
+    {
+        $this->external = true;
+
+        return $this;
     }
 
     /**
      * @return array
      */
-    final public static function getGroupTypes()
+    public function toArray()
     {
-        $group_types = [
-            self::TYPE_BOOTSTRAP_NAVBAR,
-            self::TYPE_BOOTSTRAP_DROPDOWN,
-        ];
-
-        return array_unique(array_merge($group_types, NavbarEntityCore::$custom_group_types));
-    }
-
-    /**
-     * @return boolean
-     */
-    final public function isGroup()
-    {
-        return in_array($this->type, NavbarEntityCore::getGroupTypes());
+        return get_object_vars($this);
     }
 
 }
