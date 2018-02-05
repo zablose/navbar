@@ -2,19 +2,28 @@
 
 use Zablose\Navbar\NavbarEntityCore;
 
-class NavbarEntityCoreTest extends PHPUnit_Framework_TestCase
+class NavbarEntityCoreTest extends PHPUnit\Framework\TestCase
 {
 
+    /**
+     * @throws Exception
+     */
     public function testGetTypes()
     {
         $this->assertEquals(8, count(NavbarTestEntity::getTypes()));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testGetGroupTypes()
     {
         $this->assertEquals(3, count(NavbarTestEntity::getGroupTypes()));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testIsGroup()
     {
         $entity = new NavbarTestEntity();

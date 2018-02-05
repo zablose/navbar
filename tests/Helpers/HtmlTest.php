@@ -2,9 +2,12 @@
 
 use Zablose\Navbar\Helpers\Html;
 
-class HtmlTest extends PHPUnit_Framework_TestCase
+class HtmlTest extends PHPUnit\Framework\TestCase
 {
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testTag()
     {
         return [
@@ -17,33 +20,38 @@ class HtmlTest extends PHPUnit_Framework_TestCase
      * @dataProvider dataProviderFor_testTag
      *
      * @param string $name
-     * @param array $attrs
+     * @param array  $attrs
      * @param string $body
      * @param string $expected
+     *
+     * @throws Exception
      */
     public function testTag($name, $attrs, $body, $expected)
     {
         $this->assertEquals($expected, Html::tag($name, $attrs, $body));
     }
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testAttrs()
     {
         return [
             [
                 ['class' => 'active'],
-                ' class="active"'
+                ' class="active"',
             ],
             [
                 ['class' => ''],
-                ''
+                '',
             ],
             [
                 ['class' => null],
-                ''
+                '',
             ],
             [
                 ['disabled'],
-                ' disabled="disabled"'
+                ' disabled="disabled"',
             ],
             [null, ''],
             ['', ''],
@@ -56,14 +64,19 @@ class HtmlTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataProviderFor_testAttrs
      *
-     * @param array $attrs
+     * @param array  $attrs
      * @param string $expected
+     *
+     * @throws Exception
      */
     public function testAttrs($attrs, $expected)
     {
         $this->assertEquals($expected, Html::attrs($attrs));
     }
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testPostfix()
     {
         return [
@@ -78,12 +91,17 @@ class HtmlTest extends PHPUnit_Framework_TestCase
      * @param string $string
      * @param string $postfix
      * @param string $expected
+     *
+     * @throws Exception
      */
     public function testPostfix($string, $postfix, $expected)
     {
         $this->assertEquals($expected, Html::postfix($string, $postfix));
     }
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testPrefix()
     {
         return [
@@ -98,6 +116,8 @@ class HtmlTest extends PHPUnit_Framework_TestCase
      * @param string $string
      * @param string $prefix
      * @param string $expected
+     *
+     * @throws Exception
      */
     public function testPrefix($string, $prefix, $expected)
     {

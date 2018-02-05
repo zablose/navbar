@@ -15,14 +15,19 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0"
+        "php": "^7.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {
-        "psr-0": {
-            "Zablose\\Navbar": "src/"
+        "psr-4": {
+            "Zablose\\Navbar\\": ""
         }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
     }
 }

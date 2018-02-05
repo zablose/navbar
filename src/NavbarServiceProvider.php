@@ -14,27 +14,27 @@ class NavbarServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../../views/', 'navbar');
+        $this->loadViewsFrom(__DIR__ . '/../views/', 'navbar');
 
         if (! $this->app->routesAreCached())
         {
-            require __DIR__ . '/../../routes.php';
+            require __DIR__ . '/../routes.php';
         }
 
         $this->publishes([
-            __DIR__ . '/../../config/navbar.php' => config_path('navbar.php'),
+            __DIR__ . '/../config/navbar.php' => config_path('navbar.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../../views/' => base_path('resources/views/vendor/zablose/navbar'),
+            __DIR__ . '/../views/' => base_path('resources/views/vendor/zablose/navbar'),
         ], 'views');
 
         $this->publishes([
-            __DIR__ . '/../../migrations/' => base_path('/database/migrations'),
+            __DIR__ . '/../migrations/' => base_path('/database/migrations'),
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/../../models/' => base_path('/app/Zablose/Navbar'),
+            __DIR__ . '/../models/' => base_path('/app/Zablose/Navbar'),
         ], 'models');
     }
 
@@ -45,7 +45,7 @@ class NavbarServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/navbar.php', 'navbar');
+        $this->mergeConfigFrom(__DIR__ . '/../config/navbar.php', 'navbar');
     }
 
 }

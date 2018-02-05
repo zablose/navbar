@@ -5,9 +5,12 @@ use Zablose\Navbar\NavbarBuilder;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\NavbarEntityCore;
 
-class NavbarBuilderTest extends PHPUnit_Framework_TestCase
+class NavbarBuilderTest extends PHPUnit\Framework\TestCase
 {
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testRender()
     {
         $data[] = [
@@ -17,11 +20,11 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
 
         $data[] = [
             'dropdown',
-            '<li class="dropdown">'.
-            '<a id="dropdown_1" class="dropdown-toggle test" data-toggle="dropdown" role="button" '.
-            'aria-haspopup="true" aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="fa">'.
-            '</span> Dropdown <span class="caret"></span></a>'.
-            '<ul class="dropdown-menu"></ul>'.
+            '<li class="dropdown">' .
+            '<a id="dropdown_1" class="dropdown-toggle test" data-toggle="dropdown" role="button" ' .
+            'aria-haspopup="true" aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="fa">' .
+            '</span> Dropdown <span class="caret"></span></a>' .
+            '<ul class="dropdown-menu"></ul>' .
             '</li>',
         ];
 
@@ -42,7 +45,7 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
 
         $data[] = [
             'external',
-            '<li title="Coding"><a href="http://laravel.com" target="_blank" class="lar">'.
+            '<li title="Coding"><a href="http://laravel.com" target="_blank" class="lar">' .
             '<span class="fa fa-book"></span> Laravel</a></li>',
         ];
 
@@ -58,13 +61,18 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
      * @dataProvider dataProviderFor_testRender
      *
      * @param string|integer $filterOrPid
-     * @param string $expected
+     * @param string         $expected
+     *
+     * @throws Exception
      */
     public function testRender($filterOrPid, $expected)
     {
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData()))->render($filterOrPid));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderWithRole()
     {
         $config = new NavbarConfig();
@@ -72,12 +80,15 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
         $config->roles([2, 4, 6]);
         $config->permissions([12]);
 
-        $expected = '<li title="Go Home!" class="active">'.
+        $expected = '<li title="Go Home!" class="active">' .
             '<a href="/home"><span class="fa"></span> Home</a></li>';
 
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('role'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderWithPermission()
     {
         $config = new NavbarConfig();
@@ -89,21 +100,27 @@ class NavbarBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('permission'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderToCheckIdenticalComparison()
     {
         $config = new NavbarConfig();
 
-        $expected = '<li class="dropdown">'.
-            '<a id="dropdown_1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" '.
-            'aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="caret"></span></a>'.
-            '<ul class="dropdown-menu">'.
-            '<li role="separator" class="divider"></li>'.
-            '<li><a href="/cool">Identical</a></li>'.
+        $expected = '<li class="dropdown">' .
+            '<a id="dropdown_1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" ' .
+            'aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="caret"></span></a>' .
+            '<ul class="dropdown-menu">' .
+            '<li role="separator" class="divider"></li>' .
+            '<li><a href="/cool">Identical</a></li>' .
             '</ul></li>';
 
         $this->assertEquals($expected, (new NavbarBuilder(new NavbarTestData(), $config))->render('identical'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderWithPrepareByFilterAsArray()
     {
         $config = new NavbarConfig();
@@ -326,6 +343,7 @@ class NavbarTestData implements NavbarDataContract
             {
                 $return = array_merge($return, $data[$filter]);
             }
+
             return $return;
         }
 

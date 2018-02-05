@@ -2,9 +2,12 @@
 
 use Zablose\Navbar\NavbarEntity;
 
-class NavbarEntityTest extends PHPUnit_Framework_TestCase
+class NavbarEntityTest extends PHPUnit\Framework\TestCase
 {
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_renderWithPrefixPostfix()
     {
         return [
@@ -23,6 +26,8 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
      * @param string $prefix
      * @param string $postfix
      * @param string $expected
+     *
+     * @throws Exception
      */
     public function testRenderWithPrefixPostfix($string, $prefix, $postfix, $expected)
     {
@@ -34,6 +39,9 @@ class NavbarEntityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $navbar->renderBody($prefix, $postfix));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderIcon()
     {
         $navbar = new NavbarEntity();

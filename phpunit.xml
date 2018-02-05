@@ -2,7 +2,6 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="vendor/autoload.php"
-         strict="true"
          verbose="true"
          colors="true"
          convertErrorsToExceptions="true"
@@ -22,9 +21,9 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory>src/Zablose/Navbar</directory>
+            <directory>src</directory>
             <exclude>
-                <file>src/Zablose/Navbar/NavbarServiceProvider.php</file>
+                <file>src/NavbarServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>

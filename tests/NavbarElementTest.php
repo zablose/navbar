@@ -2,9 +2,12 @@
 
 use Zablose\Navbar\NavbarElement;
 
-class NavbarElementTest extends PHPUnit_Framework_TestCase
+class NavbarElementTest extends PHPUnit\Framework\TestCase
 {
 
+    /**
+     * @return array
+     */
     public function dataProviderFor_testCheckAttributes()
     {
         return [
@@ -18,17 +21,22 @@ class NavbarElementTest extends PHPUnit_Framework_TestCase
      * @dataProvider dataProviderFor_testCheckAttributes
      *
      * @param string $name
+     *
+     * @throws Exception
      */
     public function testCheckAttributes($name)
     {
         $this->assertClassHasAttribute($name, NavbarElement::class);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testGetTypes()
     {
         $types = [
             'renderElementAsEntity',
-            'renderElementAsGroup'
+            'renderElementAsGroup',
         ];
 
         $this->assertEquals($types, NavbarElement::getTypes());
