@@ -8,7 +8,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false"
+         stopOnFailure="true"
          syntaxCheck="false"
          timeoutForSmallTests="1"
          timeoutForMediumTests="5"
@@ -23,11 +23,12 @@
         <whitelist>
             <directory>src</directory>
             <exclude>
+                <file>src/Demo/NavbarData.php</file>
                 <file>src/NavbarServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
     </logging>
 </phpunit>

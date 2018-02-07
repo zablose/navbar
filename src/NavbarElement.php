@@ -5,9 +5,6 @@ namespace Zablose\Navbar;
 class NavbarElement
 {
 
-    /**
-     * Keep in mind that values are also used as methods names by Navbar builder.
-     */
     const TYPE_ENTITY = 'renderElementAsEntity';
     const TYPE_GROUP  = 'renderElementAsGroup';
 
@@ -17,7 +14,7 @@ class NavbarElement
     public $type;
 
     /**
-     * @var NavbarEntity
+     * @var NavbarEntityCore
      */
     public $entity;
 

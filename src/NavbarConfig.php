@@ -3,6 +3,7 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
+use Zablose\Navbar\Demo\NavbarEntity;
 use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 
 class NavbarConfig implements NavbarConfigContract
@@ -100,7 +101,7 @@ class NavbarConfig implements NavbarConfigContract
             return $this->roles;
         }
 
-        $this->roles = (array)$roles;
+        $this->roles = (array) $roles;
 
         return $this;
     }
@@ -119,7 +120,7 @@ class NavbarConfig implements NavbarConfigContract
             return $this->permissions;
         }
 
-        $this->permissions = (array)$permissions;
+        $this->permissions = (array) $permissions;
 
         return $this;
     }

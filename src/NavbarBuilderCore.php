@@ -4,6 +4,7 @@ namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 abstract class NavbarBuilderCore
 {
@@ -71,17 +72,6 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * @param mixed  $object
-     * @param string $method
-     *
-     * @return string
-     */
-    private function validateMethod($object, $method)
-    {
-        return method_exists(get_class($object), $method) ? $method : 'renderEmptyString';
-    }
-
-    /**
      * @param NavbarElement[] $elements
      *
      * @return string
@@ -119,6 +109,29 @@ abstract class NavbarBuilderCore
     protected function renderElementAsGroup(NavbarElement $element)
     {
         return $this->{$this->validateMethod($this, $element->entity->type)}($element);
+    }
+
+    /**
+     * Check if the entity's href attribute matches the current path of the application.
+     *
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     *
+     * @return string
+     */
+    protected function isActive(NavbarEntityContract $entity)
+    {
+        return (trim($this->config->path(), '/') === trim($entity->href, '/'));
+    }
+
+    /**
+     * @param mixed  $object
+     * @param string $method
+     *
+     * @return string
+     */
+    private function validateMethod($object, $method)
+    {
+        return method_exists(get_class($object), $method) ? $method : 'renderEmptyString';
     }
 
     /**

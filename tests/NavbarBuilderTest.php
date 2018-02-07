@@ -1,9 +1,9 @@
 <?php
 
 use Zablose\Navbar\Contracts\NavbarDataContract;
-use Zablose\Navbar\NavbarBuilder;
+use Zablose\Navbar\Demo\NavbarBuilder;
+use Zablose\Navbar\Demo\NavbarEntity as NE;
 use Zablose\Navbar\NavbarConfig;
-use Zablose\Navbar\NavbarEntityCore;
 
 class NavbarBuilderTest extends PHPUnit\Framework\TestCase
 {
@@ -132,6 +132,21 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $navbar->prepare(['identical', 'relative'])->render('relative'));
     }
 
+    /**
+     * @throws Exception
+     */
+    public function testRenderBulmaMenu()
+    {
+        $config = new NavbarConfig();
+
+        $expected =
+            '<p class="menu-label">General</p><ul class="menu-list"><li><a href="/" class="active">Home</a></li></ul>';
+
+        $navbar = new NavbarBuilder(new NavbarTestData(), $config);
+
+        $this->assertEquals($expected, $navbar->render('bulma'));
+    }
+
 }
 
 class NavbarTestData implements NavbarDataContract
@@ -141,226 +156,140 @@ class NavbarTestData implements NavbarDataContract
     {
         $data = [];
 
-        $data['navbar'][] = [
-            'id'         => 1,
-            'pid'        => 0,
-            'filter'     => 'navbar',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_NAVBAR,
-            'group'      => true,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => 'nav navbar-nav',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['navbar'][] = (new NE())
+            ->setId(1)
+            ->setFilter('navbar')
+            ->setType(NE::TYPE_BOOTSTRAP_NAVBAR)
+            ->setGroup()
+            ->setClass('nav navbar-nav')
+            ->toArray();
 
-        $data['navbar'][] = [
-            'id'         => 2,
-            'pid'        => 1,
-            'filter'     => 'navbar',
-            'type'       => 'unknown',
-            'group'      => false,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['navbar'][] = (new NE())
+            ->setId(2)
+            ->setPid(1)
+            ->setFilter('navbar')
+            ->setType('unknown')
+            ->toArray();
 
-        $data['dropdown'][] = [
-            'id'         => 1,
-            'pid'        => 0,
-            'filter'     => 'dropdown',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_DROPDOWN,
-            'group'      => true,
-            'body'       => 'Dropdown',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => 'test',
-            'icon'       => 'fa',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['dropdown'][] = (new NE())
+            ->setId(1)
+            ->setFilter('dropdown')
+            ->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)
+            ->setGroup()
+            ->setBody('Dropdown')
+            ->setClass('test')
+            ->setIcon('fa')
+            ->toArray();
 
-        $data['header'][] = [
-            'id'         => 1,
-            'pid'        => 0,
-            'filter'     => 'header',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_HEADER,
-            'group'      => false,
-            'body'       => 'Header',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['header'][] = (new NE())
+            ->setId(1)
+            ->setFilter('header')
+            ->setType(NE::TYPE_BOOTSTRAP_HEADER)
+            ->setBody('Header')
+            ->toArray();
 
-        $data[1][] = [
-            'id'         => 2,
-            'pid'        => 1,
-            'filter'     => '',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_SEPARATOR,
-            'group'      => false,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data[1][] = (new NE())
+            ->setId(2)
+            ->setPid(1)
+            ->setFilter('')
+            ->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)
+            ->toArray();
 
-        $data[2][] = [
-            'id'         => 3,
-            'pid'        => 2,
-            'filter'     => '',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_NAVBAR,
-            'group'      => true,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => 'nav',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data[2][] = (new NE())
+            ->setId(3)
+            ->setPid(2)
+            ->setFilter('')
+            ->setType(NE::TYPE_BOOTSTRAP_NAVBAR)
+            ->setGroup()
+            ->setClass('nav')
+            ->toArray();
 
-        $data['external'][] = [
-            'id'         => 1,
-            'pid'        => 0,
-            'filter'     => 'external',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_EXTERNAL,
-            'group'      => false,
-            'body'       => 'Laravel',
-            'title'      => 'Coding',
-            'href'       => 'http://laravel.com',
-            'external'   => false,
-            'class'      => 'lar',
-            'icon'       => 'fa fa-book',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['external'][] = (new NE())
+            ->setId(1)
+            ->setFilter('external')
+            ->setType(NE::TYPE_BOOTSTRAP_LINK)
+            ->setBody('Laravel')
+            ->setTitle('Coding')
+            ->setHref('http://laravel.com')
+            ->setExternal()
+            ->setClass('lar')
+            ->setIcon('fa fa-book')
+            ->toArray();
 
-        $data['relative'][] = [
-            'id'         => 4,
-            'pid'        => 0,
-            'filter'     => 'relative',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            'group'      => false,
-            'body'       => 'Home',
-            'title'      => 'Go Home!',
-            'href'       => '/home',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => 'fa',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['relative'][] = (new NE())
+            ->setId(4)
+            ->setFilter('relative')
+            ->setType(NE::TYPE_BOOTSTRAP_LINK)
+            ->setBody('Home')
+            ->setTitle('Go Home!')
+            ->setHref('/home')
+            ->setIcon('fa')
+            ->toArray();
 
-        $data['role'][] = [
-            'id'         => 1,
-            'pid'        => 0,
-            'filter'     => 'role',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            'group'      => false,
-            'body'       => 'Home',
-            'title'      => 'Go Home!',
-            'href'       => '/home',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => 'fa',
-            'role'       => 4,
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['role'][] = (new NE())
+            ->setId(1)
+            ->setFilter('role')
+            ->setType(NE::TYPE_BOOTSTRAP_LINK)
+            ->setBody('Home')
+            ->setTitle('Go Home!')
+            ->setHref('/home')
+            ->setIcon('fa')
+            ->setRole(4)
+            ->toArray();
 
-        $data['permission'][] = [
-            'id'         => 1,
-            'pid'        => '0',
-            'filter'     => 'permission',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            'group'      => false,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => 12,
-            'position'   => '',
-        ];
+        $data['permission'][] = (new NE())
+            ->setId(1)
+            ->setFilter('permission')
+            ->setType(NE::TYPE_BOOTSTRAP_LINK)
+            ->setPermission(12)
+            ->toArray();
 
-        $data['identical'][] = [
-            'id'         => '1',
-            'pid'        => '0',
-            'filter'     => 'identical',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_DROPDOWN,
-            'group'      => true,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['identical'][] = (new NE())
+            ->setId(1)
+            ->setFilter('identical')
+            ->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)
+            ->setGroup()
+            ->toArray();
 
-        $data['identical'][] = [
-            'id'         => '2',
-            'pid'        => '1',
-            'filter'     => 'identical',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_SEPARATOR,
-            'group'      => false,
-            'body'       => '',
-            'title'      => '',
-            'href'       => '',
-            'external'   => false,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['identical'][] = (new NE())
+            ->setId(2)
+            ->setPid(1)
+            ->setFilter('identical')
+            ->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)
+            ->toArray();
 
-        $data['identical'][] = [
-            'id'         => 3,
-            'pid'        => '1',
-            'filter'     => 'identical',
-            'type'       => NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            'group'      => false,
-            'body'       => 'Identical',
-            'title'      => '',
-            'href'       => '/cool',
-            'external'   => true,
-            'class'      => '',
-            'icon'       => '',
-            'role'       => '',
-            'permission' => '',
-            'position'   => '',
-        ];
+        $data['identical'][] = (new NE())
+            ->setId(3)
+            ->setPid(1)
+            ->setFilter('identical')
+            ->setType(NE::TYPE_BOOTSTRAP_LINK)
+            ->setBody('Identical')
+            ->setHref('/cool')
+            ->setPosition(0)
+            ->toArray();
+
+        $data['bulma'][] = (new NE())
+            ->setId(1)
+            ->setFilter('bulma')
+            ->setType(NE::TYPE_BULMA_MENU_LABEL)
+            ->setBody('General')
+            ->toArray();
+
+        $data['bulma'][] = (new NE())
+            ->setId(2)
+            ->setFilter('bulma')
+            ->setType(NE::TYPE_BULMA_MENU_LIST)
+            ->setGroup()
+            ->toArray();
+
+        $data['bulma'][] = (new NE())
+            ->setId(3)
+            ->setPid(2)
+            ->setFilter('bulma')
+            ->setType(NE::TYPE_BULMA_MENU_LIST_LINK)
+            ->setBody('Home')
+            ->setHref('/')
+            ->toArray();
 
         if (is_array($filter_or_pid))
         {

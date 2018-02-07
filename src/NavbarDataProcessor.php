@@ -97,7 +97,7 @@ final class NavbarDataProcessor
         {
             $this->isFilterPid = true;
 
-            return (int)$filterOrPid;
+            return (int) $filterOrPid;
         }
 
         return 0;
@@ -114,19 +114,19 @@ final class NavbarDataProcessor
     {
         $navbars = [];
 
-        $pid = (int)$pid;
+        $pid = (int) $pid;
 
-        /** @var NavbarEntity $entity */
+        /** @var NavbarEntityCore|NavbarEntityContract $entity */
         foreach ($this->entities as $entity)
         {
-            if ((int)$entity->pid === $pid)
+            if ((int) $entity->pid === $pid)
             {
                 unset($this->entities[$entity->id]);
                 if ($pid === 0 && $entity->filter && ! $this->isFilterPid)
                 {
                     $navbars[$entity->filter][$entity->id] = $this->element($entity);
                 }
-                elseif ($this->isFilterPid)
+                else if ($this->isFilterPid)
                 {
                     $navbars[$entity->pid][$entity->id] = $this->element($entity);
                 }
@@ -145,7 +145,7 @@ final class NavbarDataProcessor
     /**
      * Form navigation element.
      *
-     * @param NavbarEntity|NavbarEntityContract $entity Navigation entity
+     * @param NavbarEntityCore|NavbarEntityContract $entity Navigation entity
      *
      * @return NavbarElement
      */
@@ -177,7 +177,7 @@ final class NavbarDataProcessor
 
         foreach ($raw_entities as $raw_entity)
         {
-            $raw_object = (object)$raw_entity;
+            $raw_object = (object) $raw_entity;
 
             if ($this->isAccessible($raw_object->role, $raw_object->permission))
             {

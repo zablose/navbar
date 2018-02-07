@@ -3,22 +3,13 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarEntityContract;
+use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 
 abstract class NavbarEntityCore implements NavbarEntityContract
 {
 
     use ConstructFromObjectOrArrayTrait;
-
-    /**
-     * Keep in mind that values are also used as methods names by Navbar builder.
-     */
-    const TYPE_BOOTSTRAP_LINK_INTERNAL = 'bootstrap_link_internal';
-    const TYPE_BOOTSTRAP_LINK_EXTERNAL = 'bootstrap_link_external';
-    const TYPE_BOOTSTRAP_NAVBAR        = 'bootstrap_navbar';
-    const TYPE_BOOTSTRAP_DROPDOWN      = 'bootstrap_dropdown';
-    const TYPE_BOOTSTRAP_HEADER        = 'bootstrap_header';
-    const TYPE_BOOTSTRAP_SEPARATOR     = 'bootstrap_separator';
 
     /**
      * Unique identifier.
@@ -123,7 +114,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @return $this
      */
-    public function id($id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -135,9 +126,21 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @return $this
      */
-    public function pid($pid)
+    public function setPid($pid)
     {
         $this->pid = $pid;
+
+        return $this;
+    }
+
+    /**
+     * @param string $filter
+     *
+     * @return $this
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
 
         return $this;
     }
@@ -147,7 +150,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @return $this
      */
-    public function type($type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -155,11 +158,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     }
 
     /**
+     * @param boolean $group
+     *
      * @return $this
      */
-    public function group()
+    public function setGroup($group = true)
     {
-        $this->group = true;
+        $this->group = $group;
 
         return $this;
     }
@@ -169,9 +174,21 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @return $this
      */
-    public function body($body)
+    public function setBody($body)
     {
         $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }
@@ -181,7 +198,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @return $this
      */
-    public function href($href)
+    public function setHref($href)
     {
         $this->href = $href;
 
@@ -189,13 +206,121 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     }
 
     /**
+     * @param boolean $external
+     *
      * @return $this
      */
-    public function external()
+    public function setExternal($external = true)
     {
-        $this->external = true;
+        $this->external = $external;
 
         return $this;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * @param string $icon
+     *
+     * @return $this
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @param string|integer $role
+     *
+     * @return $this
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @param string|integer $permission
+     *
+     * @return $this
+     */
+    public function setPermission($permission)
+    {
+        $this->permission = $permission;
+
+        return $this;
+    }
+
+    /**
+     * @param string|integer $position
+     *
+     * @return $this
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Render body with or without prefix and/or postfix.
+     *
+     * @param string $prefix
+     * @param string $postfix
+     *
+     * @return string
+     */
+    public function renderBody($prefix = null, $postfix = null)
+    {
+        return Html::postfix(Html::prefix($this->body, $prefix), $postfix);
+    }
+
+    /**
+     * @param string $app_url
+     *
+     * @return string
+     */
+    public function renderHref($app_url)
+    {
+        return $this->external ? $this->href : rtrim($app_url, '/') . '/' . ltrim(trim($this->href), '/');
+    }
+
+    /**
+     * Render class with or without prefix and/or postfix.
+     *
+     * @param string $prefix
+     * @param string $postfix
+     *
+     * @return string
+     */
+    public function renderClass($prefix = null, $postfix = null)
+    {
+        return Html::postfix(Html::prefix($this->class, $prefix), $postfix);
+    }
+
+    /**
+     * Render Icon.
+     *
+     * @return string
+     */
+    public function renderIcon()
+    {
+        return ($this->icon) ? '<span class="' . $this->icon . '"></span>' : '';
     }
 
     /**

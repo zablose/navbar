@@ -1,6 +1,6 @@
 <?php
 
-use Zablose\Navbar\NavbarEntity;
+use Zablose\Navbar\Demo\NavbarEntity;
 
 class NavbarEntityTest extends PHPUnit\Framework\TestCase
 {

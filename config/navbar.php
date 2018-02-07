@@ -26,6 +26,6 @@ return [
     /*
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      */
-    'navbar_entity_class'  => Zablose\Navbar\NavbarEntity::class,
+    'navbar_entity_class'  => Zablose\Navbar\Demo\NavbarEntity::class,
 
 ];
