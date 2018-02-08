@@ -1,11 +1,13 @@
 <?php
 
+namespace Zablose\Navbar\Tests;
+
 use Zablose\Navbar\Contracts\NavbarDataContract;
 use Zablose\Navbar\Demo\NavbarBuilder;
 use Zablose\Navbar\Demo\NavbarEntity as NE;
 use Zablose\Navbar\NavbarConfig;
 
-class NavbarBuilderTest extends PHPUnit\Framework\TestCase
+class NavbarBuilderTest extends TestCase
 {
 
     /**
@@ -63,7 +65,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
      * @param string|integer $filterOrPid
      * @param string         $expected
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRender($filterOrPid, $expected)
     {
@@ -71,7 +73,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRenderWithRole()
     {
@@ -87,7 +89,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRenderWithPermission()
     {
@@ -101,7 +103,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRenderToCheckIdenticalComparison()
     {
@@ -119,7 +121,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRenderWithPrepareByFilterAsArray()
     {
@@ -133,7 +135,7 @@ class NavbarBuilderTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRenderBulmaMenu()
     {

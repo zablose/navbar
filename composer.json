@@ -25,6 +25,11 @@
             "Zablose\\Navbar\\": ""
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Zablose\\Navbar\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

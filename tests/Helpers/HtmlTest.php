@@ -1,14 +1,17 @@
 <?php
 
-use Zablose\Navbar\Helpers\Html;
+namespace Zablose\Navbar\Tests\Helpers;
 
-class HtmlTest extends PHPUnit\Framework\TestCase
+use Zablose\Navbar\Helpers\Html;
+use Zablose\Navbar\Tests\TestCase;
+
+class HtmlTest extends TestCase
 {
 
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_tag_with_null_body()
     {
@@ -18,7 +21,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_tag_with_body()
     {
@@ -28,7 +31,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attribute_with_key_and_value()
     {
@@ -38,7 +41,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attribute_with_value()
     {
@@ -48,7 +51,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function ignore_attribute_with_key_and_empty_value()
     {
@@ -58,7 +61,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function ignore_attribute_with_key_and_null_value()
     {
@@ -68,7 +71,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function ignore_attribute_with_null_value()
     {
@@ -78,7 +81,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attributes_from_an_empty_string()
     {
@@ -88,7 +91,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attributes_from_an_integer()
     {
@@ -98,7 +101,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attributes_from_a_string()
     {
@@ -108,7 +111,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function render_attributes_from_an_empty_array()
     {
@@ -118,7 +121,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function postfix_a_string()
     {
@@ -128,7 +131,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function postfix_an_empty_string()
     {
@@ -138,7 +141,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function prefix_a_string()
     {
@@ -148,7 +151,7 @@ class HtmlTest extends PHPUnit\Framework\TestCase
     /**
      * @test
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function prefix_an_empty_string()
     {
