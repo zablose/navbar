@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 
-class NavbarData implements NavbarDataContract
+class NavbarRepo implements NavbarRepoContract
 {
 
     /**
@@ -19,29 +19,29 @@ class NavbarData implements NavbarDataContract
     }
 
     /**
-     * @param array|string|int|null $filter_or_pid
+     * @param array|string|int|null $filter
      * @param string|null           $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
+    public function getRawNavbarEntities($filter = null, $order_by = null)
     {
         $query  = 'SELECT * FROM `navbars`';
         $aWhere = [];
 
-        if (is_string($filter_or_pid))
+        if (is_string($filter))
         {
-            $aWhere[] = "`filter` = '$filter_or_pid'";
+            $aWhere[] = "`filter` = '$filter'";
         }
 
-        if (is_array($filter_or_pid))
+        if (is_array($filter))
         {
-            $aWhere[] = "`filter` IN ('" . implode("','", $filter_or_pid) . "')";
+            $aWhere[] = "`filter` IN ('" . implode("','", $filter) . "')";
         }
 
-        if (is_integer($filter_or_pid))
+        if (is_integer($filter))
         {
-            $aWhere[] = "`pid` = '$filter_or_pid'";
+            $aWhere[] = "`pid` = '$filter'";
         }
 
         if ($aWhere)

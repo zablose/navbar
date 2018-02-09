@@ -1,37 +1,37 @@
 <?php
 
-namespace Zablose\Navbar\Demo;
+namespace Zablose\Navbar\Tests;
 
 use DB;
 use Illuminate\Support\Collection;
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 
-class NavbarData implements NavbarDataContract
+class NavbarRepo implements NavbarRepoContract
 {
 
     /**
-     * @param array|string|int|null $filter_or_pid
+     * @param array|string|int|null $filter
      * @param string|null           $order_by
      *
      * @return Collection
      */
-    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
+    public function getRawNavbarEntities($filter = null, $order_by = null)
     {
         $query = DB::table('navbars');
 
-        if (is_string($filter_or_pid))
+        if (is_string($filter))
         {
-            $query->where('filter', $filter_or_pid);
+            $query->where('filter', $filter);
         }
 
-        if (is_array($filter_or_pid))
+        if (is_array($filter))
         {
-            $query->whereIn('filter', $filter_or_pid);
+            $query->whereIn('filter', $filter);
         }
 
-        if (is_integer($filter_or_pid))
+        if (is_integer($filter))
         {
-            $query->where('pid', $filter_or_pid);
+            $query->where('pid', $filter);
         }
 
         if ($order_by)

@@ -3,7 +3,7 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 abstract class NavbarBuilderCore
@@ -27,10 +27,10 @@ abstract class NavbarBuilderCore
     protected $config;
 
     /**
-     * @param NavbarDataContract   $data
+     * @param NavbarRepoContract   $data
      * @param NavbarConfigContract $config
      */
-    public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
+    public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
         $this->processor = new NavbarDataProcessor($data, $config);
         $this->config    = $this->processor->config;

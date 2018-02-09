@@ -1,6 +1,6 @@
 <?php
 
-namespace Zablose\Navbar\Demo;
+namespace Zablose\Navbar\Tests;
 
 use Zablose\Navbar\NavbarBuilderCore;
 use Zablose\Navbar\Traits\BootstrapRendersTrait;

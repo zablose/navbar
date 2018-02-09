@@ -4,9 +4,9 @@ namespace App\Zablose\Navbar;
 
 use DB;
 use Illuminate\Support\Collection;
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 
-class NavbarData implements NavbarDataContract
+class NavbarRepo implements NavbarRepoContract
 {
 
     /**
@@ -20,9 +20,11 @@ class NavbarData implements NavbarDataContract
      *         'pid'        => 0,
      *         'filter'     => 'main',
      *         'type'       => 'bootstrap_navbar',
+     *         'group'      => true,
      *         'body'       => '',
      *         'title'      => '',
      *         'href'       => '',
+     *         'external'   => false,
      *         'class'      => 'nav navbar-nav',
      *         'icon'       => '',
      *         'role'       => '',
@@ -30,28 +32,28 @@ class NavbarData implements NavbarDataContract
      *         'position'   => '',
      *     ]
      *
-     * @param array|string|int|null $filter_or_pid Filter(s) or parent ID.
-     * @param string|null           $order_by      Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string|int|null $filter   Filter(s) or parent ID.
+     * @param string|null           $order_by Order by 'culumn:direction' like 'id:asc', 'position:desc', etc.
      *
      * @return Collection
      */
-    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
+    public function getRawNavbarEntities($filter = null, $order_by = null)
     {
         $query = DB::table('navbars');
 
-        if (is_string($filter_or_pid))
+        if (is_string($filter))
         {
-            $query->where('filter', $filter_or_pid);
+            $query->where('filter', $filter);
         }
 
-        if (is_array($filter_or_pid))
+        if (is_array($filter))
         {
-            $query->whereIn('filter', $filter_or_pid);
+            $query->whereIn('filter', $filter);
         }
 
-        if (is_integer($filter_or_pid))
+        if (is_integer($filter))
         {
-            $query->where('pid', $filter_or_pid);
+            $query->where('pid', $filter);
         }
 
         if ($order_by)

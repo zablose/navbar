@@ -2,10 +2,9 @@
 
 namespace Zablose\Navbar\Tests;
 
-use Zablose\Navbar\Contracts\NavbarDataContract;
-use Zablose\Navbar\Demo\NavbarBuilder;
-use Zablose\Navbar\Demo\NavbarEntity as NE;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\NavbarConfig;
+use Zablose\Navbar\Tests\NavbarEntity as NE;
 
 class NavbarBuilderTest extends TestCase
 {
@@ -151,10 +150,10 @@ class NavbarBuilderTest extends TestCase
 
 }
 
-class NavbarTestData implements NavbarDataContract
+class NavbarTestData implements NavbarRepoContract
 {
 
-    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null)
+    public function getRawNavbarEntities($filters = null, $order_by = null)
     {
         $data = [];
 
@@ -293,10 +292,10 @@ class NavbarTestData implements NavbarDataContract
             ->setHref('/')
             ->toArray();
 
-        if (is_array($filter_or_pid))
+        if (is_array($filters))
         {
             $return = [];
-            foreach ($filter_or_pid as $filter)
+            foreach ($filters as $filter)
             {
                 $return = array_merge($return, $data[$filter]);
             }
@@ -304,7 +303,7 @@ class NavbarTestData implements NavbarDataContract
             return $return;
         }
 
-        return $data[$filter_or_pid];
+        return $data[$filters];
     }
 
 }

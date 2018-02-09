@@ -2,7 +2,7 @@
 
 namespace Zablose\Navbar;
 
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
 
@@ -10,9 +10,9 @@ final class NavbarDataProcessor
 {
 
     /**
-     * @var NavbarDataContract
+     * @var NavbarRepoContract
      */
-    private $data;
+    private $repo;
 
     /**
      * Navbar entities.
@@ -31,7 +31,7 @@ final class NavbarDataProcessor
     /**
      * @var boolean
      */
-    private $isFilterPid;
+    private $filter_by_pid;
 
     /**
      * Navbar data configuration.
@@ -41,25 +41,25 @@ final class NavbarDataProcessor
     public $config;
 
     /**
-     * @param NavbarDataContract   $data
+     * @param NavbarRepoContract   $repo
      * @param NavbarConfigContract $config
      */
-    public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
+    public function __construct(NavbarRepoContract $repo, NavbarConfigContract $config = null)
     {
-        $this->data   = $data;
+        $this->repo   = $repo;
         $this->config = ($config) ?: new NavbarConfig();
     }
 
     /**
      * Get navigation elements by filter or parent ID.
      *
-     * @param string|integer $filterOrPid
+     * @param string|integer $filter
      *
      * @return NavbarElement[]|NavbarElement
      */
-    public function get($filterOrPid = null)
+    public function get($filter = null)
     {
-        return (isset($this->elements[$filterOrPid])) ? $this->elements[$filterOrPid] : [];
+        return (isset($this->elements[$filter])) ? $this->elements[$filter] : [];
     }
 
     /**
@@ -67,37 +67,37 @@ final class NavbarDataProcessor
      * Filtered by filter(s) or parent ID.
      * Ordered by 'column:direction'.
      *
-     * @param array|string|integer $filterOrPid Filter or parent ID.
-     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter   Filter or parent ID.
+     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return NavbarDataProcessor
      */
-    public function prepare($filterOrPid = null, $order_by = null)
+    public function prepare($filter = null, $order_by = null)
     {
         if (! $order_by)
         {
             $order_by = $this->config->order_by;
         }
 
-        $this->entities = $this->validate($this->data->getRawNavbarEntities($filterOrPid, $order_by));
+        $this->entities = $this->validate($this->repo->getRawNavbarEntities($filter, $order_by));
 
-        $this->elements = $this->elements($this->getValidPid($filterOrPid));
+        $this->elements = $this->elements($this->getValidPid($filter));
 
         return $this;
     }
 
     /**
-     * @param mixed $filterOrPid
+     * @param mixed $filter
      *
      * @return integer
      */
-    private function getValidPid($filterOrPid)
+    private function getValidPid($filter)
     {
-        if ((is_int($filterOrPid) && $filterOrPid >= 0))
+        if ((is_int($filter) && $filter >= 0))
         {
-            $this->isFilterPid = true;
+            $this->filter_by_pid = true;
 
-            return (int) $filterOrPid;
+            return (int) $filter;
         }
 
         return 0;
@@ -122,11 +122,11 @@ final class NavbarDataProcessor
             if ((int) $entity->pid === $pid)
             {
                 unset($this->entities[$entity->id]);
-                if ($pid === 0 && $entity->filter && ! $this->isFilterPid)
+                if ($pid === 0 && $entity->filter && ! $this->filter_by_pid)
                 {
                     $navbars[$entity->filter][$entity->id] = $this->element($entity);
                 }
-                else if ($this->isFilterPid)
+                else if ($this->filter_by_pid)
                 {
                     $navbars[$entity->pid][$entity->id] = $this->element($entity);
                 }
@@ -137,7 +137,7 @@ final class NavbarDataProcessor
             }
         }
 
-        $this->isFilterPid = false;
+        $this->filter_by_pid = false;
 
         return $navbars;
     }
@@ -158,7 +158,7 @@ final class NavbarDataProcessor
         if ($entity->group)
         {
             $element->type    = NavbarElement::TYPE_GROUP;
-            $element->content = ($this->isFilterPid) ? [] : $this->elements($entity->id);
+            $element->content = ($this->filter_by_pid) ? [] : $this->elements($entity->id);
         }
 
         return $element;
