@@ -18,6 +18,7 @@
         "php": "^7.1"
     },
     "require-dev": {
+        "illuminate/database": "^5.6",
         "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {

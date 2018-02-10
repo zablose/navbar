@@ -107,7 +107,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @var integer
      */
-    public $position;
+    public $position = 0;
 
     /**
      * Render body with or without prefix and/or postfix.

@@ -2,36 +2,56 @@
 
 namespace Zablose\Navbar\Tests;
 
-use DB;
-use Illuminate\Support\Collection;
+use PDO;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
 
 class NavbarRepo implements NavbarRepoContract
 {
 
     /**
+     * @var PDO
+     */
+    private $db;
+
+    /**
+     * NavbarRepo constructor.
+     *
+     * @param PDO $db
+     */
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+    }
+
+    /**
      * @param array|string|int|null $filter
      * @param string|null           $order_by
      *
-     * @return Collection
+     * @return array
      */
     public function getRawNavbarEntities($filter = null, $order_by = null)
     {
-        $query = DB::table('navbars');
+        $query  = 'SELECT * FROM `' . Table::NAVBARS . '`';
+        $aWhere = [];
 
         if (is_string($filter))
         {
-            $query->where('filter', $filter);
+            $aWhere[] = "`filter` = '$filter'";
         }
 
         if (is_array($filter))
         {
-            $query->whereIn('filter', $filter);
+            $aWhere[] = "`filter` IN ('" . implode("','", $filter) . "')";
         }
 
         if (is_integer($filter))
         {
-            $query->where('pid', $filter);
+            $aWhere[] = "`pid` = '$filter'";
+        }
+
+        if ($aWhere)
+        {
+            $query .= ' WHERE ' . implode(' AND ', $aWhere);
         }
 
         if ($order_by)
@@ -40,11 +60,11 @@ class NavbarRepo implements NavbarRepoContract
 
             if (isset($order[1]) && in_array($order[1], ['asc', 'desc']))
             {
-                $query->orderBy($order[0], $order[1]);
+                $query .= " ORDER BY `$order[0]` " . strtoupper($order[1]);
             }
         }
 
-        return $query->get();
+        return $this->db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
     }
 
 }
