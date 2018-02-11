@@ -1,14 +1,14 @@
 <?php
 
-use Zablose\Navbar\NavbarEntityCore;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Zablose\Navbar\Tests\NavbarEntity;
 
 class CreateNavbarsTable extends Migration
 {
 
-    const TABLE_NAME = 'zablose_navbars';
+    const TABLE_NAME = 'navbars';
 
     /**
      * Run the migrations.
@@ -19,21 +19,27 @@ class CreateNavbarsTable extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table)
         {
+            $table->charset   = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
+
             $table->increments('id');
 
             $table->integer('pid')->unsigned()->default(0);
             $table->string('filter', 32)->nullable();
-            $table->string('type', 32)->default(NavbarEntityCore::TYPE_BOOTSTRAP_LINK_INTERNAL);
+            $table->string('type', 32)->default(NavbarEntity::TYPE_BOOTSTRAP_LINK);
+            $table->boolean('group')->default(false);
             $table->string('body', 64)->nullable();
             $table->string('title')->nullable();
             $table->string('href', 2000)->nullable();
+            $table->boolean('external')->default(false);
             $table->string('class')->nullable();
             $table->string('icon')->nullable();
-            $table->integer('role')->unsigned()->default(0);
-            $table->integer('permission')->unsigned()->default(0);
+            $table->string('role')->nullable();
+            $table->string('permission')->nullable();
             $table->integer('position')->unsigned()->default(0);
 
-            $table->timestamps();
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
