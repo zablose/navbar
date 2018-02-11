@@ -69,60 +69,67 @@ class NavbarConfig implements NavbarConfigContract
     protected $permissions = [];
 
     /**
-     * Set or get current path of the application.
+     * Set current path of the application.
      *
      * @param string $path
      *
-     * @return NavbarConfigContract|string
+     * @return $this
      */
-    public function path($path = null)
+    public function setPath($path)
     {
-        if (! $path)
-        {
-            return $this->path;
-        }
-
         $this->path = $path;
 
         return $this;
     }
 
     /**
-     * Set or get roles of the logged user.
+     * @param array $roles An array of strings or integers.
      *
-     * @param array|string $roles An array of strings or integers.
-     *
-     * @return NavbarConfigContract|array
+     * @return $this
      */
-    public function roles($roles = null)
+    public function setRoles($roles)
     {
-        if (! $roles)
-        {
-            return $this->roles;
-        }
-
-        $this->roles = (array) $roles;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * Set or get permissions of the logged user.
+     * @param array $permissions An array of strings or integers.
      *
-     * @param array|string $permissions An array of strings or integers.
-     *
-     * @return NavbarConfigContract|array
+     * @return $this
      */
-    public function permissions($permissions = null)
+    public function setPermissions($permissions)
     {
-        if (! $permissions)
-        {
-            return $this->permissions;
-        }
-
-        $this->permissions = (array) $permissions;
+        $this->permissions = $permissions;
 
         return $this;
+    }
+
+    /**
+     * Get current path of the application.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
     }
 
 }

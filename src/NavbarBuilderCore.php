@@ -39,34 +39,34 @@ abstract class NavbarBuilderCore
     /**
      * Render navigation entities to the HTML string.
      *
-     * @param array|string|integer $filterOrPid Filter or parent ID.
-     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter   Filter or parent ID.
+     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return string
      */
-    final public function render($filterOrPid, $order_by = null)
+    final public function render($filter = 'main', $order_by = null)
     {
-        if (! $this->prepared || is_integer($filterOrPid))
+        if (! $this->prepared || is_integer($filter))
         {
-            $this->prepare($filterOrPid, $order_by);
+            $this->prepare($filter, $order_by);
         }
 
-        return $this->renderElements($this->processor->get($filterOrPid));
+        return $this->renderElements($this->processor->get($filter));
     }
 
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param array|string|integer $filterOrPid Filter or parent ID.
-     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter   Filter or parent ID.
+     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
      *
      * @return NavbarBuilderCore
      */
-    final public function prepare($filterOrPid = null, $order_by = null)
+    final public function prepare($filter = null, $order_by = null)
     {
         $this->prepared = true;
 
-        $this->processor->prepare($filterOrPid, $order_by);
+        $this->processor->prepare($filter, $order_by);
 
         return $this;
     }
@@ -120,7 +120,7 @@ abstract class NavbarBuilderCore
      */
     protected function isActive(NavbarEntityContract $entity)
     {
-        return (trim($this->config->path(), '/') === trim($entity->href, '/'));
+        return (trim($this->config->getPath(), '/') === trim($entity->href, '/'));
     }
 
     /**

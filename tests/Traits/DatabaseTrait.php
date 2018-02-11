@@ -1,6 +1,6 @@
 <?php
 
-namespace Zablose\Navbar\Tests;
+namespace Zablose\Navbar\Tests\Traits;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
@@ -8,8 +8,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Grammars\SQLiteGrammar;
 use PDO;
 use Zablose\Navbar\NavbarConfig;
+use Zablose\Navbar\Tests\NavbarBuilder;
+use Zablose\Navbar\Tests\NavbarRepo;
+use Zablose\Navbar\Tests\Table;
 
-class DbTestCase extends TestCase
+trait DatabaseTrait
 {
 
     /**
@@ -103,6 +106,16 @@ class DbTestCase extends TestCase
     protected function render($filter = 'main', $order_by = null)
     {
         return (new NavbarBuilder(new NavbarRepo($this->pdo()), new NavbarConfig()))->render($filter, $order_by);
+    }
+
+    /**
+     * @param NavbarConfig|null $config
+     *
+     * @return NavbarBuilder
+     */
+    protected function builder($config = null)
+    {
+        return (new NavbarBuilder(new NavbarRepo($this->pdo()), $config ?: new NavbarConfig()));
     }
 
     public function tearDown()

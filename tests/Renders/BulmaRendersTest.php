@@ -3,10 +3,13 @@
 namespace Zablose\Navbar\Tests\Renders;
 
 use Zablose\Navbar\Tests\NavbarEntity as NE;
-use Zablose\Navbar\Tests\DbTestCase;
+use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Tests\Traits\DatabaseTrait;
 
-class BulmaRendersTest extends DbTestCase
+class BulmaRendersTest extends TestCase
 {
+
+    use DatabaseTrait;
 
     /**
      * @test

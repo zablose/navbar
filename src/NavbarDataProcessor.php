@@ -36,7 +36,7 @@ final class NavbarDataProcessor
     /**
      * Navbar data configuration.
      *
-     * @var NavbarConfigContract
+     * @var NavbarConfig|NavbarConfigContract
      */
     public $config;
 
@@ -126,13 +126,16 @@ final class NavbarDataProcessor
                 {
                     $navbars[$entity->filter][$entity->id] = $this->element($entity);
                 }
-                else if ($this->filter_by_pid)
-                {
-                    $navbars[$entity->pid][$entity->id] = $this->element($entity);
-                }
                 else
                 {
-                    $navbars[$entity->id] = $this->element($entity);
+                    if ($this->filter_by_pid)
+                    {
+                        $navbars[$entity->pid][$entity->id] = $this->element($entity);
+                    }
+                    else
+                    {
+                        $navbars[$entity->id] = $this->element($entity);
+                    }
                 }
             }
         }
@@ -181,7 +184,8 @@ final class NavbarDataProcessor
 
             if ($this->isAccessible($raw_object->role, $raw_object->permission))
             {
-                $entities[$raw_object->id] = new $this->config->navbar_entity_class($raw_entity);
+                $class                     = $this->config->navbar_entity_class;
+                $entities[$raw_object->id] = new $class($raw_entity);
             }
         }
 
@@ -210,7 +214,7 @@ final class NavbarDataProcessor
      */
     private function hasRole($role)
     {
-        return in_array($role, $this->config->roles());
+        return in_array($role, $this->config->getRoles());
     }
 
     /**
@@ -222,7 +226,7 @@ final class NavbarDataProcessor
      */
     private function hasPermission($permission)
     {
-        return in_array($permission, $this->config->permissions());
+        return in_array($permission, $this->config->getPermissions());
     }
 
 }
