@@ -35,6 +35,19 @@ trait BulmaRendersTrait
     }
 
     /**
+     * @param NavbarElement $element
+     *
+     * @return string
+     */
+    protected function bulma_menu_sublist(NavbarElement $element)
+    {
+        return Html::tag('li', [],
+            $this->renderLink($element->entity) .
+            Html::tag('ul', [], $this->renderElements($element->content))
+        );
+    }
+
+    /**
      * @param NavbarEntityCore|NavbarEntityContract $entity
      *
      * @return string

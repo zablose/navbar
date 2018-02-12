@@ -49,4 +49,31 @@ class BulmaRendersTest extends TestCase
         $this->assertSame($expected, $this->render());
     }
 
+    /**
+     * @test
+     *
+     * @throws \Exception
+     */
+    public function render_menu_sublist()
+    {
+        $link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LIST_LINK);
+        $about = (new NE())->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
+
+        $this->insert([
+            $about->setId(5)->setBody('About')->setHref('/about')->toArray(),
+            $link->setId(6)->setPid($about->id)->setBody('Me')->setHref('/about/me')->toArray(),
+            $link->setId(7)->setPid($about->id)->setBody('Tech')->setHref('/about/tech')->toArray(),
+        ]);
+
+        $this->assertSame(
+            '<li><a href="/about">About</a>' .
+            '<ul>'
+            . '<li><a href="/about/me">Me</a></li>'
+            . '<li><a href="/about/tech">Tech</a></li>' .
+            '</ul>' .
+            '</li>',
+            $this->render()
+        );
+    }
+
 }

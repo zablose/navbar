@@ -7,6 +7,7 @@ interface BulmaConstantsContract
 
     const TYPE_BULMA_MENU_LABEL     = 'bulma_menu_label';
     const TYPE_BULMA_MENU_LIST      = 'bulma_menu_list';
+    const TYPE_BULMA_MENU_SUBLIST   = 'bulma_menu_sublist';
     const TYPE_BULMA_MENU_LIST_LINK = 'bulma_menu_list_link';
 
 }
