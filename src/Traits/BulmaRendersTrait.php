@@ -15,11 +15,11 @@ trait BulmaRendersTrait
      *
      * @return string
      */
-    protected function bulma_menu_label(NavbarEntityContract $entity)
+    public function bulma_menu_label(NavbarEntityContract $entity)
     {
-        $attrs['class'] = $entity->renderClass('menu-label');
+        $attrs['class'] = $this->renderClass($entity, 'menu-label');
 
-        return Html::tag('p', $attrs, $entity->renderBody($entity->renderIcon()));
+        return Html::tag('p', $attrs, $this->renderBody($entity, $this->renderIcon($entity)));
     }
 
     /**
@@ -27,9 +27,9 @@ trait BulmaRendersTrait
      *
      * @return string
      */
-    protected function bulma_menu_list(NavbarElement $element)
+    public function bulma_menu_list(NavbarElement $element)
     {
-        $attrs['class'] = $element->entity->renderClass('menu-list');
+        $attrs['class'] = $this->renderClass($element->entity, 'menu-list');
 
         return Html::tag('ul', $attrs, $this->renderElements($element->content));
     }
@@ -39,10 +39,10 @@ trait BulmaRendersTrait
      *
      * @return string
      */
-    protected function bulma_menu_sublist(NavbarElement $element)
+    public function bulma_menu_sublist(NavbarElement $element)
     {
         return Html::tag('li', [],
-            $this->renderLink($element->entity) .
+            $this->renderBulmaLink($element->entity) .
             Html::tag('ul', [], $this->renderElements($element->content))
         );
     }
@@ -52,9 +52,21 @@ trait BulmaRendersTrait
      *
      * @return string
      */
-    protected function bulma_menu_list_link(NavbarEntityContract $entity)
+    public function bulma_menu_link(NavbarEntityContract $entity)
     {
-        return Html::tag('li', [], $this->renderLink($entity));
+
+        return Html::tag('li', [], $this->renderBulmaLink($entity));
+    }
+
+    /**
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param array                                 $attrs_overwrite
+     *
+     * @return string
+     */
+    protected function renderBulmaLink(NavbarEntityContract $entity, $attrs_overwrite = [])
+    {
+        return $this->renderLink($entity, 'is-active', $attrs_overwrite);
     }
 
 }

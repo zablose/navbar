@@ -3,7 +3,6 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarEntityContract;
-use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 
 abstract class NavbarEntityCore implements NavbarEntityContract
@@ -108,51 +107,5 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      * @var integer
      */
     public $position = 0;
-
-    /**
-     * Render body with or without prefix and/or postfix.
-     *
-     * @param string $prefix
-     * @param string $postfix
-     *
-     * @return string
-     */
-    public function renderBody($prefix = null, $postfix = null)
-    {
-        return Html::postfix(Html::prefix($this->body, $prefix), $postfix);
-    }
-
-    /**
-     * @param string $app_url
-     *
-     * @return string
-     */
-    public function renderHref($app_url)
-    {
-        return $this->external ? $this->href : rtrim($app_url, '/') . '/' . ltrim(trim($this->href), '/');
-    }
-
-    /**
-     * Render class with or without prefix and/or postfix.
-     *
-     * @param string $prefix
-     * @param string $postfix
-     *
-     * @return string
-     */
-    public function renderClass($prefix = null, $postfix = null)
-    {
-        return Html::postfix(Html::prefix($this->class, $prefix), $postfix);
-    }
-
-    /**
-     * Render Icon.
-     *
-     * @return string
-     */
-    public function renderIcon()
-    {
-        return ($this->icon) ? '<span class="' . $this->icon . '"></span>' : '';
-    }
 
 }

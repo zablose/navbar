@@ -10,15 +10,67 @@ trait CommonRendersTrait
 {
 
     /**
+     * Render body with or without prefix and/or postfix.
+     *
      * @param NavbarEntityCore|NavbarEntityContract $entity
-     * @param array                                 $attrs_overwrite
-     * @param string                                $tag_name
+     * @param string                                $prefix
+     * @param string                                $postfix
      *
      * @return string
      */
-    protected function renderLink(NavbarEntityContract $entity, $attrs_overwrite = [], $tag_name = 'a')
+    protected function renderBody($entity, $prefix = null, $postfix = null)
     {
-        $attrs['href'] = $entity->renderHref($this->config->app_url);
+        return Html::postfix(Html::prefix($entity->body, $prefix), $postfix);
+    }
+
+    /**
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     *
+     * @return string
+     */
+    protected function renderHref(NavbarEntityContract $entity)
+    {
+        return $entity->external
+            ? $entity->href
+            : rtrim($this->config->app_url, '/') . '/' . ltrim(trim($entity->href), '/');
+    }
+
+    /**
+     * Render class with or without prefix and/or postfix.
+     *
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param string                                $prefix
+     * @param string                                $postfix
+     *
+     * @return string
+     */
+    protected function renderClass($entity, $prefix = null, $postfix = null)
+    {
+        return Html::postfix(Html::prefix($entity->class, $prefix), $postfix);
+    }
+
+    /**
+     * Render Icon.
+     *
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     *
+     * @return string
+     */
+    protected function renderIcon(NavbarEntityContract $entity)
+    {
+        return $entity->icon ? '<span class="' . $entity->icon . '"></span>' : '';
+    }
+
+    /**
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param string                                $active_link_class
+     * @param array                                 $attrs_overwrite
+     *
+     * @return string
+     */
+    protected function renderLink(NavbarEntityContract $entity, $active_link_class, $attrs_overwrite = [])
+    {
+        $attrs['href'] = $this->renderHref($entity);
 
         if ($entity->external)
         {
@@ -26,11 +78,16 @@ trait CommonRendersTrait
             $attrs['rel']    = 'noopener';
         }
 
-        $attrs['class'] = $this->isActive($entity)
-            ? $entity->renderClass($this->config->active_link_class)
-            : $entity->renderClass();
+        if ($class = $this->renderClass($entity, $this->isActive($entity) ? $active_link_class : null))
+        {
+            $attrs['class'] = $class;
+        }
 
-        return Html::tag($tag_name, array_merge($attrs, $attrs_overwrite), $entity->renderBody($entity->renderIcon()));
+        return Html::tag(
+            'a',
+            array_merge($attrs, $attrs_overwrite),
+            $this->renderBody($entity, $this->renderIcon($entity))
+        );
     }
 
 }

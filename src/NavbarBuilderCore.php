@@ -2,6 +2,7 @@
 
 namespace Zablose\Navbar;
 
+use ReflectionMethod;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
@@ -84,7 +85,7 @@ abstract class NavbarBuilderCore
         {
             foreach ($elements as $element)
             {
-                $html .= $this->{$this->validateMethod($this, $element->type)}($element);
+                $html .= $this->{$element->type}($element);
             }
         }
 
@@ -131,7 +132,9 @@ abstract class NavbarBuilderCore
      */
     private function validateMethod($object, $method)
     {
-        return method_exists(get_class($object), $method) ? $method : 'renderEmptyString';
+        return method_exists(get_class($object), $method) && (new ReflectionMethod($object, $method))->isPublic()
+            ? $method
+            : 'renderEmptyString';
     }
 
     /**

@@ -33,7 +33,7 @@ class BulmaRendersTest extends TestCase
     public function render_menu()
     {
         $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
-        $link = (new NE())->setPid(1)->setType(NE::TYPE_BULMA_MENU_LIST_LINK);
+        $link = (new NE())->setPid(1)->setType(NE::TYPE_BULMA_MENU_LINK);
 
         $this->insert([
             $list->toArray(),
@@ -42,7 +42,7 @@ class BulmaRendersTest extends TestCase
         ]);
 
         $expected = '<ul class="menu-list">'
-            . '<li><a href="/" class="active">Home</a></li>'
+            . '<li><a href="/" class="is-active">Home</a></li>'
             . '<li><a href="https://vuejs.org/" target="_blank" rel="noopener">Company</a></li>'
             . '</ul>';
 
@@ -56,7 +56,7 @@ class BulmaRendersTest extends TestCase
      */
     public function render_menu_sublist()
     {
-        $link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LIST_LINK);
+        $link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LINK);
         $about = (new NE())->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
 
         $this->insert([

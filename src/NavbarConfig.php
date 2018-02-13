@@ -27,13 +27,6 @@ class NavbarConfig implements NavbarConfigContract
     public $order_by;
 
     /**
-     * Tag's class attribute value for an active link.
-     *
-     * @var string
-     */
-    public $active_link_class = 'active';
-
-    /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      *
      * @var string

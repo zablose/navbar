@@ -10,7 +10,7 @@ class NE extends \Zablose\Navbar\Tests\NavbarEntity
 
 $label = (new NE())->setType(NE::TYPE_BULMA_MENU_LABEL);
 $list  = (new NE())->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
-$link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LIST_LINK);
+$link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LINK);
 
 return [
     $label->setId(1)->setBody('General')->toArray(),
