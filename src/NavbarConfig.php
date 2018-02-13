@@ -34,13 +34,6 @@ class NavbarConfig implements NavbarConfigContract
     public $active_link_class = 'active';
 
     /**
-     * Tag's target attribute value for an external link.
-     *
-     * @var string
-     */
-    public $external_link_target = '_blank';
-
-    /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      *
      * @var string

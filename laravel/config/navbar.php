@@ -19,11 +19,6 @@ return [
     'active_link_class'    => 'active',
 
     /*
-     * Tag's target attribute value for an external link.
-     */
-    'external_link_target' => '_blank',
-
-    /*
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      */
     'navbar_entity_class'  => Zablose\Navbar\Tests\NavbarEntity::class,

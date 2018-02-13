@@ -117,7 +117,7 @@ class BootstrapRendersTest extends TestCase
                 ->setHref('http://laravel.com')->setExternal()->setClass('lar')->setIcon('fa fa-book')->toArray(),
         ]);
 
-        $expected = '<li title="Coding"><a href="http://laravel.com" target="_blank" class="lar">' .
+        $expected = '<li title="Coding"><a href="http://laravel.com" target="_blank" rel="noopener" class="lar">' .
             '<span class="fa fa-book"></span> Laravel</a></li>';
 
         $this->assertSame($expected, $this->render());

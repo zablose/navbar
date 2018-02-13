@@ -43,7 +43,7 @@ class BulmaRendersTest extends TestCase
 
         $expected = '<ul class="menu-list">'
             . '<li><a href="/" class="active">Home</a></li>'
-            . '<li><a href="https://vuejs.org/" target="_blank">Company</a></li>'
+            . '<li><a href="https://vuejs.org/" target="_blank" rel="noopener">Company</a></li>'
             . '</ul>';
 
         $this->assertSame($expected, $this->render());

@@ -22,7 +22,8 @@ trait CommonRendersTrait
 
         if ($entity->external)
         {
-            $attrs['target'] = $this->config->external_link_target;
+            $attrs['target'] = '_blank';
+            $attrs['rel']    = 'noopener';
         }
 
         $attrs['class'] = $this->isActive($entity)
