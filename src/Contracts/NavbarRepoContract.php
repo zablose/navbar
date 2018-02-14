@@ -2,7 +2,7 @@
 
 namespace Zablose\Navbar\Contracts;
 
-use Zablose\Navbar\src\Helpers\OrderBy;
+use Zablose\Navbar\Helpers\OrderBy;
 
 interface NavbarRepoContract
 {

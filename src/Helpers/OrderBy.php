@@ -1,6 +1,6 @@
 <?php
 
-namespace Zablose\Navbar\src\Helpers;
+namespace Zablose\Navbar\Helpers;
 
 class OrderBy
 {

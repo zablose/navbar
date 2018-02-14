@@ -4,7 +4,7 @@ namespace Zablose\Navbar\Tests;
 
 use PDO;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
-use Zablose\Navbar\src\Helpers\OrderBy;
+use Zablose\Navbar\Helpers\OrderBy;
 
 class NavbarRepo implements NavbarRepoContract
 {

@@ -5,7 +5,7 @@ namespace Zablose\Navbar;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
-use Zablose\Navbar\src\Helpers\OrderBy;
+use Zablose\Navbar\Helpers\OrderBy;
 
 final class NavbarDataProcessor
 {
