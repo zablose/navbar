@@ -2,6 +2,8 @@
 
 namespace Zablose\Navbar\Contracts;
 
+use Zablose\Navbar\src\Helpers\OrderBy;
+
 interface NavbarRepoContract
 {
 
@@ -28,10 +30,11 @@ interface NavbarRepoContract
      *         'position'   => '',
      *     ]
      *
-     * @param array|string|int|null $filter   Filter(s) or parent ID.
-     * @param string|null           $order_by Order by 'column:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string|int|null $filter Filter(s) or parent ID.
+     * @param OrderBy|null          $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter = null, $order_by = null);
+    public function getRawNavbarEntities($filter = null, OrderBy $order_by = null);
+
 }

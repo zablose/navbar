@@ -5,6 +5,7 @@ namespace Zablose\Navbar;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarEntityContract;
+use Zablose\Navbar\src\Helpers\OrderBy;
 
 final class NavbarDataProcessor
 {
@@ -17,16 +18,16 @@ final class NavbarDataProcessor
     /**
      * Navbar entities.
      *
-     * @var NavbarEntityContract[]
+     * @var array
      */
-    private $entities;
+    private $entities = [];
 
     /**
      * Navbar elements.
      *
-     * @var NavbarElement[]
+     * @var array
      */
-    private $elements;
+    private $elements = [];
 
     /**
      * @var boolean
@@ -38,16 +39,37 @@ final class NavbarDataProcessor
      *
      * @var NavbarConfig|NavbarConfigContract
      */
-    public $config;
+    private $config;
 
     /**
-     * @param NavbarRepoContract   $repo
-     * @param NavbarConfigContract $config
+     * @var OrderBy
+     */
+    private $order_by;
+
+    /**
+     * Were data prepared or not. Used to prevent a repeat of preparation. Ignored in case of rendering by parent ID.
+     *
+     * @var boolean
+     */
+    private $prepared = false;
+
+    /**
+     * @param NavbarRepoContract                $repo
+     * @param NavbarConfig|NavbarConfigContract $config
      */
     public function __construct(NavbarRepoContract $repo, NavbarConfigContract $config = null)
     {
-        $this->repo   = $repo;
-        $this->config = ($config) ?: new NavbarConfig();
+        $this->repo     = $repo;
+        $this->config   = $config ?: new NavbarConfig();
+        $this->order_by = new OrderBy();
+    }
+
+    /**
+     * @return NavbarConfig|NavbarConfigContract
+     */
+    public function config()
+    {
+        return $this->config;
     }
 
     /**
@@ -65,23 +87,34 @@ final class NavbarDataProcessor
     /**
      * Get raw navigation entities from the database, validate them and transform to the navigation elements.
      * Filtered by filter(s) or parent ID.
-     * Ordered by 'column:direction'.
      *
-     * @param array|string|integer $filter   Filter or parent ID.
-     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter Filter or parent ID.
      *
      * @return NavbarDataProcessor
      */
-    public function prepare($filter = null, $order_by = null)
+    public function prepare($filter = null)
     {
-        if (! $order_by)
+        if (! $this->prepared || is_integer($filter))
         {
-            $order_by = $this->config->order_by;
+            $this->prepared = ! is_integer($filter);
+
+            $this->validate($this->repo->getRawNavbarEntities($filter, $this->order_by));
+            $this->elements = $this->elements($this->getValidPid($filter));
         }
 
-        $this->entities = $this->validate($this->repo->getRawNavbarEntities($filter, $order_by));
+        return $this;
+    }
 
-        $this->elements = $this->elements($this->getValidPid($filter));
+    /**
+     * @param string $column
+     * @param string $direction
+     *
+     * @return $this
+     */
+    public function orderBy($column, $direction = 'asc')
+    {
+        $this->order_by->column    = $column;
+        $this->order_by->direction = $direction;
 
         return $this;
     }
@@ -108,11 +141,11 @@ final class NavbarDataProcessor
      *
      * @param integer $pid
      *
-     * @return NavbarElement[]
+     * @return array
      */
     private function elements($pid = 0)
     {
-        $navbars = [];
+        $elements = [];
 
         $pid = (int) $pid;
 
@@ -124,17 +157,17 @@ final class NavbarDataProcessor
                 unset($this->entities[$entity->id]);
                 if ($pid === 0 && $entity->filter && ! $this->filter_by_pid)
                 {
-                    $navbars[$entity->filter][$entity->id] = $this->element($entity);
+                    $elements[$entity->filter][$entity->id] = $this->element($entity);
                 }
                 else
                 {
                     if ($this->filter_by_pid)
                     {
-                        $navbars[$entity->pid][$entity->id] = $this->element($entity);
+                        $elements[$entity->pid][$entity->id] = $this->element($entity);
                     }
                     else
                     {
-                        $navbars[$entity->id] = $this->element($entity);
+                        $elements[$entity->id] = $this->element($entity);
                     }
                 }
             }
@@ -142,7 +175,7 @@ final class NavbarDataProcessor
 
         $this->filter_by_pid = false;
 
-        return $navbars;
+        return $elements;
     }
 
     /**
@@ -172,11 +205,11 @@ final class NavbarDataProcessor
      *
      * @param array $raw_entities An array of raw entities.
      *
-     * @return NavbarEntityContract[]
+     * @return $this
      */
     private function validate($raw_entities)
     {
-        $entities = [];
+        $this->entities = [];
 
         foreach ($raw_entities as $raw_entity)
         {
@@ -184,12 +217,12 @@ final class NavbarDataProcessor
 
             if ($this->isAccessible($raw_object->role, $raw_object->permission))
             {
-                $class                     = $this->config->navbar_entity_class;
-                $entities[$raw_object->id] = new $class($raw_entity);
+                $class                           = $this->config->navbar_entity_class;
+                $this->entities[$raw_object->id] = new $class($raw_entity);
             }
         }
 
-        return $entities;
+        return $this;
     }
 
     /**

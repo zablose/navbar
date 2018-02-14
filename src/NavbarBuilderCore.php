@@ -16,64 +16,63 @@ abstract class NavbarBuilderCore
     private $processor;
 
     /**
-     * Were data prepared or not. Used to prevent a repeat of preparation. Ignored in case of rendering by parent ID.
-     *
-     * @var boolean
-     */
-    private $prepared;
-
-    /**
-     * @var NavbarConfigContract
-     */
-    protected $config;
-
-    /**
      * @param NavbarRepoContract   $data
      * @param NavbarConfigContract $config
      */
     public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
         $this->processor = new NavbarDataProcessor($data, $config);
-        $this->config    = $this->processor->config;
+    }
+
+    /**
+     * @return NavbarConfig|NavbarConfigContract
+     */
+    public function config()
+    {
+        return $this->processor->config();
     }
 
     /**
      * Render navigation entities to the HTML string.
      *
-     * @param array|string|integer $filter   Filter or parent ID.
-     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter Filter or parent ID.
      *
      * @return string
      */
-    final public function render($filter = 'main', $order_by = null)
+    final public function render($filter = 'main')
     {
-        if (! $this->prepared || is_integer($filter))
-        {
-            $this->prepare($filter, $order_by);
-        }
-
-        return $this->renderElements($this->processor->get($filter));
+        return $this->prepare($filter)->renderElements($this->processor->get($filter));
     }
 
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param array|string|integer $filter   Filter or parent ID.
-     * @param string               $order_by Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string|integer $filter Filter or parent ID.
      *
      * @return NavbarBuilderCore
      */
-    final public function prepare($filter = null, $order_by = null)
+    final public function prepare($filter = null)
     {
-        $this->prepared = true;
-
-        $this->processor->prepare($filter, $order_by);
+        $this->processor->prepare($filter);
 
         return $this;
     }
 
     /**
-     * @param NavbarElement[] $elements
+     * @param string $column
+     * @param string $direction
+     *
+     * @return $this
+     */
+    final public function orderBy($column, $direction = 'asc')
+    {
+        $this->processor->orderBy($column, $direction);
+
+        return $this;
+    }
+
+    /**
+     * @param array $elements
      *
      * @return string
      */
@@ -121,7 +120,7 @@ abstract class NavbarBuilderCore
      */
     protected function isActive(NavbarEntityContract $entity)
     {
-        return (trim($this->config->getPath(), '/') === trim($entity->href, '/'));
+        return (trim($this->processor->config()->getPath(), '/') === trim($entity->href, '/'));
     }
 
     /**

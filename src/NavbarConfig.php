@@ -19,14 +19,6 @@ class NavbarConfig implements NavbarConfigContract
     public $app_url = '/';
 
     /**
-     * Order by column in the database 'asc' or 'desc'.<b/>
-     * Examples: 'body:asc', 'position:desc', 'id:asc'.
-     *
-     * @var string
-     */
-    public $order_by;
-
-    /**
      * Class to be used by NavbarDataProcessor to represent NavbarEntity.
      *
      * @var string

@@ -4,6 +4,7 @@ namespace Zablose\Navbar\Tests;
 
 use PDO;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
+use Zablose\Navbar\src\Helpers\OrderBy;
 
 class NavbarRepo implements NavbarRepoContract
 {
@@ -25,11 +26,11 @@ class NavbarRepo implements NavbarRepoContract
 
     /**
      * @param array|string|int|null $filter
-     * @param string|null           $order_by
+     * @param OrderBy|null          $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter = null, $order_by = null)
+    public function getRawNavbarEntities($filter = null, OrderBy $order_by = null)
     {
         $query  = 'SELECT * FROM `' . Table::NAVBARS . '`';
         $aWhere = [];
@@ -56,12 +57,7 @@ class NavbarRepo implements NavbarRepoContract
 
         if ($order_by)
         {
-            $order = explode(':', $order_by);
-
-            if (isset($order[1]) && in_array($order[1], ['asc', 'desc']))
-            {
-                $query .= " ORDER BY `$order[0]` " . strtoupper($order[1]);
-            }
+            $query .= " ORDER BY `{$order_by->column}` " . strtoupper($order_by->direction);
         }
 
         return $this->db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
