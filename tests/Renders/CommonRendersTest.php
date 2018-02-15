@@ -79,4 +79,24 @@ class CommonRendersTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     *
+     * @throws \Exception
+     */
+    public function render_link_with_custom_attributes()
+    {
+        $this->insert([
+            (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_LINK)->setAttrs([
+                '@click' => 'toggle',
+                ':class' => '{bold: isFolder}',
+            ])->toArray(),
+        ]);
+
+        $this->assertSame(
+            '<li><a @click="toggle" :class="{bold: isFolder}" href="/" class="is-active"></a></li>',
+            $this->render()
+        );
+    }
+
 }

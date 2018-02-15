@@ -138,6 +138,18 @@ trait NavbarSettersTrait
     }
 
     /**
+     * @param array $attrs
+     *
+     * @return $this
+     */
+    public function setAttrs($attrs)
+    {
+        $this->attrs = json_encode($attrs);
+
+        return $this;
+    }
+
+    /**
      * @param string|integer $role
      *
      * @return $this

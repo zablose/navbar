@@ -70,6 +70,8 @@ trait CommonRendersTrait
      */
     protected function renderLink(NavbarEntityContract $entity, $active_link_class, $attrs_overwrite = [])
     {
+        $attrs = $this->getAttrs($entity);
+
         $attrs['href'] = $this->renderHref($entity);
 
         if ($entity->external)
@@ -88,6 +90,19 @@ trait CommonRendersTrait
             array_merge($attrs, $attrs_overwrite),
             $this->renderBody($entity, $this->renderIcon($entity))
         );
+    }
+
+    /**
+     * Get custom attributes form the entity.
+     *
+     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param array                                 $overwrite
+     *
+     * @return array
+     */
+    protected function getAttrs(NavbarEntityContract $entity, $overwrite = [])
+    {
+        return array_merge($entity->attrs ? json_decode($entity->attrs, true) : [], $overwrite);
     }
 
 }

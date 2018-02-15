@@ -17,6 +17,8 @@ trait BulmaRendersTrait
      */
     public function bulma_menu_label(NavbarEntityContract $entity)
     {
+        $attrs = $this->getAttrs($entity);
+
         $attrs['class'] = $this->renderClass($entity, 'menu-label');
 
         return Html::tag('p', $attrs, $this->renderBody($entity, $this->renderIcon($entity)));
@@ -29,6 +31,8 @@ trait BulmaRendersTrait
      */
     public function bulma_menu_list(NavbarElement $element)
     {
+        $attrs = $this->getAttrs($element->entity);
+
         $attrs['class'] = $this->renderClass($element->entity, 'menu-list');
 
         return Html::tag('ul', $attrs, $this->renderElements($element->content));

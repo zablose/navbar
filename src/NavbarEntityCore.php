@@ -88,6 +88,11 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     public $icon;
 
     /**
+     * @var string
+     */
+    public $attrs;
+
+    /**
      * Role that is required to access the entity of navigation.
      *
      * @var integer|string
