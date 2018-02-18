@@ -5,7 +5,6 @@ namespace Zablose\Navbar;
 use ReflectionMethod;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
-use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 abstract class NavbarBuilderCore
 {
@@ -84,7 +83,7 @@ abstract class NavbarBuilderCore
         {
             foreach ($elements as $element)
             {
-                $html .= $this->{$element->type}($element);
+                $html .= $this->renderElement($element);
             }
         }
 
@@ -96,17 +95,7 @@ abstract class NavbarBuilderCore
      *
      * @return string
      */
-    protected function renderElementAsEntity(NavbarElement $element)
-    {
-        return $this->{$this->validateMethod($this, $element->entity->type)}($element->entity);
-    }
-
-    /**
-     * @param NavbarElement $element
-     *
-     * @return string
-     */
-    protected function renderElementAsGroup(NavbarElement $element)
+    protected function renderElement(NavbarElement $element)
     {
         return $this->{$this->validateMethod($this, $element->entity->type)}($element);
     }
@@ -114,13 +103,13 @@ abstract class NavbarBuilderCore
     /**
      * Check if the entity's href attribute matches the current path of the application.
      *
-     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param NavbarElement $element
      *
      * @return string
      */
-    protected function isActive(NavbarEntityContract $entity)
+    protected function isActive(NavbarElement $element)
     {
-        return (trim($this->processor->config()->getPath(), '/') === trim($entity->href, '/'));
+        return (trim($this->processor->config()->getPath(), '/') === trim($element->entity->href, '/'));
     }
 
     /**

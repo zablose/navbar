@@ -188,12 +188,10 @@ final class NavbarDataProcessor
     private function element(NavbarEntityContract $entity)
     {
         $element         = new NavbarElement;
-        $element->type   = NavbarElement::TYPE_ENTITY;
         $element->entity = $entity;
 
         if ($entity->group)
         {
-            $element->type    = NavbarElement::TYPE_GROUP;
             $element->content = ($this->filter_by_pid) ? [] : $this->elements($entity->id);
         }
 
@@ -203,22 +201,21 @@ final class NavbarDataProcessor
     /**
      * Get navigation entities by transformation from the raw entities.
      *
-     * @param array $raw_entities An array of raw entities.
+     * @param array $data An array of database rows.
      *
      * @return $this
      */
-    private function validate($raw_entities)
+    private function validate($data)
     {
         $this->entities = [];
 
-        foreach ($raw_entities as $raw_entity)
+        foreach ($data as $row)
         {
-            $raw_object = (object) $raw_entity;
+            $entity = new $this->config->navbar_entity_class($row);
 
-            if ($this->isAccessible($raw_object->role, $raw_object->permission))
+            if ($this->isAccessible($entity->role, $entity->permission))
             {
-                $class                           = $this->config->navbar_entity_class;
-                $this->entities[$raw_object->id] = new $class($raw_entity);
+                $this->entities[$entity->id] = $entity;
             }
         }
 

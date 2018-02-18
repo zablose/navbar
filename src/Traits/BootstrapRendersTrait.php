@@ -2,10 +2,8 @@
 
 namespace Zablose\Navbar\Traits;
 
-use Zablose\Navbar\Contracts\NavbarEntityContract;
 use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\NavbarElement;
-use Zablose\Navbar\NavbarEntityCore;
 
 trait BootstrapRendersTrait
 {
@@ -17,7 +15,7 @@ trait BootstrapRendersTrait
      */
     public function bootstrap_navbar(NavbarElement $element)
     {
-        $attrs = $this->getAttrs($element->entity);
+        $attrs = $this->getAttrs($element);
 
         $attrs['class'] = $element->entity->class;
 
@@ -32,11 +30,11 @@ trait BootstrapRendersTrait
     public function bootstrap_dropdown(NavbarElement $element)
     {
         $attrs = $this->getAttrs(
-            $element->entity,
+            $element,
             [
                 'id'               => 'dropdown_' . $element->entity->id,
                 'href'             => $element->entity->href,
-                'class'            => $this->renderClass($element->entity, 'dropdown-toggle'),
+                'class'            => $this->renderClass($element, 'dropdown-toggle'),
                 'data-toggle'      => 'dropdown',
                 'role'             => 'button',
                 'aria-haspopup'    => 'true',
@@ -46,7 +44,7 @@ trait BootstrapRendersTrait
             ]
         );
 
-        $body = $this->renderBody($element->entity, $this->renderIcon($element->entity), '<span class="caret"></span>');
+        $body = $this->renderBody($element, $this->renderIcon($element), '<span class="caret"></span>');
 
         return
             '<li class="dropdown">' . Html::tag('a', $attrs, $body) .
@@ -55,31 +53,31 @@ trait BootstrapRendersTrait
     }
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param NavbarElement $element
      *
      * @return string
      */
-    public function bootstrap_header(NavbarEntityContract $entity)
+    public function bootstrap_header(NavbarElement $element)
     {
-        $attrs = $this->getAttrs($entity);
+        $attrs = $this->getAttrs($element);
 
-        $attrs['class'] = $this->renderClass($entity, 'dropdown-header');
+        $attrs['class'] = $this->renderClass($element, 'dropdown-header');
 
-        return Html::tag('li', $attrs, $entity->body);
+        return Html::tag('li', $attrs, $element->entity->body);
     }
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param NavbarElement $element
      *
      * @return string
      */
-    public function bootstrap_separator(NavbarEntityContract $entity)
+    public function bootstrap_separator(NavbarElement $element)
     {
         $attrs = $this->getAttrs(
-            $entity,
+            $element,
             [
                 'role'  => 'separator',
-                'class' => $this->renderClass($entity, 'divider'),
+                'class' => $this->renderClass($element, 'divider'),
             ]
         );
 
@@ -87,26 +85,26 @@ trait BootstrapRendersTrait
     }
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
-     * @param array                                 $link_attrs_overwrite
+     * @param NavbarElement $element
+     * @param array         $link_attrs_overwrite
      *
      * @return string
      */
-    public function bootstrap_link(NavbarEntityContract $entity, $link_attrs_overwrite = [])
+    public function bootstrap_link(NavbarElement $element, $link_attrs_overwrite = [])
     {
         $attrs = [];
 
-        if ($entity->title)
+        if ($element->entity->title)
         {
-            $attrs['title'] = $entity->title;
+            $attrs['title'] = $element->entity->title;
         }
 
-        if ($this->isActive($entity))
+        if ($this->isActive($element))
         {
             $attrs['class'] = 'active';
         }
 
-        return Html::tag('li', $attrs, $this->renderLink($entity, '', $link_attrs_overwrite));
+        return Html::tag('li', $attrs, $this->renderLink($element, '', $link_attrs_overwrite));
     }
 
 }

@@ -2,19 +2,13 @@
 
 namespace Zablose\Navbar;
 
+use Zablose\Navbar\Contracts\NavbarEntityContract;
+
 class NavbarElement
 {
 
-    const TYPE_ENTITY = 'renderElementAsEntity';
-    const TYPE_GROUP  = 'renderElementAsGroup';
-
     /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @var NavbarEntityCore
+     * @var NavbarEntityCore|NavbarEntityContract
      */
     public $entity;
 

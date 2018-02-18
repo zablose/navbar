@@ -25,6 +25,7 @@ interface NavbarRepoContract
      *         'external'   => false,
      *         'class'      => 'nav navbar-nav',
      *         'icon'       => '',
+     *         'attrs'      => '',
      *         'role'       => '',
      *         'permission' => '',
      *         'position'   => '',

@@ -2,26 +2,24 @@
 
 namespace Zablose\Navbar\Traits;
 
-use Zablose\Navbar\Contracts\NavbarEntityContract;
 use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\NavbarElement;
-use Zablose\Navbar\NavbarEntityCore;
 
 trait BulmaRendersTrait
 {
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param NavbarElement $element
      *
      * @return string
      */
-    public function bulma_menu_label(NavbarEntityContract $entity)
+    public function bulma_menu_label(NavbarElement $element)
     {
-        $attrs = $this->getAttrs($entity);
+        $attrs = $this->getAttrs($element);
 
-        $attrs['class'] = $this->renderClass($entity, 'menu-label');
+        $attrs['class'] = $this->renderClass($element, 'menu-label');
 
-        return Html::tag('p', $attrs, $this->renderBody($entity, $this->renderIcon($entity)));
+        return Html::tag('p', $attrs, $this->renderBody($element, $this->renderIcon($element)));
     }
 
     /**
@@ -31,9 +29,9 @@ trait BulmaRendersTrait
      */
     public function bulma_menu_list(NavbarElement $element)
     {
-        $attrs = $this->getAttrs($element->entity);
+        $attrs = $this->getAttrs($element);
 
-        $attrs['class'] = $this->renderClass($element->entity, 'menu-list');
+        $attrs['class'] = $this->renderClass($element, 'menu-list');
 
         return Html::tag('ul', $attrs, $this->renderElements($element->content));
     }
@@ -46,31 +44,31 @@ trait BulmaRendersTrait
     public function bulma_menu_sublist(NavbarElement $element)
     {
         return Html::tag('li', [],
-            $this->renderBulmaLink($element->entity) .
+            $this->renderBulmaLink($element) .
             Html::tag('ul', [], $this->renderElements($element->content))
         );
     }
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
+     * @param NavbarElement $element
      *
      * @return string
      */
-    public function bulma_menu_link(NavbarEntityContract $entity)
+    public function bulma_menu_link(NavbarElement $element)
     {
 
-        return Html::tag('li', [], $this->renderBulmaLink($entity));
+        return Html::tag('li', [], $this->renderBulmaLink($element));
     }
 
     /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
-     * @param array                                 $attrs_overwrite
+     * @param NavbarElement $element
+     * @param array         $attrs_overwrite
      *
      * @return string
      */
-    protected function renderBulmaLink(NavbarEntityContract $entity, $attrs_overwrite = [])
+    protected function renderBulmaLink(NavbarElement $element, $attrs_overwrite = [])
     {
-        return $this->renderLink($entity, 'is-active', $attrs_overwrite);
+        return $this->renderLink($element, 'is-active', $attrs_overwrite);
     }
 
 }
