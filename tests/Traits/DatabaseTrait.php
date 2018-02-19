@@ -97,7 +97,7 @@ trait DatabaseTrait
      */
     protected function render($filter = 'main')
     {
-        return (new NavbarBuilder(new NavbarRepo($this->pdo()), new NavbarConfig()))->render($filter);
+        return (new NavbarBuilder(new NavbarRepo(self::db()), new NavbarConfig()))->render($filter);
     }
 
     /**
@@ -107,7 +107,7 @@ trait DatabaseTrait
      */
     protected function builder($config = null)
     {
-        return (new NavbarBuilder(new NavbarRepo($this->pdo()), $config ?: new NavbarConfig()));
+        return (new NavbarBuilder(new NavbarRepo(self::db()), $config ?: new NavbarConfig()));
     }
 
     public function tearDown()

@@ -2,18 +2,18 @@
 
 namespace Zablose\Navbar\Tests;
 
-use PDO;
+use Illuminate\Database\Connection;
 use Zablose\Navbar\Contracts\NavbarRepoContract;
 use Zablose\Navbar\Helpers\OrderBy;
 
 class NavbarRepo implements NavbarRepoContract
 {
 
-    /** @var PDO */
+    /** @var Connection */
     private $db;
 
-    /** @param PDO $db */
-    public function __construct(PDO $db)
+    /** @param Connection $db */
+    public function __construct(Connection $db)
     {
         $this->db = $db;
     }
@@ -26,35 +26,24 @@ class NavbarRepo implements NavbarRepoContract
      */
     public function getRawNavbarEntities($filter = null, OrderBy $order_by = null)
     {
-        $query  = 'SELECT * FROM `' . Table::NAVBARS . '`';
-        $aWhere = [];
+        $query = $this->db->table(Table::NAVBARS);
 
         if (is_string($filter))
         {
-            $aWhere[] = "`filter` = '$filter'";
+            $query->where('filter', $filter);
         }
 
         if (is_array($filter))
         {
-            $aWhere[] = "`filter` IN ('" . implode("','", $filter) . "')";
-        }
-
-        if (is_integer($filter))
-        {
-            $aWhere[] = "`pid` = '$filter'";
-        }
-
-        if ($aWhere)
-        {
-            $query .= ' WHERE ' . implode(' AND ', $aWhere);
+            $query->whereIn('filter', $filter);
         }
 
         if ($order_by)
         {
-            $query .= " ORDER BY `{$order_by->column}` " . strtoupper($order_by->direction);
+            $query->orderBy($order_by->column, $order_by->direction);
         }
 
-        return $this->db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
+        return $query->get()->all();
     }
 
 }
