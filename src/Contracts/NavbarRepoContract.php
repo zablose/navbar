@@ -9,7 +9,7 @@ interface NavbarRepoContract
 
     /**
      * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
-     * to transform to navigation entities.
+     * to transform them to navigation entities.
      *
      * Example of an array element structure.
      *
@@ -31,8 +31,8 @@ interface NavbarRepoContract
      *         'position'   => '',
      *     ]
      *
-     * @param array|string|int|null $filter Filter(s) or parent ID.
-     * @param OrderBy|null          $order_by
+     * @param array|string $filter
+     * @param OrderBy      $order_by
      *
      * @return array
      */

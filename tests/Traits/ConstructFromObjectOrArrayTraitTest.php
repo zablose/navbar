@@ -8,14 +8,10 @@ use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 class ConstructFromObjectOrArrayTraitTest extends TestCase
 {
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected static $default_data_set;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     protected static $test_object_class;
 
     public static function setUpBeforeClass()
@@ -49,12 +45,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         return get_object_vars(new self::$test_object_class($data));
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_updates_existing_attributes()
+    /** @test */
+    public function update_existing_attributes()
     {
         $this->assertSame(
             $data = ['id' => 34, 'name' => 'Bamboo'],
@@ -62,12 +54,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_updates_existing_attribute_with_an_empty_string()
+    /** @test */
+    public function update_existing_attribute_with_an_empty_string()
     {
         $this->assertSame(
             $data = ['id' => 67, 'name' => ''],
@@ -75,12 +63,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_ignores_existing_attribute_if_null()
+    /** @test */
+    public function ignore_existing_attribute_if_null()
     {
         $this->assertSame(
             self::$default_data_set,
@@ -88,12 +72,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_constructs_from_an_object()
+    /** @test */
+    public function construct_from_an_object()
     {
         $this->assertSame(
             $data = ['id' => 12, 'name' => 'Zablockis'],
@@ -101,12 +81,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_ignores_null()
+    /** @test */
+    public function ignore_null()
     {
         $this->assertSame(
             self::$default_data_set,
@@ -114,12 +90,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_ignores_string()
+    /** @test */
+    public function ignore_string()
     {
         $this->assertSame(
             self::$default_data_set,
@@ -127,12 +99,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_ignores_integer()
+    /** @test */
+    public function ignore_integer()
     {
         $this->assertSame(
             self::$default_data_set,
@@ -140,12 +108,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function it_ignores_not_existing_attribute()
+    /** @test */
+    public function ignore_not_existing_attribute()
     {
         $this->assertFalse(isset((new self::$test_object_class(['age' => 13]))->age));
     }

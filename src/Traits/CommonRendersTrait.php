@@ -31,7 +31,7 @@ trait CommonRendersTrait
     {
         return $element->entity->external
             ? $element->entity->href
-            : rtrim($this->config()->app_url, '/') . '/' . ltrim(trim($element->entity->href), '/');
+            : rtrim($this->getConfig()->app_url, '/') . '/' . ltrim(trim($element->entity->href), '/');
     }
 
     /**

@@ -44,4 +44,5 @@ interface NavbarConfigContract
      * @return array
      */
     public function getPermissions();
+
 }

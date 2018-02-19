@@ -5,14 +5,10 @@ namespace Zablose\Navbar\Helpers;
 class OrderBy
 {
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $column = 'id';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $direction = 'asc';
 
 }

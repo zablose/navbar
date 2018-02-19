@@ -9,24 +9,18 @@ use Zablose\Navbar\Helpers\OrderBy;
 class NavbarRepo implements NavbarRepoContract
 {
 
-    /**
-     * @var PDO
-     */
+    /** @var PDO */
     private $db;
 
-    /**
-     * NavbarRepo constructor.
-     *
-     * @param PDO $db
-     */
+    /** @param PDO $db */
     public function __construct(PDO $db)
     {
         $this->db = $db;
     }
 
     /**
-     * @param array|string|int|null $filter
-     * @param OrderBy|null          $order_by
+     * @param array|string $filter
+     * @param OrderBy      $order_by
      *
      * @return array
      */

@@ -15,14 +15,10 @@ use Zablose\Navbar\Tests\Table;
 trait DatabaseTrait
 {
 
-    /**
-     * @var PDO
-     */
+    /** @var PDO */
     private static $pdo;
 
-    /**
-     * @var Connection
-     */
+    /** @var Connection */
     private static $db;
 
     public static function setUpBeforeClass()
@@ -30,9 +26,7 @@ trait DatabaseTrait
         self::setUpTable();
     }
 
-    /**
-     * @return PDO
-     */
+    /** @return PDO */
     protected static function pdo()
     {
         if (! self::$pdo)
@@ -44,9 +38,7 @@ trait DatabaseTrait
         return self::$pdo;
     }
 
-    /**
-     * @return Connection
-     */
+    /** @return Connection */
     protected static function db()
     {
         if (! self::$db)
@@ -99,18 +91,17 @@ trait DatabaseTrait
     }
 
     /**
-     * @param string|integer $filter
-     * @param null           $order_by
+     * @param string $filter
      *
      * @return string
      */
-    protected function render($filter = 'main', $order_by = null)
+    protected function render($filter = 'main')
     {
-        return (new NavbarBuilder(new NavbarRepo($this->pdo()), new NavbarConfig()))->render($filter, $order_by);
+        return (new NavbarBuilder(new NavbarRepo($this->pdo()), new NavbarConfig()))->render($filter);
     }
 
     /**
-     * @param NavbarConfig|null $config
+     * @param NavbarConfig $config
      *
      * @return NavbarBuilder
      */

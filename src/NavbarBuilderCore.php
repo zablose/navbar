@@ -26,27 +26,27 @@ abstract class NavbarBuilderCore
     /**
      * @return NavbarConfig|NavbarConfigContract
      */
-    public function config()
+    public function getConfig()
     {
-        return $this->processor->config();
+        return $this->processor->getConfig();
     }
 
     /**
      * Render navigation entities to the HTML string.
      *
-     * @param array|string|integer $filter Filter or parent ID.
+     * @param array|string $filter
      *
      * @return string
      */
     final public function render($filter = 'main')
     {
-        return $this->prepare($filter)->renderElements($this->processor->get($filter));
+        return $this->prepare($filter)->renderElements($this->processor->getElements($filter));
     }
 
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param array|string|integer $filter Filter or parent ID.
+     * @param array|string $filter
      *
      * @return NavbarBuilderCore
      */
@@ -109,7 +109,7 @@ abstract class NavbarBuilderCore
      */
     protected function isActive(NavbarElement $element)
     {
-        return (trim($this->processor->config()->getPath(), '/') === trim($element->entity->href, '/'));
+        return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
     }
 
     /**

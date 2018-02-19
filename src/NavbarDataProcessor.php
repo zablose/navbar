@@ -30,13 +30,6 @@ final class NavbarDataProcessor
     private $elements = [];
 
     /**
-     * @var boolean
-     */
-    private $filter_by_pid;
-
-    /**
-     * Navbar data configuration.
-     *
      * @var NavbarConfig|NavbarConfigContract
      */
     private $config;
@@ -47,7 +40,7 @@ final class NavbarDataProcessor
     private $order_by;
 
     /**
-     * Were data prepared or not. Used to prevent a repeat of preparation. Ignored in case of rendering by parent ID.
+     * Were data prepared or not. Used to prevent a repeat of preparation.
      *
      * @var boolean
      */
@@ -67,42 +60,65 @@ final class NavbarDataProcessor
     /**
      * @return NavbarConfig|NavbarConfigContract
      */
-    public function config()
+    public function getConfig()
     {
         return $this->config;
     }
 
     /**
-     * Get navigation elements by filter or parent ID.
+     * Get navigation elements by filter.
      *
-     * @param string|integer $filter
+     * @param string $filter
      *
-     * @return NavbarElement[]|NavbarElement
+     * @return array
      */
-    public function get($filter = null)
+    public function getElements($filter = 'main')
     {
-        return (isset($this->elements[$filter])) ? $this->elements[$filter] : [];
+        return $this->elements[$filter] ?? [];
     }
 
     /**
      * Get raw navigation entities from the database, validate them and transform to the navigation elements.
-     * Filtered by filter(s) or parent ID.
+     * Filtered or all.
      *
-     * @param array|string|integer $filter Filter or parent ID.
+     * @param array|string $filter
      *
      * @return NavbarDataProcessor
      */
     public function prepare($filter = null)
     {
-        if (! $this->prepared || is_integer($filter))
+        if (! $this->prepared)
         {
-            $this->prepared = ! is_integer($filter);
-
-            $this->validate($this->repo->getRawNavbarEntities($filter, $this->order_by));
-            $this->elements = $this->elements($this->getValidPid($filter));
+            $this->entities = $this->loadEntities($filter);
+            $this->elements = $this->makeElements();
+            $this->prepared = true;
         }
 
         return $this;
+    }
+
+    /**
+     * Get Navbar entities by filter from the database rows.
+     *
+     * @param array|string $filter
+     *
+     * @return array
+     */
+    private function loadEntities($filter = null)
+    {
+        $entities = [];
+
+        foreach ($this->repo->getRawNavbarEntities($filter, $this->order_by) as $row)
+        {
+            $entity = new $this->config->navbar_entity_class($row);
+
+            if ($this->isAccessible($entity->role, $entity->permission))
+            {
+                $entities[$entity->id] = $entity;
+            }
+        }
+
+        return $entities;
     }
 
     /**
@@ -120,106 +136,48 @@ final class NavbarDataProcessor
     }
 
     /**
-     * @param mixed $filter
+     * Make navigation elements from the navigation entities by parent.
      *
-     * @return integer
-     */
-    private function getValidPid($filter)
-    {
-        if ((is_int($filter) && $filter >= 0))
-        {
-            $this->filter_by_pid = true;
-
-            return (int) $filter;
-        }
-
-        return 0;
-    }
-
-    /**
-     * Get navigation elements from the navigation entities by parent ID.
-     *
-     * @param integer $pid
+     * @param NavbarEntityCore|NavbarEntityContract $parent
      *
      * @return array
      */
-    private function elements($pid = 0)
+    private function makeElements(NavbarEntityContract $parent = null)
     {
         $elements = [];
 
-        $pid = (int) $pid;
+        $pid = $parent ? (int) $parent->id : 0;
 
         /** @var NavbarEntityCore|NavbarEntityContract $entity */
         foreach ($this->entities as $entity)
         {
-            if ((int) $entity->pid === $pid)
+            if ($pid === (int) $entity->pid)
             {
-                unset($this->entities[$entity->id]);
-                if ($pid === 0 && $entity->filter && ! $this->filter_by_pid)
+                if ($pid === 0)
                 {
-                    $elements[$entity->filter][$entity->id] = $this->element($entity);
+                    $elements[$entity->filter][$entity->id] = $this->makeElement($entity);
                 }
                 else
                 {
-                    if ($this->filter_by_pid)
-                    {
-                        $elements[$entity->pid][$entity->id] = $this->element($entity);
-                    }
-                    else
-                    {
-                        $elements[$entity->id] = $this->element($entity);
-                    }
+                    $elements[$entity->id] = $this->makeElement($entity);
                 }
+                unset($this->entities[$entity->id]);
             }
         }
-
-        $this->filter_by_pid = false;
 
         return $elements;
     }
 
     /**
-     * Form navigation element.
-     *
-     * @param NavbarEntityCore|NavbarEntityContract $entity Navigation entity
+     * @param NavbarEntityCore|NavbarEntityContract $entity
      *
      * @return NavbarElement
      */
-    private function element(NavbarEntityContract $entity)
+    private function makeElement(NavbarEntityContract $entity)
     {
-        $element         = new NavbarElement;
-        $element->entity = $entity;
-
-        if ($entity->group)
-        {
-            $element->content = ($this->filter_by_pid) ? [] : $this->elements($entity->id);
-        }
-
-        return $element;
-    }
-
-    /**
-     * Get navigation entities by transformation from the raw entities.
-     *
-     * @param array $data An array of database rows.
-     *
-     * @return $this
-     */
-    private function validate($data)
-    {
-        $this->entities = [];
-
-        foreach ($data as $row)
-        {
-            $entity = new $this->config->navbar_entity_class($row);
-
-            if ($this->isAccessible($entity->role, $entity->permission))
-            {
-                $this->entities[$entity->id] = $entity;
-            }
-        }
-
-        return $this;
+        return (new NavbarElement())->setEntity($entity)->setContent(
+            $entity->group ? $this->makeElements($entity) : []
+        );
     }
 
     /**

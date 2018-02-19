@@ -11,11 +11,7 @@ class BulmaRendersTest extends TestCase
 
     use DatabaseTrait;
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_menu_label()
     {
         $this->insert([
@@ -25,11 +21,7 @@ class BulmaRendersTest extends TestCase
         $this->assertSame('<p class="menu-label">General</p>', $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_menu()
     {
         $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
@@ -49,11 +41,7 @@ class BulmaRendersTest extends TestCase
         $this->assertSame($expected, $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_menu_sublist()
     {
         $link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LINK);

@@ -12,11 +12,7 @@ class BootstrapRendersTest extends TestCase
 
     use DatabaseTrait;
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_navbar()
     {
         $this->insert([
@@ -26,11 +22,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame('<ul class="nav navbar-nav"></ul>', $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function ignore_unknown_entity_type()
     {
         $this->insert([
@@ -40,11 +32,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame('', $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_dropdown()
     {
         $this->insert([
@@ -63,11 +51,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame($expected, $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_header()
     {
         $this->insert([
@@ -77,11 +61,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame('<li class="dropdown-header">Header</li>', $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_separator()
     {
         $this->insert([
@@ -91,25 +71,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame('<li role="separator" class="divider"></li>', $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
-    public function render_navbar_by_pid()
-    {
-        $this->insert([
-            (new NE())->setId(2)->setPid(1)->setType(NE::TYPE_BOOTSTRAP_NAVBAR)->setGroup()->setClass('nav')->toArray(),
-        ]);
-
-        $this->assertSame('<ul class="nav"></ul>', $this->render(1));
-    }
-
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_external_link()
     {
         $this->insert([
@@ -123,11 +85,7 @@ class BootstrapRendersTest extends TestCase
         $this->assertSame($expected, $this->render());
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_relative_link()
     {
         $this->insert([
@@ -141,11 +99,7 @@ class BootstrapRendersTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function prepare_with_filter_as_array_and_render()
     {
         $this->insert([
@@ -161,11 +115,7 @@ class BootstrapRendersTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_dropdown_with_separator_and_link()
     {
         $this->insert([
@@ -187,11 +137,7 @@ class BootstrapRendersTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_links_with_roles()
     {
         $link = (new NE())->setType(NE::TYPE_BOOTSTRAP_LINK);
@@ -211,11 +157,7 @@ class BootstrapRendersTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @throws \Exception
-     */
+    /** @test */
     public function render_links_with_permissions()
     {
         $link = (new NE())->setType(NE::TYPE_BOOTSTRAP_LINK);
