@@ -24,13 +24,13 @@ class BulmaRendersTest extends TestCase
     /** @test */
     public function render_menu()
     {
-        $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
+        $list = (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
         $link = (new NE())->setPid(1)->setType(NE::TYPE_BULMA_MENU_LINK);
 
         $this->insert([
             $list->toArray(),
-            $link->setId(2)->setBody('Home')->setHref('/')->toArray(),
-            $link->setId(3)->setBody('Company')->setHref('https://vuejs.org/')->setExternal()->toArray(),
+            $link->setId()->setBody('Home')->setHref('/')->toArray(),
+            $link->setId()->setBody('Company')->setHref('https://vuejs.org/')->setExternal()->toArray(),
         ]);
 
         $expected = '<ul class="menu-list">'
@@ -48,9 +48,9 @@ class BulmaRendersTest extends TestCase
         $about = (new NE())->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
 
         $this->insert([
-            $about->setId(5)->setBody('About')->setHref('/about')->toArray(),
-            $link->setId(6)->setPid($about->id)->setBody('Me')->setHref('/about/me')->toArray(),
-            $link->setId(7)->setPid($about->id)->setBody('Tech')->setHref('/about/tech')->toArray(),
+            $about->setId()->setBody('About')->setHref('/about')->toArray(),
+            $link->setId()->setPid($about->id)->setBody('Me')->setHref('/about/me')->toArray(),
+            $link->setId()->setPid($about->id)->setBody('Tech')->setHref('/about/tech')->toArray(),
         ]);
 
         $this->assertSame(

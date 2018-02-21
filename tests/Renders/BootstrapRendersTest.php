@@ -16,7 +16,7 @@ class BootstrapRendersTest extends TestCase
     public function render_navbar()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_NAVBAR)->setGroup()->setClass('nav navbar-nav')->toArray(),
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_NAVBAR)->setGroup()->setClass('nav navbar-nav')->toArray(),
         ]);
 
         $this->assertSame('<ul class="nav navbar-nav"></ul>', $this->render());
@@ -26,7 +26,7 @@ class BootstrapRendersTest extends TestCase
     public function ignore_unknown_entity_type()
     {
         $this->insert([
-            (new NE())->setId(2)->setPid(1)->setType('unknown')->toArray(),
+            (new NE())->setId()->setPid(1)->setType('unknown')->toArray(),
         ]);
 
         $this->assertSame('', $this->render());
@@ -36,7 +36,7 @@ class BootstrapRendersTest extends TestCase
     public function render_dropdown()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)->setGroup()->setBody('Dropdown')
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)->setGroup()->setBody('Dropdown')
                 ->setClass('test')->setIcon('fa')->toArray(),
         ]);
 
@@ -55,7 +55,7 @@ class BootstrapRendersTest extends TestCase
     public function render_header()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_HEADER)->setBody('Header')->toArray(),
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_HEADER)->setBody('Header')->toArray(),
         ]);
 
         $this->assertSame('<li class="dropdown-header">Header</li>', $this->render());
@@ -65,7 +65,7 @@ class BootstrapRendersTest extends TestCase
     public function render_separator()
     {
         $this->insert([
-            (new NE())->setId(2)->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)->toArray(),
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)->toArray(),
         ]);
 
         $this->assertSame('<li role="separator" class="divider"></li>', $this->render());
@@ -75,7 +75,7 @@ class BootstrapRendersTest extends TestCase
     public function render_external_link()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Laravel')->setTitle('Coding')
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Laravel')->setTitle('Coding')
                 ->setHref('http://laravel.com')->setExternal()->setClass('lar')->setIcon('fa fa-book')->toArray(),
         ]);
 
@@ -89,7 +89,7 @@ class BootstrapRendersTest extends TestCase
     public function render_relative_link()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Home')->setTitle('Go Home!')
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Home')->setTitle('Go Home!')
                 ->setHref('/home')->setIcon('fa')->toArray(),
         ]);
 
@@ -103,9 +103,9 @@ class BootstrapRendersTest extends TestCase
     public function prepare_with_filter_as_array_and_render()
     {
         $this->insert([
-            (new NE())->setId(1)->setFilter('external')->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Laravel')
+            (new NE())->setId()->setFilter('external')->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Laravel')
                 ->setHref('http://laravel.com')->setExternal()->toArray(),
-            (new NE())->setId(2)->setFilter('relative')->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Home')
+            (new NE())->setId()->setFilter('relative')->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Home')
                 ->setTitle('Go Home!')->setHref('/home')->setIcon('fa')->toArray(),
         ]);
 
@@ -119,9 +119,9 @@ class BootstrapRendersTest extends TestCase
     public function render_dropdown_with_separator_and_link()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)->setGroup()->toArray(),
-            (new NE())->setId(2)->setPid(1)->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)->toArray(),
-            (new NE())->setId(3)->setPid(1)->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Identical')->setHref('/cool')
+            (new NE())->setId()->setType(NE::TYPE_BOOTSTRAP_DROPDOWN)->setGroup()->toArray(),
+            (new NE())->setId()->setPid(1)->setType(NE::TYPE_BOOTSTRAP_SEPARATOR)->toArray(),
+            (new NE())->setId()->setPid(1)->setType(NE::TYPE_BOOTSTRAP_LINK)->setBody('Identical')->setHref('/cool')
                 ->setPosition(0)->toArray(),
         ]);
 
@@ -143,10 +143,10 @@ class BootstrapRendersTest extends TestCase
         $link = (new NE())->setType(NE::TYPE_BOOTSTRAP_LINK);
 
         $this->insert([
-            $link->setId(1)->setBody('Home')->setHref('/home')->setRole(2)->toArray(),
-            $link->setId(2)->setBody('About')->setHref('/about')->setRole(4)->toArray(),
-            $link->setId(3)->setBody('Forum')->setHref('/forum')->setRole(6)->toArray(),
-            $link->setId(4)->setBody('Dashboard')->setHref('/dashboard')->setRole(8)->toArray(),
+            $link->setId()->setBody('Home')->setHref('/home')->setRole(2)->toArray(),
+            $link->setId()->setBody('About')->setHref('/about')->setRole(4)->toArray(),
+            $link->setId()->setBody('Forum')->setHref('/forum')->setRole(6)->toArray(),
+            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setRole(8)->toArray(),
         ]);
 
         $this->assertSame(
@@ -163,10 +163,10 @@ class BootstrapRendersTest extends TestCase
         $link = (new NE())->setType(NE::TYPE_BOOTSTRAP_LINK);
 
         $this->insert([
-            $link->setId(1)->setBody('Home')->setHref('/home')->setPermission(2)->toArray(),
-            $link->setId(2)->setBody('About')->setHref('/about')->setPermission(4)->toArray(),
-            $link->setId(3)->setBody('Forum')->setHref('/forum')->setPermission(6)->toArray(),
-            $link->setId(4)->setBody('Dashboard')->setHref('/dashboard')->setPermission(8)->toArray(),
+            $link->setId()->setBody('Home')->setHref('/home')->setPermission(2)->toArray(),
+            $link->setId()->setBody('About')->setHref('/about')->setPermission(4)->toArray(),
+            $link->setId()->setBody('Forum')->setHref('/forum')->setPermission(6)->toArray(),
+            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setPermission(8)->toArray(),
         ]);
 
         $this->assertSame(

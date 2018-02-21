@@ -5,14 +5,30 @@ namespace Zablose\Navbar\Traits;
 trait NavbarSettersTrait
 {
 
+    /** @var integer */
+    private static $next_id = 0;
+
+    public static function resetNextId()
+    {
+        self::$next_id = 0;
+    }
+
     /**
      * @param integer $id
      *
      * @return $this
      */
-    public function setId($id)
+    public function setId($id = null)
     {
-        $this->id = $id;
+        if ($id)
+        {
+            $this->id      = $id;
+            self::$next_id = $id;
+        }
+        else
+        {
+            $this->id = ++self::$next_id;
+        }
 
         return $this;
     }

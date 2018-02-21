@@ -16,7 +16,7 @@ class CommonRendersTest extends TestCase
     public function ignore_protected_methods()
     {
         $this->insert([
-            (new NE())->setType('renderLink')->setBody('General')->toArray(),
+            (new NE())->setId(5)->setType('renderLink')->setBody('General')->toArray(),
         ]);
 
         $this->assertSame('', $this->render());
@@ -25,14 +25,14 @@ class CommonRendersTest extends TestCase
     /** @test */
     public function render_with_order_by_href_asc()
     {
-        $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
+        $list = (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
         $link = (new NE())->setPid($list->id)->setType(NE::TYPE_BULMA_MENU_LINK);
 
         $this->insert([
             $list->setHref('/about')->toArray(),
-            $link->setId(2)->setHref('/about/terms')->toArray(),
-            $link->setId(3)->setHref('/about/policy')->toArray(),
-            $link->setId(4)->setHref('/about/me')->toArray(),
+            $link->setId()->setHref('/about/terms')->toArray(),
+            $link->setId()->setHref('/about/policy')->toArray(),
+            $link->setId()->setHref('/about/me')->toArray(),
         ]);
 
         $this->assertSame(
@@ -48,14 +48,14 @@ class CommonRendersTest extends TestCase
     /** @test */
     public function render_with_order_by_href_desc()
     {
-        $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
+        $list = (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setGroup();
         $link = (new NE())->setPid($list->id)->setType(NE::TYPE_BULMA_MENU_LINK);
 
         $this->insert([
             $list->setHref('/about')->toArray(),
-            $link->setId(2)->setHref('/about/terms')->toArray(),
-            $link->setId(3)->setHref('/about/policy')->toArray(),
-            $link->setId(4)->setHref('/about/me')->toArray(),
+            $link->setId()->setHref('/about/terms')->toArray(),
+            $link->setId()->setHref('/about/policy')->toArray(),
+            $link->setId()->setHref('/about/me')->toArray(),
         ]);
 
         $this->assertSame(
@@ -72,7 +72,7 @@ class CommonRendersTest extends TestCase
     public function render_link_with_custom_attributes()
     {
         $this->insert([
-            (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_LINK)->setAttrs([
+            (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_LINK)->setAttrs([
                 '@click' => 'toggle',
                 ':class' => '{bold: isFolder}',
             ])->toArray(),
@@ -87,13 +87,13 @@ class CommonRendersTest extends TestCase
     /** @test */
     public function ignore_elements_if_root_element_inaccessible()
     {
-        $list = (new NE())->setId(1)->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setRole('admin')->setGroup();
+        $list = (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_SUBLIST)->setRole('admin')->setGroup();
         $link = (new NE())->setPid($list->id)->setType(NE::TYPE_BULMA_MENU_LINK)->setRole('user');
 
         $this->insert([
             $list->setHref('/about')->toArray(),
-            $link->setId(2)->setHref('/about/me')->toArray(),
-            (new NE())->setId(3)->setType(NE::TYPE_BULMA_MENU_LABEL)->setBody('Nope')->setRole('user')->toArray(),
+            $link->setId()->setHref('/about/me')->toArray(),
+            (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_LABEL)->setBody('Nope')->setRole('user')->toArray(),
         ]);
 
         $this->assertSame(
