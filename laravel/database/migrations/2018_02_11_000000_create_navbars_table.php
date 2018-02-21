@@ -34,7 +34,7 @@ class CreateNavbarsTable extends Migration
             $table->boolean('external')->default(false);
             $table->string('class')->nullable();
             $table->string('icon')->nullable();
-            $table->json('attrs')->nullable();
+            $table->text('attrs')->nullable();
             $table->string('role')->nullable();
             $table->string('permission')->nullable();
             $table->integer('position')->unsigned()->default(0);
