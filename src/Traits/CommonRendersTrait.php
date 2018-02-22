@@ -9,20 +9,6 @@ trait CommonRendersTrait
 {
 
     /**
-     * Render body with or without prefix and/or postfix.
-     *
-     * @param NavbarElement $element
-     * @param string        $prefix
-     * @param string        $postfix
-     *
-     * @return string
-     */
-    protected function renderBody(NavbarElement $element, $prefix = null, $postfix = null)
-    {
-        return Html::postfix(Html::prefix($element->entity->body, $prefix), $postfix);
-    }
-
-    /**
      * @param NavbarElement $element
      *
      * @return string
@@ -49,18 +35,6 @@ trait CommonRendersTrait
     }
 
     /**
-     * Render Icon.
-     *
-     * @param NavbarElement $element
-     *
-     * @return string
-     */
-    protected function renderIcon(NavbarElement $element)
-    {
-        return $element->entity->icon ? '<span class="' . $element->entity->icon . '"></span>' : '';
-    }
-
-    /**
      * @param NavbarElement $element
      * @param string        $active_link_class
      * @param array         $attrs_overwrite
@@ -84,11 +58,7 @@ trait CommonRendersTrait
             $attrs['class'] = $class;
         }
 
-        return Html::tag(
-            'a',
-            array_merge($attrs, $attrs_overwrite),
-            $this->renderBody($element, $this->renderIcon($element))
-        );
+        return Html::tag('a', array_merge($attrs, $attrs_overwrite), $element->entity->body);
     }
 
     /**

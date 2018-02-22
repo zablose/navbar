@@ -34,8 +34,8 @@ class BulmaRendersTest extends TestCase
         ]);
 
         $expected = '<ul class="menu-list">'
-            . '<li><a href="/" class="is-active">Home</a></li>'
-            . '<li><a href="https://vuejs.org/" target="_blank" rel="noopener">Company</a></li>'
+            . '<li><a href="/" class="is-active"><p>Home</p></a></li>'
+            . '<li><a href="https://vuejs.org/" target="_blank" rel="noopener"><p>Company</p></a></li>'
             . '</ul>';
 
         $this->assertSame($expected, $this->render());
@@ -54,12 +54,25 @@ class BulmaRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/about">About</a>' .
+            '<li><a href="/about"><p>About</p></a>' .
             '<ul>'
-            . '<li><a href="/about/me">Me</a></li>'
-            . '<li><a href="/about/tech">Tech</a></li>' .
+            . '<li><a href="/about/me"><p>Me</p></a></li>'
+            . '<li><a href="/about/tech"><p>Tech</p></a></li>' .
             '</ul>' .
             '</li>',
+            $this->render()
+        );
+    }
+
+    /** @test */
+    public function render_bulma_icon()
+    {
+        $this->insert([
+            (new NE())->setId()->setType(NE::TYPE_BULMA_MENU_LINK)->setBody('Home')->setIcon('cogs')->toArray(),
+        ]);
+
+        $this->assertSame(
+            '<li><a href="/" class="is-active"><span class="icon"><i class="fas cogs"></i></span><p>Home</p></a></li>',
             $this->render()
         );
     }

@@ -42,9 +42,9 @@ class BootstrapRendersTest extends TestCase
 
         $expected =
             '<li class="dropdown">' .
-            '<a id="dropdown_1" class="dropdown-toggle test" data-toggle="dropdown" role="button" ' .
+            '<a class="dropdown-toggle test" id="dropdown_1" data-toggle="dropdown" role="button" ' .
             'aria-haspopup="true" aria-expanded="false" navbar-pid="1" navbar-container="ul"><span class="fa">' .
-            '</span> Dropdown <span class="caret"></span></a>' .
+            '</span>Dropdown<span class="caret"></span></a>' .
             '<ul class="dropdown-menu"></ul>' .
             '</li>';
 
@@ -80,7 +80,7 @@ class BootstrapRendersTest extends TestCase
         ]);
 
         $expected = '<li title="Coding"><a href="http://laravel.com" target="_blank" rel="noopener" class="lar">' .
-            '<span class="fa fa-book"></span> Laravel</a></li>';
+            '<span class="fa fa-book"></span>Laravel</a></li>';
 
         $this->assertSame($expected, $this->render());
     }
@@ -94,7 +94,7 @@ class BootstrapRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li title="Go Home!"><a href="/home"><span class="fa"></span> Home</a></li>',
+            '<li title="Go Home!"><a href="/home"><span class="fa"></span>Home</a></li>',
             $this->render()
         );
     }
@@ -110,7 +110,7 @@ class BootstrapRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li title="Go Home!"><a href="/home"><span class="fa"></span> Home</a></li>',
+            '<li title="Go Home!"><a href="/home"><span class="fa"></span>Home</a></li>',
             $this->builder()->prepare(['external', 'relative'])->render('relative')
         );
     }

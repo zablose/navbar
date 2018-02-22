@@ -9,6 +9,18 @@ trait BootstrapRendersTrait
 {
 
     /**
+     * Render Icon.
+     *
+     * @param NavbarElement $element
+     *
+     * @return string
+     */
+    protected function renderBootstrapIcon(NavbarElement $element)
+    {
+        return $element->entity->icon ? '<span class="' . $element->entity->icon . '"></span>' : '';
+    }
+
+    /**
      * @param NavbarElement $element
      *
      * @return string
@@ -44,10 +56,11 @@ trait BootstrapRendersTrait
             ]
         );
 
-        $body = $this->renderBody($element, $this->renderIcon($element), '<span class="caret"></span>');
+        $element->entity->body = $this->renderBootstrapIcon($element) . $element->entity->body
+            . '<span class="caret"></span>';
 
         return
-            '<li class="dropdown">' . Html::tag('a', $attrs, $body) .
+            '<li class="dropdown">' . $this->renderLink($element, '', $attrs) .
             '<ul class="dropdown-menu">' . $this->renderElements($element->content) . '</ul>' .
             '</li>';
     }
@@ -103,6 +116,8 @@ trait BootstrapRendersTrait
         {
             $attrs['class'] = 'active';
         }
+
+        $element->entity->body = $this->renderBootstrapIcon($element) . $element->entity->body;
 
         return Html::tag('li', $attrs, $this->renderLink($element, '', $link_attrs_overwrite));
     }

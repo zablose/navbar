@@ -19,7 +19,7 @@ trait BulmaRendersTrait
 
         $attrs['class'] = $this->renderClass($element, 'menu-label');
 
-        return Html::tag('p', $attrs, $this->renderBody($element, $this->renderIcon($element)));
+        return Html::tag('p', $attrs, $element->entity->body);
     }
 
     /**
@@ -68,7 +68,37 @@ trait BulmaRendersTrait
      */
     protected function renderBulmaLink(NavbarElement $element, $attrs_overwrite = [])
     {
-        return $this->renderLink($element, 'is-active', $attrs_overwrite);
+        return $this->renderLink($this->renderBulmaBody($element), 'is-active', $attrs_overwrite);
+    }
+
+    /**
+     * Render Icon.
+     *
+     * @param NavbarElement $element
+     *
+     * @return NavbarElement
+     */
+    protected function renderBulmaIcon(NavbarElement $element)
+    {
+        $element->entity->icon = $element->entity->icon
+            ? '<span class="icon"><i class="fas ' . $element->entity->icon . '"></i></span>'
+            : '';
+
+        return $element;
+    }
+
+    /**
+     * @param NavbarElement $element
+     *
+     * @return NavbarElement
+     */
+    protected function renderBulmaBody(NavbarElement $element)
+    {
+        $this->renderBulmaIcon($element)->entity->body = $element->entity->body
+            ? $element->entity->icon . '<p>' . $element->entity->body . '</p>'
+            : '';
+
+        return $element;
     }
 
 }
