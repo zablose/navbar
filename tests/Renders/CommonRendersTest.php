@@ -102,4 +102,20 @@ class CommonRendersTest extends TestCase
         );
     }
 
+    /** @test */
+    public function render_with_filter_as_array()
+    {
+        $label = (new NE())->setType(NE::TYPE_BULMA_MENU_LABEL);
+
+        $this->insert([
+            $label->setId()->setBody('General')->toArray(),
+            $label->setFilter('packages')->setId()->setBody('Packages')->toArray(),
+        ]);
+
+        $this->assertSame(
+            '<p class="menu-label">General</p><p class="menu-label">Packages</p>',
+            $this->render(['main', 'packages'])
+        );
+    }
+
 }

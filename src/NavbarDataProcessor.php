@@ -74,7 +74,18 @@ final class NavbarDataProcessor
      */
     public function getElements($filter = 'main')
     {
-        return $this->elements[$filter] ?? [];
+        if (! is_array($filter))
+        {
+            $filter = [$filter];
+        }
+
+        $elements = [];
+        foreach ($filter as $key)
+        {
+            $elements = array_merge($elements, $this->elements[$key] ?? []);
+        }
+
+        return $elements;
     }
 
     /**

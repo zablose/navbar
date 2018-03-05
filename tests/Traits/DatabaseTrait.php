@@ -92,7 +92,7 @@ trait DatabaseTrait
     }
 
     /**
-     * @param string $filter
+     * @param array|string $filter
      *
      * @return string
      */
