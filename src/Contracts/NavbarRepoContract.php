@@ -2,12 +2,14 @@
 
 namespace Zablose\Navbar\Contracts;
 
-interface NavbarDataContract
+use Zablose\Navbar\Helpers\OrderBy;
+
+interface NavbarRepoContract
 {
 
     /**
      * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
-     * to transform to navigation entities.
+     * to transform them to navigation entities.
      *
      * Example of an array element structure.
      *
@@ -16,20 +18,24 @@ interface NavbarDataContract
      *         'pid'        => 0,
      *         'filter'     => 'main',
      *         'type'       => 'bootstrap_navbar',
+     *         'group'      => true,
      *         'body'       => '',
      *         'title'      => '',
      *         'href'       => '',
+     *         'external'   => false,
      *         'class'      => 'nav navbar-nav',
      *         'icon'       => '',
+     *         'attrs'      => '',
      *         'role'       => '',
      *         'permission' => '',
      *         'position'   => '',
      *     ]
      *
-     * @param array|string|int|null $filter_or_pid Filter(s) or parent ID.
-     * @param string|null           $order_by      Order by 'column:direction' like 'id:asc', 'position:desc', etc.
+     * @param array|string $filter
+     * @param OrderBy      $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter_or_pid = null, $order_by = null);
+    public function getRawNavbarEntities($filter = null, OrderBy $order_by = null);
+
 }

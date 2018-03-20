@@ -11,16 +11,6 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     use ConstructFromObjectOrArrayTrait;
 
     /**
-     * Keep in mind that values are also used as methods names by Navbar builder.
-     */
-    const TYPE_BOOTSTRAP_LINK_INTERNAL = 'bootstrap_link_internal';
-    const TYPE_BOOTSTRAP_LINK_EXTERNAL = 'bootstrap_link_external';
-    const TYPE_BOOTSTRAP_NAVBAR        = 'bootstrap_navbar';
-    const TYPE_BOOTSTRAP_DROPDOWN      = 'bootstrap_dropdown';
-    const TYPE_BOOTSTRAP_HEADER        = 'bootstrap_header';
-    const TYPE_BOOTSTRAP_SEPARATOR     = 'bootstrap_separator';
-
-    /**
      * Unique identifier.
      *
      * @var integer
@@ -32,14 +22,14 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @var integer
      */
-    public $pid;
+    public $pid = 0;
 
     /**
      * A filter to grab what you need in one go.
      *
      * @var string
      */
-    public $filter;
+    public $filter = 'main';
 
     /**
      * Navbar entity type.
@@ -47,6 +37,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      * @var string
      */
     public $type;
+
+    /**
+     * Is this entity represents a group element?
+     *
+     * @var boolean
+     */
+    public $group = false;
 
     /**
      * Tag's body content.
@@ -70,6 +67,13 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     public $href;
 
     /**
+     * Is this link external or not, if it's a link entity?
+     *
+     * @var boolean
+     */
+    public $external = false;
+
+    /**
      * Tag's class attribute.
      *
      * @var string
@@ -82,6 +86,11 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      * @var string
      */
     public $icon;
+
+    /**
+     * @var string
+     */
+    public $attrs;
 
     /**
      * Role that is required to access the entity of navigation.
@@ -102,54 +111,6 @@ abstract class NavbarEntityCore implements NavbarEntityContract
      *
      * @var integer
      */
-    public $position;
-
-    /**
-     * @var array
-     */
-    public static $custom_types = [];
-
-    /**
-     * @var array
-     */
-    public static $custom_group_types = [];
-
-    /**
-     * @return array
-     */
-    final public static function getTypes()
-    {
-        $types = [
-            self::TYPE_BOOTSTRAP_LINK_INTERNAL,
-            self::TYPE_BOOTSTRAP_LINK_EXTERNAL,
-            self::TYPE_BOOTSTRAP_NAVBAR,
-            self::TYPE_BOOTSTRAP_DROPDOWN,
-            self::TYPE_BOOTSTRAP_HEADER,
-            self::TYPE_BOOTSTRAP_SEPARATOR,
-        ];
-
-        return array_unique(array_merge($types, NavbarEntityCore::$custom_types));
-    }
-
-    /**
-     * @return array
-     */
-    final public static function getGroupTypes()
-    {
-        $group_types = [
-            self::TYPE_BOOTSTRAP_NAVBAR,
-            self::TYPE_BOOTSTRAP_DROPDOWN,
-        ];
-
-        return array_unique(array_merge($group_types, NavbarEntityCore::$custom_group_types));
-    }
-
-    /**
-     * @return boolean
-     */
-    final public function isGroup()
-    {
-        return in_array($this->type, NavbarEntityCore::getGroupTypes());
-    }
+    public $position = 0;
 
 }

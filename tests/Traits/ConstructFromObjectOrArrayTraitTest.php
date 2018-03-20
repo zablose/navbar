@@ -1,84 +1,117 @@
 <?php
 
-class ConstructFromObjectOrArrayTraitTest extends PHPUnit\Framework\TestCase
+namespace Zablose\Navbar\Tests\Traits;
+
+use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+
+class ConstructFromObjectOrArrayTraitTest extends TestCase
 {
 
-    /**
-     * @return array
-     */
-    public function dataProviderFor_test__construct()
+    /** @var array */
+    protected static $default_data_set;
+
+    /** @var mixed */
+    protected static $test_object_class;
+
+    public static function setUpBeforeClass()
     {
-        return [
-            [
-                ['id' => 34, 'name' => 'Sergejs', 'title' => 'Mr'],
-                ['id' => 34, 'name' => 'Sergejs'],
-            ],
-            [
-                ['id' => 34, 'name' => 'Sergejs'],
-                ['id' => 34, 'name' => 'Sergejs'],
-            ],
-            [
-                ['id' => 23, 'name' => ''],
-                ['id' => 23, 'name' => ''],
-            ],
-            [
-                ['id' => 12],
-                ['id' => 12, 'name' => 'Zablose'],
-            ],
-            [
-                (object) ['id' => 12, 'name' => 'Zablockis'],
-                ['id' => 12, 'name' => 'Zablockis'],
-            ],
-            [
-                null,
-                ['id' => 4, 'name' => 'Zablose'],
-            ],
-            [
-                'hi',
-                ['id' => 4, 'name' => 'Zablose'],
-            ],
-            [
-                365,
-                ['id' => 4, 'name' => 'Zablose'],
-            ],
+        self::$test_object_class = new Class()
+        {
+
+            use ConstructFromObjectOrArrayTrait;
+
+            const DEFAULT_ID   = 4;
+            const DEFAULT_NAME = 'Zablose';
+
+            public $id = self::DEFAULT_ID;
+            public $name = self::DEFAULT_NAME;
+
+        };
+
+        self::$default_data_set = [
+            'id'   => self::$test_object_class::DEFAULT_ID,
+            'name' => self::$test_object_class::DEFAULT_NAME,
         ];
     }
 
     /**
-     * @dataProvider dataProviderFor_test__construct
+     * @param object|array $data
      *
-     * @param array|object $data
-     *
-     * @throws Exception
+     * @return array
      */
-    public function test__construct($data, $expected)
+    protected function getObjectVars($data)
     {
-        $this->assertEquals($expected, get_object_vars(new TestObject($data)));
+        return get_object_vars(new self::$test_object_class($data));
     }
 
-    /**
-     * @throws Exception
-     */
-    public function test__constructOnEmptyObject()
+    /** @test */
+    public function update_existing_attributes()
     {
-        $this->assertEquals([], get_object_vars(new TestEmptyObject(['id' => 13])));
+        $this->assertSame(
+            $data = ['id' => 34, 'name' => 'Bamboo'],
+            $this->getObjectVars($data)
+        );
     }
 
-}
+    /** @test */
+    public function update_existing_attribute_with_an_empty_string()
+    {
+        $this->assertSame(
+            $data = ['id' => 67, 'name' => ''],
+            $this->getObjectVars($data)
+        );
+    }
 
-class TestObject
-{
+    /** @test */
+    public function ignore_existing_attribute_if_null()
+    {
+        $this->assertSame(
+            self::$default_data_set,
+            $this->getObjectVars(['id' => null])
+        );
+    }
 
-    use \Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+    /** @test */
+    public function construct_from_an_object()
+    {
+        $this->assertSame(
+            $data = ['id' => 12, 'name' => 'Zablockis'],
+            $this->getObjectVars((object) $data)
+        );
+    }
 
-    public $id = 4;
-    public $name = 'Zablose';
+    /** @test */
+    public function ignore_null()
+    {
+        $this->assertSame(
+            self::$default_data_set,
+            $this->getObjectVars(null)
+        );
+    }
 
-}
+    /** @test */
+    public function ignore_string()
+    {
+        $this->assertSame(
+            self::$default_data_set,
+            $this->getObjectVars('hi')
+        );
+    }
 
-class TestEmptyObject
-{
+    /** @test */
+    public function ignore_integer()
+    {
+        $this->assertSame(
+            self::$default_data_set,
+            $this->getObjectVars(365)
+        );
+    }
 
-    use \Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+    /** @test */
+    public function ignore_not_existing_attribute()
+    {
+        $this->assertFalse(isset((new self::$test_object_class(['age' => 13]))->age));
+    }
 
 }

@@ -2,8 +2,9 @@
 
 namespace Zablose\Navbar;
 
+use ReflectionMethod;
 use Zablose\Navbar\Contracts\NavbarConfigContract;
-use Zablose\Navbar\Contracts\NavbarDataContract;
+use Zablose\Navbar\Contracts\NavbarRepoContract;
 
 abstract class NavbarBuilderCore
 {
@@ -14,82 +15,63 @@ abstract class NavbarBuilderCore
     private $processor;
 
     /**
-     * Were data prepared or not. Used to prevent a repeat of preparation. Ignored in case of rendering by parent ID.
-     *
-     * @var boolean
-     */
-    private $prepared;
-
-    /**
-     * @var NavbarConfigContract
-     */
-    protected $config;
-
-    /**
-     * @param NavbarDataContract   $data
+     * @param NavbarRepoContract   $data
      * @param NavbarConfigContract $config
      */
-    public function __construct(NavbarDataContract $data, NavbarConfigContract $config = null)
+    public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
         $this->processor = new NavbarDataProcessor($data, $config);
-        $this->config    = $this->processor->config;
+    }
+
+    /**
+     * @return NavbarConfig|NavbarConfigContract
+     */
+    public function getConfig()
+    {
+        return $this->processor->getConfig();
     }
 
     /**
      * Render navigation entities to the HTML string.
      *
-     * @param array|string|integer $filterOrPid Filter or parent ID.
-     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string $filter
      *
      * @return string
      */
-    final public function render($filterOrPid, $order_by = null)
+    final public function render($filter = 'main')
     {
-        if (! $this->prepared || is_integer($filterOrPid))
-        {
-            $this->prepare($filterOrPid, $order_by);
-        }
-
-        return $this->renderElements($this->processor->get($filterOrPid));
+        return $this->prepare($filter)->renderElements($this->processor->getElements($filter));
     }
 
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param array|string|integer $filterOrPid Filter or parent ID.
-     * @param string               $order_by    Order by column in the database 'id:asc' or 'id:desc'.
+     * @param array|string $filter
      *
      * @return NavbarBuilderCore
      */
-    final public function prepare($filterOrPid = null, $order_by = null)
+    final public function prepare($filter = null)
     {
-        $this->prepared = true;
-
-        $this->processor->prepare($filterOrPid, $order_by);
+        $this->processor->prepare($filter);
 
         return $this;
     }
 
     /**
-     * @param string $method
+     * @param string $column
+     * @param string $direction
      *
-     * @return string
+     * @return $this
      */
-    private function validateMethod($method)
+    final public function orderBy($column, $direction = 'asc')
     {
-        return in_array($method, $this->getValidMethods()) ? $method : 'renderEmptyString';
+        $this->processor->orderBy($column, $direction);
+
+        return $this;
     }
 
     /**
-     * @return array
-     */
-    private function getValidMethods()
-    {
-        return array_unique(array_merge(NavbarElement::getTypes(), NavbarEntityCore::getTypes()));
-    }
-
-    /**
-     * @param NavbarElement[] $elements
+     * @param array $elements
      *
      * @return string
      */
@@ -101,7 +83,7 @@ abstract class NavbarBuilderCore
         {
             foreach ($elements as $element)
             {
-                $html .= $this->{$this->validateMethod($element->type)}($element);
+                $html .= $this->renderElement($element);
             }
         }
 
@@ -113,19 +95,34 @@ abstract class NavbarBuilderCore
      *
      * @return string
      */
-    protected function renderElementAsEntity(NavbarElement $element)
+    protected function renderElement(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($element->entity->type)}($element->entity);
+        return $this->{$this->validateMethod($this, $element->entity->type)}($element);
     }
 
     /**
+     * Check if the entity's href attribute matches the current path of the application.
+     *
      * @param NavbarElement $element
      *
      * @return string
      */
-    protected function renderElementAsGroup(NavbarElement $element)
+    protected function isActive(NavbarElement $element)
     {
-        return $this->{$this->validateMethod($element->entity->type)}($element);
+        return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
+    }
+
+    /**
+     * @param mixed  $object
+     * @param string $method
+     *
+     * @return string
+     */
+    private function validateMethod($object, $method)
+    {
+        return method_exists(get_class($object), $method) && (new ReflectionMethod($object, $method))->isPublic()
+            ? $method
+            : 'renderEmptyString';
     }
 
     /**

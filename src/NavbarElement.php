@@ -2,41 +2,39 @@
 
 namespace Zablose\Navbar;
 
+use Zablose\Navbar\Contracts\NavbarEntityContract;
+
 class NavbarElement
 {
 
-    /**
-     * Keep in mind that values are also used as methods names by Navbar builder.
-     */
-    const TYPE_ENTITY = 'renderElementAsEntity';
-    const TYPE_GROUP  = 'renderElementAsGroup';
-
-    /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @var NavbarEntity
-     */
+    /** @var NavbarEntityCore|NavbarEntityContract */
     public $entity;
 
-    /**
-     * @var NavbarElement[]
-     */
+    /** @var array */
     public $content;
 
     /**
-     * Get Navbar element types as array of strings.
+     * @param NavbarEntityCore|NavbarEntityContract $entity
      *
-     * @return array
+     * @return NavbarElement
      */
-    public static function getTypes()
+    public function setEntity(NavbarEntityContract $entity)
     {
-        return [
-            self::TYPE_ENTITY,
-            self::TYPE_GROUP,
-        ];
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * @param array $content
+     *
+     * @return NavbarElement
+     */
+    public function setContent(array $content)
+    {
+        $this->content = $content;
+
+        return $this;
     }
 
 }

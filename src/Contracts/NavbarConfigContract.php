@@ -6,29 +6,43 @@ interface NavbarConfigContract
 {
 
     /**
-     * Set or get current path of the application.
+     * Set current path of the application.
      *
      * @param string $path
      *
-     * @return NavbarConfigContract|string
+     * @return NavbarConfigContract
      */
-    public function path($path = null);
+    public function setPath($path);
 
     /**
-     * Set or get roles of the logged user.
-     *
      * @param array $roles An array of strings or integers.
      *
-     * @return NavbarConfigContract|array
+     * @return NavbarConfigContract
      */
-    public function roles($roles = null);
+    public function setRoles($roles);
 
     /**
-     * Set or get permissions of the logged user.
-     *
      * @param array $permissions An array of strings or integers.
      *
-     * @return NavbarConfigContract|array
+     * @return NavbarConfigContract
      */
-    public function permissions($permissions = null);
+    public function setPermissions($permissions);
+
+    /**
+     * Get current path of the application.
+     *
+     * @return string
+     */
+    public function getPath();
+
+    /**
+     * @return array
+     */
+    public function getRoles();
+
+    /**
+     * @return array
+     */
+    public function getPermissions();
+
 }
