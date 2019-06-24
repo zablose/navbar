@@ -7,7 +7,6 @@ use Zablose\Navbar\Tests\NavbarEntity;
 
 class CreateNavbarsTable extends Migration
 {
-
     const TABLE_NAME = 'navbars';
 
     /**
@@ -53,5 +52,4 @@ class CreateNavbarsTable extends Migration
     {
         Schema::drop(self::TABLE_NAME);
     }
-
 }

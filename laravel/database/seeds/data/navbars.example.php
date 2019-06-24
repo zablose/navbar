@@ -1,11 +1,9 @@
-<?php
+<?php /** @noinspection PhpFullyQualifiedNameUsageInspection */
 
 class NE extends \Zablose\Navbar\Tests\NavbarEntity
 {
-
     use \Zablose\Navbar\Traits\NavbarSettersTrait;
     use \Zablose\Navbar\Traits\ArrayableTrait;
-
 }
 
 $label = (new NE())->setType(NE::TYPE_BULMA_MENU_LABEL);

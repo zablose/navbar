@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
-class NavbarsTableSeeder extends Seeder
+class NavbarsTableSeederExample extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -13,8 +12,7 @@ class NavbarsTableSeeder extends Seeder
     public function run()
     {
         DB::table('navbars')->insert(
-            require_once __DIR__ . '/data/navbars.php'
+            require_once __DIR__.'/data/navbars.example.php'
         );
     }
-
 }
