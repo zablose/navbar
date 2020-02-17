@@ -15,8 +15,8 @@ abstract class NavbarBuilderCore
     private $processor;
 
     /**
-     * @param NavbarRepoContract   $data
-     * @param NavbarConfigContract $config
+     * @param  NavbarRepoContract    $data
+     * @param  NavbarConfigContract  $config
      */
     public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
@@ -31,14 +31,7 @@ abstract class NavbarBuilderCore
         return $this->processor->getConfig();
     }
 
-    /**
-     * Render navigation entities to the HTML string.
-     *
-     * @param array|string $filter
-     *
-     * @return string
-     */
-    final public function render($filter = 'main')
+    final public function render(array $filter = ['main']): string
     {
         return $this->prepare($filter)->renderElements($this->processor->getElements($filter));
     }
@@ -46,7 +39,7 @@ abstract class NavbarBuilderCore
     /**
      * Prepare navigation entities for rendering.
      *
-     * @param array|string $filter
+     * @param  array|string  $filter
      *
      * @return NavbarBuilderCore
      */
@@ -58,8 +51,8 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * @param string $column
-     * @param string $direction
+     * @param  string  $column
+     * @param  string  $direction
      *
      * @return $this
      */
@@ -71,7 +64,7 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * @param array $elements
+     * @param  array  $elements
      *
      * @return string
      */
@@ -79,10 +72,8 @@ abstract class NavbarBuilderCore
     {
         $html = '';
 
-        if (is_array($elements) && count($elements) > 0)
-        {
-            foreach ($elements as $element)
-            {
+        if (is_array($elements) && count($elements) > 0) {
+            foreach ($elements as $element) {
                 $html .= $this->renderElement($element);
             }
         }
@@ -91,7 +82,7 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * @param NavbarElement $element
+     * @param  NavbarElement  $element
      *
      * @return string
      */
@@ -103,7 +94,7 @@ abstract class NavbarBuilderCore
     /**
      * Check if the entity's href attribute matches the current path of the application.
      *
-     * @param NavbarElement $element
+     * @param  NavbarElement  $element
      *
      * @return string
      */
@@ -113,8 +104,8 @@ abstract class NavbarBuilderCore
     }
 
     /**
-     * @param mixed  $object
-     * @param string $method
+     * @param  mixed   $object
+     * @param  string  $method
      *
      * @return string
      */
@@ -128,7 +119,7 @@ abstract class NavbarBuilderCore
     /**
      * Used by validateMethod() when method is invalid.
      *
-     * @param mixed $param
+     * @param  mixed  $param
      *
      * @return string
      */

@@ -4,29 +4,24 @@ namespace Zablose\Navbar\Traits;
 
 trait NavbarSettersTrait
 {
+    private static int $next_id = 0;
 
-    /** @var integer */
-    private static $next_id = 0;
-
-    public static function resetNextId()
+    public static function resetNextId(): void
     {
         self::$next_id = 0;
     }
 
     /**
-     * @param integer $id
+     * @param  int|null  $id
      *
      * @return $this
      */
-    public function setId($id = null)
+    public function setId(?int $id = null)
     {
-        if ($id)
-        {
+        if ($id) {
             $this->id      = $id;
             self::$next_id = $id;
-        }
-        else
-        {
+        } else {
             $this->id = ++self::$next_id;
         }
 
@@ -34,11 +29,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param integer $pid
+     * @param  integer  $pid
      *
      * @return $this
      */
-    public function setPid($pid)
+    public function setPid(int $pid)
     {
         $this->pid = $pid;
 
@@ -46,11 +41,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $filter
+     * @param  string  $filter
      *
      * @return $this
      */
-    public function setFilter($filter)
+    public function setFilter(string $filter)
     {
         $this->filter = $filter;
 
@@ -58,11 +53,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $type
+     * @param  string  $type
      *
      * @return $this
      */
-    public function setType($type)
+    public function setType(string $type)
     {
         $this->type = $type;
 
@@ -70,11 +65,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param boolean $group
+     * @param  boolean  $group
      *
      * @return $this
      */
-    public function setGroup($group = true)
+    public function setGroup(bool $group = true)
     {
         $this->group = $group;
 
@@ -82,11 +77,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $body
+     * @param  string  $body
      *
      * @return $this
      */
-    public function setBody($body)
+    public function setBody(string $body)
     {
         $this->body = $body;
 
@@ -94,11 +89,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $title
+     * @param  string  $title
      *
      * @return $this
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
 
@@ -106,11 +101,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $href
+     * @param  string  $href
      *
      * @return $this
      */
-    public function setHref($href)
+    public function setHref(string $href)
     {
         $this->href = $href;
 
@@ -118,11 +113,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param boolean $external
+     * @param  boolean  $external
      *
      * @return $this
      */
-    public function setExternal($external = true)
+    public function setExternal(bool $external = true)
     {
         $this->external = $external;
 
@@ -130,11 +125,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $class
+     * @param  string  $class
      *
      * @return $this
      */
-    public function setClass($class)
+    public function setClass(string $class)
     {
         $this->class = $class;
 
@@ -142,11 +137,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string $icon
+     * @param  string  $icon
      *
      * @return $this
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon)
     {
         $this->icon = $icon;
 
@@ -154,11 +149,11 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param array $attrs
+     * @param  array  $attrs
      *
      * @return $this
      */
-    public function setAttrs($attrs)
+    public function setAttrs(array $attrs)
     {
         $this->attrs = json_encode($attrs);
 
@@ -166,7 +161,7 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string|integer $role
+     * @param  string|integer  $role
      *
      * @return $this
      */
@@ -178,7 +173,7 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string|integer $permission
+     * @param  string|integer  $permission
      *
      * @return $this
      */
@@ -190,7 +185,7 @@ trait NavbarSettersTrait
     }
 
     /**
-     * @param string|integer $position
+     * @param  string|integer  $position
      *
      * @return $this
      */
@@ -200,5 +195,4 @@ trait NavbarSettersTrait
 
         return $this;
     }
-
 }

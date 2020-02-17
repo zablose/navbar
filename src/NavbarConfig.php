@@ -4,12 +4,12 @@ namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Tests\NavbarEntity;
-use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
 class NavbarConfig implements NavbarConfigContract
 {
 
-    use ConstructFromObjectOrArrayTrait;
+    use ConstructFromDataArrayTrait;
 
     /**
      * Application's URL.

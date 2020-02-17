@@ -3,114 +3,61 @@
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarEntityContract;
-use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
 abstract class NavbarEntityCore implements NavbarEntityContract
 {
 
-    use ConstructFromObjectOrArrayTrait;
+    use ConstructFromDataArrayTrait;
+
+    public ?int $id = null;
+
+    /** Parent unique identifier. */
+    public int $pid = 0;
+
+    /** Filter string, used to select an entity for rendering. */
+    public string $filter = 'main';
+
+    public string $type = '';
+
+    /** Is it a group element? */
+    public bool $group = false;
+
+    /** Tag's body content. */
+    public string $body = '';
+
+    /** Tag's title attribute. */
+    public string $title = '';
+
+    /** Tag's href attribute. */
+    public string $href = '';
+
+    /** Is this link external or not, if it's a link entity? */
+    public bool $external = false;
+
+    /** Tag's class attribute. */
+    public string $class = '';
+
+    /** An icon for the entity. */
+    public string $icon = '';
+
+    public string $attrs = '';
 
     /**
-     * Unique identifier.
-     *
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * Parent unique identifier.
-     *
-     * @var integer
-     */
-    public $pid = 0;
-
-    /**
-     * A filter to grab what you need in one go.
-     *
-     * @var string
-     */
-    public $filter = 'main';
-
-    /**
-     * Navbar entity type.
-     *
-     * @var string
-     */
-    public $type;
-
-    /**
-     * Is this entity represents a group element?
-     *
-     * @var boolean
-     */
-    public $group = false;
-
-    /**
-     * Tag's body content.
-     *
-     * @var string
-     */
-    public $body;
-
-    /**
-     * Tag's title attribute.
-     *
-     * @var string
-     */
-    public $title;
-
-    /**
-     * Tag's href attribute.
-     *
-     * @var string
-     */
-    public $href;
-
-    /**
-     * Is this link external or not, if it's a link entity?
-     *
-     * @var boolean
-     */
-    public $external = false;
-
-    /**
-     * Tag's class attribute.
-     *
-     * @var string
-     */
-    public $class;
-
-    /**
-     * An icon for the entity.
-     *
-     * @var string
-     */
-    public $icon;
-
-    /**
-     * @var string
-     */
-    public $attrs;
-
-    /**
-     * Role that is required to access the entity of navigation.
+     * Role that is required to render this entity.
      *
      * @var integer|string
      */
-    public $role;
+    public $role = '';
 
     /**
-     * Permission that is required to access the entity of navigation.
+     * Permission that is required to render this entity.
      *
      * @var integer|string
      */
-    public $permission;
+    public $permission = '';
 
-    /**
-     * Navigation bar entity's position.
-     *
-     * @var integer
-     */
-    public $position = 0;
+    /** Entity's position. */
+    public int $position = 0;
 
 }

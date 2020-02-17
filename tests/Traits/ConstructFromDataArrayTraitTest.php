@@ -3,23 +3,18 @@
 namespace Zablose\Navbar\Tests\Traits;
 
 use Zablose\Navbar\Tests\TestCase;
-use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
+use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
-class ConstructFromObjectOrArrayTraitTest extends TestCase
+class ConstructFromDataArrayTraitTest extends TestCase
 {
+    protected static array $default_data_set;
+    protected static object $test_object_class;
 
-    /** @var array */
-    protected static $default_data_set;
-
-    /** @var mixed */
-    protected static $test_object_class;
-
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
-        self::$test_object_class = new Class()
-        {
+        self::$test_object_class = new Class() {
 
-            use ConstructFromObjectOrArrayTrait;
+            use ConstructFromDataArrayTrait;
 
             const DEFAULT_ID   = 4;
             const DEFAULT_NAME = 'Zablose';
@@ -35,12 +30,7 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
         ];
     }
 
-    /**
-     * @param object|array $data
-     *
-     * @return array
-     */
-    protected function getObjectVars($data)
+    protected function getObjectVars(?array $data): array
     {
         return get_object_vars(new self::$test_object_class($data));
     }
@@ -73,15 +63,6 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
     }
 
     /** @test */
-    public function construct_from_an_object()
-    {
-        $this->assertSame(
-            $data = ['id' => 12, 'name' => 'Zablockis'],
-            $this->getObjectVars((object) $data)
-        );
-    }
-
-    /** @test */
     public function ignore_null()
     {
         $this->assertSame(
@@ -91,27 +72,8 @@ class ConstructFromObjectOrArrayTraitTest extends TestCase
     }
 
     /** @test */
-    public function ignore_string()
-    {
-        $this->assertSame(
-            self::$default_data_set,
-            $this->getObjectVars('hi')
-        );
-    }
-
-    /** @test */
-    public function ignore_integer()
-    {
-        $this->assertSame(
-            self::$default_data_set,
-            $this->getObjectVars(365)
-        );
-    }
-
-    /** @test */
     public function ignore_not_existing_attribute()
     {
         $this->assertFalse(isset((new self::$test_object_class(['age' => 13]))->age));
     }
-
 }

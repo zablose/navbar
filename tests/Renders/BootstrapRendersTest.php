@@ -111,7 +111,7 @@ class BootstrapRendersTest extends TestCase
 
         $this->assertSame(
             '<li title="Go Home!"><a href="/home"><span class="fa"></span>Home</a></li>',
-            $this->builder()->prepare(['external', 'relative'])->render('relative')
+            $this->builder()->prepare(['external', 'relative'])->render(['relative'])
         );
     }
 

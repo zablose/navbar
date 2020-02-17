@@ -6,12 +6,10 @@ use Zablose\Navbar\Helpers\OrderBy;
 
 interface NavbarRepoContract
 {
-
     /**
-     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
-     * to transform them to navigation entities.
+     * Get an array of arrays to be used by NavbarDataProcessor to transform them into navigation entities.
      *
-     * Example of an array element structure.
+     * Element structure as array:
      *
      *     [
      *         'id'         => 1,
@@ -31,11 +29,10 @@ interface NavbarRepoContract
      *         'position'   => '',
      *     ]
      *
-     * @param array|string $filter
-     * @param OrderBy      $order_by
+     * @param  array|null    $filter
+     * @param  OrderBy|null  $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter = null, OrderBy $order_by = null);
-
+    public function getRawNavbarEntities(array $filter = null, OrderBy $order_by = null): array;
 }
