@@ -7,71 +7,57 @@ use Zablose\Navbar\NavbarElement;
 
 trait CommonRendersTrait
 {
-
-    /**
-     * @param NavbarElement $element
-     *
-     * @return string
-     */
-    protected function renderHref(NavbarElement $element)
+    protected function renderHref(NavbarElement $element): string
     {
         return $element->entity->external
             ? $element->entity->href
-            : rtrim($this->getConfig()->app_url, '/') . '/' . ltrim(trim($element->entity->href), '/');
+            : rtrim($this->getConfig()->app_url, '/').'/'.ltrim(trim($element->entity->href), '/');
     }
 
-    /**
-     * Render class with or without prefix and/or postfix.
-     *
-     * @param NavbarElement $element
-     * @param string        $prefix
-     * @param string        $postfix
-     *
-     * @return string
-     */
-    protected function renderClass(NavbarElement $element, $prefix = null, $postfix = null)
+    protected function renderClass(NavbarElement $element, string $prefix = null, string $postfix = null): string
     {
         return Html::postfix(Html::prefix($element->entity->class, $prefix), $postfix);
     }
 
-    /**
-     * @param NavbarElement $element
-     * @param string        $active_link_class
-     * @param array         $attrs_overwrite
-     *
-     * @return string
-     */
-    protected function renderLink(NavbarElement $element, $active_link_class, $attrs_overwrite = [])
+    protected function renderLink(
+        NavbarElement $element,
+        array $attrs_overwrite = []
+    ): string
     {
-        $attrs = $this->getAttrs($element);
+        $attrs = [
+            'href'  => $this->renderHref($element),
+            'title' => $element->entity->title,
+        ];
 
-        $attrs['href'] = $this->renderHref($element);
-
-        if ($element->entity->external)
-        {
+        if ($element->entity->external) {
             $attrs['target'] = '_blank';
             $attrs['rel']    = 'noopener';
         }
 
-        if ($class = $this->renderClass($element, $this->isActive($element) ? $active_link_class : null))
-        {
-            $attrs['class'] = $class;
-        }
+        $attrs['class'] = $this->renderString([
+            $this->renderClass($element),
+            $this->isActive($element) ? $this->getConfig()->active_link_class : '',
+        ]);
 
-        return Html::tag('a', array_merge($attrs, $attrs_overwrite), $element->entity->body);
+        $body = $this->renderString([
+            $this->renderIcon($element),
+            $this->renderBody($element),
+        ]);
+
+        return Html::tag('a', array_merge($this->getAttrs($element, $attrs), $attrs_overwrite), $body);
     }
 
-    /**
-     * Get custom attributes form the entity.
-     *
-     * @param NavbarElement $element
-     * @param array         $overwrite
-     *
-     * @return array
-     */
-    protected function getAttrs(NavbarElement $element, $overwrite = [])
+    protected function getAttrs(NavbarElement $element, array $overwrite = []): array
     {
-        return array_merge($element->entity->attrs ? json_decode($element->entity->attrs, true) : [], $overwrite);
+        $attrs = $element->entity->attrs
+            ? array_filter(json_decode($element->entity->attrs, true))
+            : [];
+
+        return array_merge($attrs, array_filter($overwrite));
     }
 
+    protected function renderString(array $strings, string $glue = ' '): string
+    {
+        return implode($glue, array_filter($strings));
+    }
 }

@@ -7,7 +7,6 @@ use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
 abstract class NavbarEntityCore implements NavbarEntityContract
 {
-
     use ConstructFromDataArrayTrait;
 
     public ?int $id = null;
@@ -41,6 +40,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     /** An icon for the entity. */
     public string $icon = '';
 
+    /** Extra attributes as JSON string. */
     public string $attrs = '';
 
     /**
@@ -59,5 +59,4 @@ abstract class NavbarEntityCore implements NavbarEntityContract
 
     /** Entity's position. */
     public int $position = 0;
-
 }

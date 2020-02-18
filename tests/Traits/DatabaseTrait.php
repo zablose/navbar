@@ -91,6 +91,7 @@ trait DatabaseTrait
     public function tearDown(): void
     {
         (new Builder(self::db()))->from(Table::NAVBARS)->delete();
-        NavbarEntity::resetNextId();
+
+        parent::tearDown();
     }
 }

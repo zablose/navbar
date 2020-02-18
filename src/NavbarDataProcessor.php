@@ -64,19 +64,8 @@ final class NavbarDataProcessor
         return $this->config;
     }
 
-    /**
-     * Get navigation elements by filter.
-     *
-     * @param  string  $filter
-     *
-     * @return array
-     */
-    public function getElements($filter = 'main')
+    public function getElements(array $filter = ['main']): array
     {
-        if (! is_array($filter)) {
-            $filter = [$filter];
-        }
-
         $elements = [];
         foreach ($filter as $key) {
             $elements = array_merge($elements, $this->elements[$key] ?? []);

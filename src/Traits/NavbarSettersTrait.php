@@ -25,6 +25,8 @@ trait NavbarSettersTrait
             $this->id = ++self::$next_id;
         }
 
+        $this->setPosition($this->id);
+
         return $this;
     }
 

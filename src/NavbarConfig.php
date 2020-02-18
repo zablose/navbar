@@ -25,6 +25,8 @@ class NavbarConfig implements NavbarConfigContract
      */
     public $navbar_entity_class = NavbarEntity::class;
 
+    public string $active_link_class = 'app-is-active';
+
     /**
      * The current path of the application.
      *
