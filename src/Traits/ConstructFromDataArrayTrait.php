@@ -4,9 +4,9 @@ namespace Zablose\Navbar\Traits;
 
 trait ConstructFromDataArrayTrait
 {
-    public function __construct(?array $data = null)
+    public function __construct(array $data = [])
     {
-        if (is_array($data)) {
+        if (count($data) > 0) {
             $attrs = get_object_vars($this);
 
             foreach ($attrs as $key => $null) {

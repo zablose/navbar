@@ -63,15 +63,6 @@ class ConstructFromDataArrayTraitTest extends TestCase
     }
 
     /** @test */
-    public function ignore_null()
-    {
-        $this->assertSame(
-            self::$default_data_set,
-            $this->getObjectVars(null)
-        );
-    }
-
-    /** @test */
     public function ignore_not_existing_attribute()
     {
         $this->assertFalse(isset((new self::$test_object_class(['age' => 13]))->age));

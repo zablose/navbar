@@ -4,71 +4,54 @@ namespace Zablose\Navbar\Helpers;
 
 class Html
 {
-
-    /**
-     * Render a normal tag.
-     *
-     * @param string $name
-     * @param array  $attrs
-     * @param string $body
-     *
-     * @return string
-     */
-    public static function tag($name, $attrs, $body = null)
+    public static function tag(string $name, array $attrs, string $body = null): string
     {
-        return ($name) ? '<' . $name . self::attrs($attrs) . '>' . $body . '</' . $name . '>' : '';
+        return ($name) ? '<'.implode(' ', array_filter([$name, self::attrs($attrs)])).'>'.$body.'</'.$name.'>' : '';
     }
 
     /**
-     * Render tag's attributes to a string from the given array of key-values or values.<br/>
-     * Examples: 'key="value"', 'value="value"', etc.<br/>
-     * Ignore empty values even if the key is not.
+     * Render tag's attributes from an array to a string of 'key="value"' or 'value="value"'.
      *
-     * @param array $attrs
+     * @param  array  $attrs
      *
      * @return string
      */
-    public static function attrs($attrs)
+    public static function attrs(array $attrs): string
     {
         $html = [];
 
-        if (is_array($attrs) && count($attrs) > 0)
-        {
-            foreach ($attrs as $key => $value)
-            {
-                if (! empty($value))
-                {
-                    $html[] = (is_numeric($key)) ? $value . '="' . $value . '"' : $key . '="' . $value . '"';
-                }
+        if (is_array($attrs) && count($attrs) > 0) {
+            foreach ($attrs as $key => $value) {
+                $html[] = (is_numeric($key)) ? $value.'="'.$value.'"' : $key.'="'.$value.'"';
             }
         }
 
-        return (count($html) > 0) ? ' ' . implode(' ', $html) : '';
+        return (count($html) > 0) ? implode(' ', $html) : '';
     }
 
     /**
      * Prefix or postfix string with a string.
      *
-     * @param string  $string
-     * @param string  $value
-     * @param boolean $pre
+     * @param  string   $string
+     * @param  string   $value
+     * @param  boolean  $pre
      *
      * @return string
      */
-    public static function fix($string, $value, $pre = true)
+    private static function fix(string $string, string $value, bool $pre = true): string
     {
-        return ($string && $value) ? (($pre) ? $value . ' ' . $string : $string . ' ' . $value) : $string . $value;
+        return ($string && $value) ? (($pre) ? $value.' '.$string : $string.' '.$value) : $string.$value;
     }
 
     /**
      * Prefix string with a string.
      *
-     * @param string $string
-     * @param string $value
+     * @param  string  $string
+     * @param  string  $value
      *
      * @return string
      */
-    public static function prefix($string, $value)
+    public static function prefix(string $string, string $value): string
     {
         return self::fix($string, $value);
     }
@@ -76,14 +59,13 @@ class Html
     /**
      * Postfix string with a string.
      *
-     * @param string $string
-     * @param string $value
+     * @param  string  $string
+     * @param  string  $value
      *
      * @return string
      */
-    public static function postfix($string, $value)
+    public static function postfix(string $string, string $value): string
     {
         return self::fix($string, $value, false);
     }
-
 }

@@ -7,7 +7,6 @@ use Zablose\Navbar\Tests\TestCase;
 
 class HtmlTest extends TestCase
 {
-
     /** @test */
     public function render_tag_with_null_body()
     {
@@ -21,55 +20,37 @@ class HtmlTest extends TestCase
     }
 
     /** @test */
+    public function render_tag_with_attributes()
+    {
+        $this->assertSame('<a href="/">Link</a>', Html::tag('a', ['href'=>'/'], 'Link'));
+    }
+
+    /** @test */
     public function render_attribute_with_key_and_value()
     {
-        $this->assertSame(' class="active"', Html::attrs(['class' => 'active']));
+        $this->assertSame('class="active"', Html::attrs(['class' => 'active']));
     }
 
     /** @test */
     public function render_attribute_with_value()
     {
-        $this->assertSame(' disabled="disabled"', Html::attrs(['disabled']));
+        $this->assertSame('disabled="disabled"', Html::attrs(['disabled']));
     }
 
     /** @test */
-    public function ignore_attribute_with_key_and_empty_value()
+    public function render_attribute_with_key_and_empty_value()
     {
-        $this->assertSame('', Html::attrs(['class' => '']));
+        $this->assertSame('class=""', Html::attrs(['class' => '']));
     }
 
     /** @test */
-    public function ignore_attribute_with_key_and_null_value()
+    public function render_attribute_with_key_and_null_value()
     {
-        $this->assertSame('', Html::attrs(['class' => null]));
+        $this->assertSame('class=""', Html::attrs(['class' => null]));
     }
 
     /** @test */
-    public function ignore_attribute_with_null_value()
-    {
-        $this->assertSame('', Html::attrs(null));
-    }
-
-    /** @test */
-    public function render_attributes_from_an_empty_string()
-    {
-        $this->assertSame('', Html::attrs(''));
-    }
-
-    /** @test */
-    public function render_attributes_from_an_integer()
-    {
-        $this->assertSame('', Html::attrs(2));
-    }
-
-    /** @test */
-    public function render_attributes_from_a_string()
-    {
-        $this->assertSame('', Html::attrs('class'));
-    }
-
-    /** @test */
-    public function render_attributes_from_an_empty_array()
+    public function render_attributes_from_an_empty_array_to_an_empty_string()
     {
         $this->assertSame('', Html::attrs([]));
     }
@@ -97,5 +78,4 @@ class HtmlTest extends TestCase
     {
         $this->assertSame('Dropdown', Html::prefix('', 'Dropdown'));
     }
-
 }

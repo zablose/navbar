@@ -8,25 +8,14 @@ use Zablose\Navbar\Contracts\NavbarRepoContract;
 
 abstract class NavbarBuilderCore
 {
+    private NavbarDataProcessor $processor;
 
-    /**
-     * @var NavbarDataProcessor
-     */
-    private $processor;
-
-    /**
-     * @param  NavbarRepoContract    $data
-     * @param  NavbarConfigContract  $config
-     */
     public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
         $this->processor = new NavbarDataProcessor($data, $config);
     }
 
-    /**
-     * @return NavbarConfig|NavbarConfigContract
-     */
-    public function getConfig()
+    public function getConfig(): NavbarConfigContract
     {
         return $this->processor->getConfig();
     }
@@ -36,39 +25,21 @@ abstract class NavbarBuilderCore
         return $this->prepare($filter)->renderElements($this->processor->getElements($filter));
     }
 
-    /**
-     * Prepare navigation entities for rendering.
-     *
-     * @param  array|string  $filter
-     *
-     * @return NavbarBuilderCore
-     */
-    final public function prepare($filter = null)
+    final public function prepare(array $filter = []): self
     {
         $this->processor->prepare($filter);
 
         return $this;
     }
 
-    /**
-     * @param  string  $column
-     * @param  string  $direction
-     *
-     * @return $this
-     */
-    final public function orderBy($column, $direction = 'asc')
+    final public function orderBy(string $column, string $direction = 'asc'): self
     {
         $this->processor->orderBy($column, $direction);
 
         return $this;
     }
 
-    /**
-     * @param  array  $elements
-     *
-     * @return string
-     */
-    protected function renderElements($elements)
+    protected function renderElements(array $elements): string
     {
         $html = '';
 
@@ -124,5 +95,4 @@ abstract class NavbarBuilderCore
      * @return string
      */
     private function renderEmptyString($param = null) { return ''; }
-
 }

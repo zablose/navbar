@@ -11,12 +11,7 @@ trait NavbarSettersTrait
         self::$next_id = 0;
     }
 
-    /**
-     * @param  int|null  $id
-     *
-     * @return $this
-     */
-    public function setId(?int $id = null)
+    public function setId(int $id = null): self
     {
         if ($id) {
             $this->id      = $id;
@@ -30,168 +25,98 @@ trait NavbarSettersTrait
         return $this;
     }
 
-    /**
-     * @param  integer  $pid
-     *
-     * @return $this
-     */
-    public function setPid(int $pid)
+    public function setPid(int $pid): self
     {
         $this->pid = $pid;
 
         return $this;
     }
 
-    /**
-     * @param  string  $filter
-     *
-     * @return $this
-     */
-    public function setFilter(string $filter)
+    public function setFilter(string $filter): self
     {
         $this->filter = $filter;
 
         return $this;
     }
 
-    /**
-     * @param  string  $type
-     *
-     * @return $this
-     */
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * @param  boolean  $group
-     *
-     * @return $this
-     */
-    public function setGroup(bool $group = true)
+    public function setGroup(bool $group = true): self
     {
         $this->group = $group;
 
         return $this;
     }
 
-    /**
-     * @param  string  $body
-     *
-     * @return $this
-     */
-    public function setBody(string $body)
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
         return $this;
     }
 
-    /**
-     * @param  string  $title
-     *
-     * @return $this
-     */
-    public function setTitle(string $title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * @param  string  $href
-     *
-     * @return $this
-     */
-    public function setHref(string $href)
+    public function setHref(string $href): self
     {
         $this->href = $href;
 
         return $this;
     }
 
-    /**
-     * @param  boolean  $external
-     *
-     * @return $this
-     */
-    public function setExternal(bool $external = true)
+    public function setExternal(bool $external = true): self
     {
         $this->external = $external;
 
         return $this;
     }
 
-    /**
-     * @param  string  $class
-     *
-     * @return $this
-     */
-    public function setClass(string $class)
+    public function setClass(string $class): self
     {
         $this->class = $class;
 
         return $this;
     }
 
-    /**
-     * @param  string  $icon
-     *
-     * @return $this
-     */
-    public function setIcon(string $icon)
+    public function setIcon(string $icon): self
     {
         $this->icon = $icon;
 
         return $this;
     }
 
-    /**
-     * @param  array  $attrs
-     *
-     * @return $this
-     */
-    public function setAttrs(array $attrs)
+    public function setAttrs(array $attrs): self
     {
         $this->attrs = json_encode($attrs);
 
         return $this;
     }
 
-    /**
-     * @param  string|integer  $role
-     *
-     * @return $this
-     */
-    public function setRole($role)
+    public function setRole(string $role): self
     {
         $this->role = $role;
 
         return $this;
     }
 
-    /**
-     * @param  string|integer  $permission
-     *
-     * @return $this
-     */
-    public function setPermission($permission)
+    public function setPermission(string $permission): self
     {
         $this->permission = $permission;
 
         return $this;
     }
 
-    /**
-     * @param  string|integer  $position
-     *
-     * @return $this
-     */
-    public function setPosition($position)
+    public function setPosition(int $position): self
     {
         $this->position = $position;
 

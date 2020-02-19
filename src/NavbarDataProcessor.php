@@ -115,13 +115,7 @@ final class NavbarDataProcessor
         return $entities;
     }
 
-    /**
-     * @param  string  $column
-     * @param  string  $direction
-     *
-     * @return $this
-     */
-    public function orderBy($column, $direction = 'asc')
+    public function orderBy(string $column, string $direction = 'asc'): self
     {
         $this->order_by->column    = $column;
         $this->order_by->direction = $direction;

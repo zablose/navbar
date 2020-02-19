@@ -14,7 +14,7 @@ trait CommonRendersTrait
             : rtrim($this->getConfig()->app_url, '/').'/'.ltrim(trim($element->entity->href), '/');
     }
 
-    protected function renderClass(NavbarElement $element, string $prefix = null, string $postfix = null): string
+    protected function renderClass(NavbarElement $element, string $prefix = '', string $postfix = ''): string
     {
         return Html::postfix(Html::prefix($element->entity->class, $prefix), $postfix);
     }

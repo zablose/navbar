@@ -18,7 +18,7 @@ class NavbarBuilder extends NavbarBuilderCore
 
     public function render_sublist(NavbarElement $element): string
     {
-        return Html::tag('li', [], $this->renderLink($element, ['class' => '']).$this->renderList($element));
+        return Html::tag('li', [], $this->renderLink($element).$this->renderList($element));
     }
 
     public function render_link(NavbarElement $element): string

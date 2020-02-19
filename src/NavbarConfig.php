@@ -8,108 +8,58 @@ use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
 class NavbarConfig implements NavbarConfigContract
 {
-
     use ConstructFromDataArrayTrait;
 
-    /**
-     * Application's URL.
-     *
-     * @var string
-     */
-    public $app_url = '/';
+    public string $app_url = '/';
 
-    /**
-     * Class to be used by NavbarDataProcessor to represent NavbarEntity.
-     *
-     * @var string
-     */
-    public $navbar_entity_class = NavbarEntity::class;
+    /** Class to be used by NavbarDataProcessor to represent NavbarEntity. */
+    public string $navbar_entity_class = NavbarEntity::class;
 
+    /** CSS class to use to make link active. */
     public string $active_link_class = 'app-is-active';
 
-    /**
-     * The current path of the application.
-     *
-     * @var string
-     */
-    protected $path = '/';
+    /** Current path of the application. */
+    protected string $path = '/';
 
-    /**
-     * Roles of the logged user.
-     *
-     * @var array
-     */
-    protected $roles = [];
+    /** Roles of the logged user as an array of strings. */
+    protected array $roles = [];
 
-    /**
-     * Permissions of the logged user.
-     *
-     * @var array
-     */
-    protected $permissions = [];
+    /** Permissions of the logged user as an array of strings. */
+    protected array $permissions = [];
 
-    /**
-     * Set current path of the application.
-     *
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function setPath($path)
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function getPermissions(): array
+    {
+        return $this->permissions;
+    }
+
+    public function setPath(string $path): NavbarConfig
     {
         $this->path = $path;
 
         return $this;
     }
 
-    /**
-     * @param array $roles An array of strings or integers.
-     *
-     * @return $this
-     */
-    public function setRoles($roles)
+    public function setRoles($roles): NavbarConfig
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    /**
-     * @param array $permissions An array of strings or integers.
-     *
-     * @return $this
-     */
-    public function setPermissions($permissions)
+    public function setPermissions($permissions): NavbarConfig
     {
         $this->permissions = $permissions;
 
         return $this;
     }
-
-    /**
-     * Get current path of the application.
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPermissions()
-    {
-        return $this->permissions;
-    }
-
 }
