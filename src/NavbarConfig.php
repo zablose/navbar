@@ -42,21 +42,21 @@ class NavbarConfig implements NavbarConfigContract
         return $this->permissions;
     }
 
-    public function setPath(string $path): NavbarConfig
+    public function setPath(string $path): self
     {
         $this->path = $path;
 
         return $this;
     }
 
-    public function setRoles($roles): NavbarConfig
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    public function setPermissions($permissions): NavbarConfig
+    public function setPermissions($permissions): self
     {
         $this->permissions = $permissions;
 

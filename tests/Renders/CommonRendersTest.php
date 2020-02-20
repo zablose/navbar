@@ -115,7 +115,7 @@ class CommonRendersTest extends TestCase
             (new NE())->setId()->setType(NE::TYPE_LINK)->setAttrs([
                 '@click' => 'toggle',
                 ':class' => '{bold: isFolder}',
-                'test'   => '',
+                'test' => '',
             ])->toArray(),
         ]);
 

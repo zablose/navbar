@@ -25,7 +25,7 @@ class ConstructFromDataArrayTraitTest extends TestCase
         };
 
         self::$default_data_set = [
-            'id'   => self::$test_object_class::DEFAULT_ID,
+            'id' => self::$test_object_class::DEFAULT_ID,
             'name' => self::$test_object_class::DEFAULT_NAME,
         ];
     }

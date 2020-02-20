@@ -9,7 +9,6 @@ use Illuminate\Database\Schema\Grammars\SQLiteGrammar;
 use PDO;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\Tests\NavbarBuilder;
-use Zablose\Navbar\Tests\NavbarEntity;
 use Zablose\Navbar\Tests\NavbarRepo;
 use Zablose\Navbar\Tests\Table;
 

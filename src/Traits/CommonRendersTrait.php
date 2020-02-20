@@ -36,7 +36,7 @@ trait CommonRendersTrait
 
         $attrs['class'] = $this->renderString([
             $this->renderClass($element),
-            $this->isActive($element) ? $this->getConfig()->active_link_class : '',
+            $this->isLinkActive($element) ? $this->getConfig()->active_link_class : '',
         ]);
 
         $body = $this->renderString([

@@ -6,35 +6,20 @@ use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 class NavbarElement
 {
+    public NavbarEntityContract $entity;
+    public array $content;
 
-    /** @var NavbarEntityCore|NavbarEntityContract */
-    public $entity;
-
-    /** @var array */
-    public $content;
-
-    /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
-     *
-     * @return NavbarElement
-     */
-    public function setEntity(NavbarEntityContract $entity)
+    public function setEntity(NavbarEntityContract $entity): self
     {
         $this->entity = $entity;
 
         return $this;
     }
 
-    /**
-     * @param array $content
-     *
-     * @return NavbarElement
-     */
-    public function setContent(array $content)
+    public function setContent(array $content): self
     {
         $this->content = $content;
 
         return $this;
     }
-
 }

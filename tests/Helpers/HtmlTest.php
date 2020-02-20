@@ -22,7 +22,7 @@ class HtmlTest extends TestCase
     /** @test */
     public function render_tag_with_attributes()
     {
-        $this->assertSame('<a href="/">Link</a>', Html::tag('a', ['href'=>'/'], 'Link'));
+        $this->assertSame('<a href="/">Link</a>', Html::tag('a', ['href' => '/'], 'Link'));
     }
 
     /** @test */

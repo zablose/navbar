@@ -7,32 +7,32 @@ use Zablose\Navbar\Helpers\OrderBy;
 interface NavbarRepoContract
 {
     /**
-     * Get an array of arrays to be used by NavbarDataProcessor to transform them into navigation entities.
+     * Get an array of rows as arrays to be used by NavbarDataProcessor to transform them into navigation entities.
      *
-     * Element structure as array:
+     * Navigation entity as array:
      *
      *     [
      *         'id'         => 1,
      *         'pid'        => 0,
      *         'filter'     => 'main',
-     *         'type'       => 'bootstrap_navbar',
-     *         'group'      => true,
-     *         'body'       => '',
+     *         'type'       => 'render_link',
+     *         'group'      => false,
+     *         'body'       => 'Home',
      *         'title'      => '',
-     *         'href'       => '',
+     *         'href'       => '/',
      *         'external'   => false,
-     *         'class'      => 'nav navbar-nav',
-     *         'icon'       => '',
+     *         'class'      => 'app-link',
+     *         'icon'       => 'fas fa-home',
      *         'attrs'      => '',
      *         'role'       => '',
      *         'permission' => '',
-     *         'position'   => '',
+     *         'position'   => 1,
      *     ]
      *
-     * @param  array|null    $filter
-     * @param  OrderBy|null  $order_by
+     * @param  array    $filter
+     * @param  OrderBy  $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities(array $filter = null, OrderBy $order_by = null): array;
+    public function getRawNavbarEntities(array $filter, OrderBy $order_by): array;
 }

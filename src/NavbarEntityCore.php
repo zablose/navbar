@@ -43,20 +43,12 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     /** Extra attributes as JSON string. */
     public string $attrs = '';
 
-    /**
-     * Role that is required to render this entity.
-     *
-     * @var integer|string
-     */
-    public $role = '';
+    /** Role that is required to render this entity. */
+    public string $role = '';
 
-    /**
-     * Permission that is required to render this entity.
-     *
-     * @var integer|string
-     */
-    public $permission = '';
+    /** Permission that is required to render this entity. */
+    public string $permission = '';
 
-    /** Entity's position. */
+    /** Entity's position to order by. */
     public int $position = 0;
 }

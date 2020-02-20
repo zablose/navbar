@@ -9,57 +9,21 @@ use Zablose\Navbar\Helpers\OrderBy;
 
 final class NavbarDataProcessor
 {
-    /**
-     * @var NavbarRepoContract
-     */
-    private $repo;
+    private array $elements = [];
+    private array $entities = [];
+    private bool $prepared = false;
+    private NavbarConfigContract $config;
+    private NavbarRepoContract $repo;
+    private OrderBy $order_by;
 
-    /**
-     * Navbar entities.
-     *
-     * @var array
-     */
-    private $entities = [];
-
-    /**
-     * Navbar elements.
-     *
-     * @var array
-     */
-    private $elements = [];
-
-    /**
-     * @var NavbarConfig|NavbarConfigContract
-     */
-    private $config;
-
-    /**
-     * @var OrderBy
-     */
-    private $order_by;
-
-    /**
-     * Were data prepared or not. Used to prevent a repeat of preparation.
-     *
-     * @var boolean
-     */
-    private $prepared = false;
-
-    /**
-     * @param  NavbarRepoContract                 $repo
-     * @param  NavbarConfig|NavbarConfigContract  $config
-     */
     public function __construct(NavbarRepoContract $repo, NavbarConfigContract $config = null)
     {
-        $this->repo     = $repo;
         $this->config   = $config ?: new NavbarConfig();
         $this->order_by = new OrderBy();
+        $this->repo     = $repo;
     }
 
-    /**
-     * @return NavbarConfig|NavbarConfigContract
-     */
-    public function getConfig()
+    public function getConfig(): NavbarConfigContract
     {
         return $this->config;
     }
@@ -74,15 +38,7 @@ final class NavbarDataProcessor
         return $elements;
     }
 
-    /**
-     * Get raw navigation entities from the database, validate them and transform to the navigation elements.
-     * Filtered or all.
-     *
-     * @param  array|string  $filter
-     *
-     * @return NavbarDataProcessor
-     */
-    public function prepare($filter = null)
+    public function prepare(array $filter = []): self
     {
         if (! $this->prepared) {
             $this->entities = $this->loadEntities($filter);
@@ -93,14 +49,7 @@ final class NavbarDataProcessor
         return $this;
     }
 
-    /**
-     * Get Navbar entities by filter from the database rows.
-     *
-     * @param  array|string  $filter
-     *
-     * @return array
-     */
-    private function loadEntities($filter = null)
+    private function loadEntities(array $filter = []): array
     {
         $entities = [];
 
@@ -123,20 +72,13 @@ final class NavbarDataProcessor
         return $this;
     }
 
-    /**
-     * Make navigation elements from the navigation entities by parent.
-     *
-     * @param  NavbarEntityCore|NavbarEntityContract  $parent
-     *
-     * @return array
-     */
-    private function makeElements(NavbarEntityContract $parent = null)
+    private function makeElements(NavbarEntityContract $parent = null): array
     {
         $elements = [];
 
         $pid = $parent ? (int) $parent->id : 0;
 
-        /** @var NavbarEntityCore|NavbarEntityContract $entity */
+        /** @var NavbarEntityCore $entity */
         foreach ($this->entities as $entity) {
             if ($pid === (int) $entity->pid) {
                 if ($pid === 0) {
@@ -151,51 +93,24 @@ final class NavbarDataProcessor
         return $elements;
     }
 
-    /**
-     * @param  NavbarEntityCore|NavbarEntityContract  $entity
-     *
-     * @return NavbarElement
-     */
-    private function makeElement(NavbarEntityContract $entity)
+    private function makeElement(NavbarEntityContract $entity): NavbarElement
     {
         return (new NavbarElement())->setEntity($entity)->setContent(
             $entity->group ? $this->makeElements($entity) : []
         );
     }
 
-    /**
-     * Check if the navigation entity is accessible by the user.
-     *
-     * @param  integer|string  $role
-     * @param  integer|string  $permission
-     *
-     * @return bool
-     */
-    private function isAccessible($role, $permission)
+    private function isAccessible(string $role, string $permission): bool
     {
         return ((! $role && ! $permission) || ($this->hasRole($role) || $this->hasPermission($permission)));
     }
 
-    /**
-     * Check if the user has a role to access the navigation entity.
-     *
-     * @param  integer|string  $role
-     *
-     * @return bool
-     */
-    private function hasRole($role)
+    private function hasRole(string $role): bool
     {
         return in_array($role, $this->config->getRoles());
     }
 
-    /**
-     * Check if the user has a permission to access the navigation entity.
-     *
-     * @param  integer|string  $permission
-     *
-     * @return bool
-     */
-    private function hasPermission($permission)
+    private function hasPermission(string $permission): bool
     {
         return in_array($permission, $this->config->getPermissions());
     }

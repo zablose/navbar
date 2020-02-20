@@ -39,6 +39,18 @@ abstract class NavbarBuilderCore
         return $this;
     }
 
+    protected function renderElement(NavbarElement $element): string
+    {
+        $method = $element->entity->type;
+
+        $method_exists_and_public = (
+            method_exists(get_class($this), $method)
+            && (new ReflectionMethod($this, $method))->isPublic()
+        );
+
+        return $method_exists_and_public ? $this->{$method}($element) : '';
+    }
+
     protected function renderElements(array $elements): string
     {
         $html = '';
@@ -52,47 +64,8 @@ abstract class NavbarBuilderCore
         return $html;
     }
 
-    /**
-     * @param  NavbarElement  $element
-     *
-     * @return string
-     */
-    protected function renderElement(NavbarElement $element)
-    {
-        return $this->{$this->validateMethod($this, $element->entity->type)}($element);
-    }
-
-    /**
-     * Check if the entity's href attribute matches the current path of the application.
-     *
-     * @param  NavbarElement  $element
-     *
-     * @return string
-     */
-    protected function isActive(NavbarElement $element)
+    protected function isLinkActive(NavbarElement $element): string
     {
         return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
     }
-
-    /**
-     * @param  mixed   $object
-     * @param  string  $method
-     *
-     * @return string
-     */
-    private function validateMethod($object, $method)
-    {
-        return method_exists(get_class($object), $method) && (new ReflectionMethod($object, $method))->isPublic()
-            ? $method
-            : 'renderEmptyString';
-    }
-
-    /**
-     * Used by validateMethod() when method is invalid.
-     *
-     * @param  mixed  $param
-     *
-     * @return string
-     */
-    private function renderEmptyString($param = null) { return ''; }
 }
