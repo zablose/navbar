@@ -15,22 +15,11 @@ class NavbarRepo implements NavbarRepoContract
         $this->db = $db;
     }
 
-    public function getRawNavbarEntities(array $filter = null, OrderBy $order_by = null): array
+    public function getRawNavbarEntities(array $filter, OrderBy $order_by): array
     {
-        $query = $this->db->table(Table::NAVBARS);
-
-        if (is_string($filter)) {
-            $query->where('filter', $filter);
-        }
-
-        if (is_array($filter)) {
-            $query->whereIn('filter', $filter);
-        }
-
-        if ($order_by) {
-            $query->orderBy($order_by->column, $order_by->direction);
-        }
-
-        return $query->get()->all();
+        return $this->db->table(Table::NAVBARS)
+            ->whereIn('filter', $filter)
+            ->orderBy($order_by->column, $order_by->direction)
+            ->get()->all();
     }
 }

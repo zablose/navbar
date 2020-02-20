@@ -175,7 +175,7 @@ class CommonRendersTest extends TestCase
             '<li><a href="/home" class="app-is-active"><p>Home</p></a></li>'.
             '<li><a href="/about"><p>About</p></a></li>'.
             '<li><a href="/forum"><p>Forum</p></a></li>',
-            $this->builder((new NavbarConfig())->setPath('home')->setRoles([2, 4, 6]))->render()
+            $this->builder((new NavbarConfig())->setPath('home')->setRoles(['2', '4', '6']))->render()
         );
     }
 
@@ -193,7 +193,7 @@ class CommonRendersTest extends TestCase
 
         $this->assertSame(
             '<li><a href="/forum"><p>Forum</p></a></li><li><a href="/dashboard"><p>Dashboard</p></a></li>',
-            $this->builder((new NavbarConfig())->setPath('about')->setPermissions([6, 8]))->render()
+            $this->builder((new NavbarConfig())->setPath('about')->setPermissions(['6', '8']))->render()
         );
     }
 

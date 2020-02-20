@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -54,7 +54,7 @@ final class NavbarDataProcessor
         $entities = [];
 
         foreach ($this->repo->getRawNavbarEntities($filter, $this->order_by) as $row) {
-            $entity = new $this->config->navbar_entity_class((array) $row);
+            $entity = new $this->config->navbar_entity_class($row);
 
             if ($this->isAccessible($entity->role, $entity->permission)) {
                 $entities[$entity->id] = $entity;
@@ -107,11 +107,11 @@ final class NavbarDataProcessor
 
     private function hasRole(string $role): bool
     {
-        return in_array($role, $this->config->getRoles());
+        return in_array($role, $this->config->getRoles(), true);
     }
 
     private function hasPermission(string $permission): bool
     {
-        return in_array($permission, $this->config->getPermissions());
+        return in_array($permission, $this->config->getPermissions(), true);
     }
 }

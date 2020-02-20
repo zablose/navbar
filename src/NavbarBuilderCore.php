@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -64,7 +64,7 @@ abstract class NavbarBuilderCore
         return $html;
     }
 
-    protected function isLinkActive(NavbarElement $element): string
+    protected function isLinkActive(NavbarElement $element): bool
     {
         return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
     }

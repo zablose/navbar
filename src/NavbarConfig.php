@@ -1,14 +1,20 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Tests\NavbarEntity;
-use Zablose\Navbar\Traits\ConstructFromDataArrayTrait;
 
 class NavbarConfig implements NavbarConfigContract
 {
-    use ConstructFromDataArrayTrait;
+    public function __construct(array $config = [])
+    {
+        if (! empty($config)) {
+            $this->app_url             = $config['app_url'];
+            $this->navbar_entity_class = $config['navbar_entity_class'];
+            $this->active_link_class   = $config['active_link_class'];
+        }
+    }
 
     public string $app_url = '/';
 
@@ -49,14 +55,14 @@ class NavbarConfig implements NavbarConfigContract
         return $this;
     }
 
-    public function setRoles($roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    public function setPermissions($permissions): self
+    public function setPermissions(array $permissions): self
     {
         $this->permissions = $permissions;
 
