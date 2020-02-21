@@ -1,35 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Renders;
+namespace Zablose\Navbar\Tests\Traits;
 
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
 use Zablose\Navbar\Tests\TestCase;
-use Zablose\Navbar\Tests\Traits\DatabaseTrait;
 
-class CommonRendersTest extends TestCase
+class ExampleRendersTest extends TestCase
 {
     use DatabaseTrait;
-
-    /** @test */
-    public function ignore_protected_methods()
-    {
-        $this->insert([
-            (new NE())->setId()->setType('renderLink')->toArray(),
-        ]);
-
-        $this->assertSame('', $this->render());
-    }
-
-    /** @test */
-    public function ignore_unknown_entity_type()
-    {
-        $this->insert([
-            (new NE())->setId()->setType('unknown')->toArray(),
-        ]);
-
-        $this->assertSame('', $this->render());
-    }
 
     /** @test */
     public function render_with_order_by_href_asc()
@@ -83,12 +62,12 @@ class CommonRendersTest extends TestCase
     {
         $this->insert([
             (new NE())->setId()->setType(NE::TYPE_LINK)->setBody('Home')->setTitle('Go Home!')
-                ->setHref('/home')->setIcon('fa-home')->toArray(),
+                ->setHref('/home')->setIcon('fas fa-home')->toArray(),
         ]);
 
         $this->assertSame(
-            '<li><a href="/home" title="Go Home!"><span class="app-icon"><i class="fas fa-home"></i></span> '.
-            '<p>Home</p></a></li>',
+            '<li><a href="/home" title="Go Home!">'.
+            '<span class="app-icon"><i class="fas fa-home"></i></span>Home</a></li>',
             $this->render()
         );
     }
@@ -98,12 +77,12 @@ class CommonRendersTest extends TestCase
     {
         $this->insert([
             (new NE())->setId()->setType(NE::TYPE_LINK)->setBody('Laravel')->setTitle('Coding')
-                ->setHref('http://laravel.com')->setExternal()->setClass('lar')->setIcon('fa-book')->toArray(),
+                ->setHref('http://laravel.com')->setExternal()->setClass('lar')->setIcon('fas fa-book')->toArray(),
         ]);
 
         $this->assertSame(
             '<li><a href="http://laravel.com" title="Coding" target="_blank" rel="noopener" class="lar">'.
-            '<span class="app-icon"><i class="fas fa-book"></i></span> <p>Laravel</p></a></li>',
+            '<span class="app-icon"><i class="fas fa-book"></i></span>Laravel</a></li>',
             $this->render()
         );
     }
@@ -138,7 +117,7 @@ class CommonRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/hi"><p>Hi</p></a></li>',
+            '<li><a href="/hi">Hi</a></li>',
             $this->builder((new NavbarConfig())->setRoles(['user']))->render()
         );
     }
@@ -154,7 +133,7 @@ class CommonRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/me"><p>Me</p></a></li><li><a href="/git"><p>Git</p></a></li>',
+            '<li><a href="/me">Me</a></li><li><a href="/git">Git</a></li>',
             $this->render(['main', 'packages'])
         );
     }
@@ -172,9 +151,9 @@ class CommonRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/home" class="app-is-active"><p>Home</p></a></li>'.
-            '<li><a href="/about"><p>About</p></a></li>'.
-            '<li><a href="/forum"><p>Forum</p></a></li>',
+            '<li><a href="/home" class="app-is-active">Home</a></li>'.
+            '<li><a href="/about">About</a></li>'.
+            '<li><a href="/forum">Forum</a></li>',
             $this->builder((new NavbarConfig())->setPath('home')->setRoles(['2', '4', '6']))->render()
         );
     }
@@ -192,7 +171,7 @@ class CommonRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/forum"><p>Forum</p></a></li><li><a href="/dashboard"><p>Dashboard</p></a></li>',
+            '<li><a href="/forum">Forum</a></li><li><a href="/dashboard">Dashboard</a></li>',
             $this->builder((new NavbarConfig())->setPath('about')->setPermissions(['6', 'admin']))->render()
         );
     }
@@ -209,9 +188,9 @@ class CommonRendersTest extends TestCase
         ]);
 
         $this->assertSame(
-            '<li><a href="/forum"><p>Forum</p></a></li>'.
-            '<li><a href="/about"><p>About</p></a></li>'.
-            '<li><a href="/home"><p>Home</p></a></li>',
+            '<li><a href="/forum">Forum</a></li>'.
+            '<li><a href="/about">About</a></li>'.
+            '<li><a href="/home">Home</a></li>',
             $this->render()
         );
     }

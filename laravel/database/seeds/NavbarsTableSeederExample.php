@@ -8,7 +8,7 @@ class NavbarsTableSeederExample extends Seeder
     public function run(): void
     {
         DB::table('navbars')->insert(
-            require_once __DIR__.'/data/navbars.example.php'
+            require_once __DIR__.'/data/navbars.php'
         );
     }
 }

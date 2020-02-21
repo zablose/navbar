@@ -8,21 +8,27 @@ use Zablose\Navbar\Tests\TestCase;
 class HtmlTest extends TestCase
 {
     /** @test */
-    public function render_tag_with_null_body()
+    public function render_tag_only()
     {
-        $this->assertSame('<li></li>', Html::tag('li', [], null));
+        $this->assertSame('<li></li>', Html::tag('li'));
     }
 
     /** @test */
     public function render_tag_with_body()
     {
-        $this->assertSame('<div>Div</div>', Html::tag('div', [], 'Div'));
+        $this->assertSame('<div>Div</div>', Html::tag('div', 'Div'));
     }
 
     /** @test */
-    public function render_tag_with_attributes()
+    public function render_tag_with_attribute()
     {
-        $this->assertSame('<a href="/">Link</a>', Html::tag('a', ['href' => '/'], 'Link'));
+        $this->assertSame('<a href="/"></a>', Html::tag('a', '', ['href' => '/']));
+    }
+
+    /** @test */
+    public function render_tag_with_body_and_attribute()
+    {
+        $this->assertSame('<a href="/">Link</a>', Html::tag('a', 'Link', ['href' => '/']));
     }
 
     /** @test */

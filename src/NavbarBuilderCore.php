@@ -68,4 +68,13 @@ abstract class NavbarBuilderCore
     {
         return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
     }
+
+    protected function getAttrs(NavbarElement $element, array $overwrite = []): array
+    {
+        $attrs = $element->entity->attrs
+            ? array_filter(json_decode($element->entity->attrs, true))
+            : [];
+
+        return array_merge($attrs, array_filter($overwrite));
+    }
 }

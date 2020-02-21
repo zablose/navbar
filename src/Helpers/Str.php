@@ -13,4 +13,9 @@ class Str
     {
         return implode(' ', array_filter([$string, $postfix]));
     }
+
+    public static function implode(array $strings, string $glue = ' '): string
+    {
+        return implode($glue, array_filter($strings, fn($value) => is_string($value) && strlen($value)));
+    }
 }

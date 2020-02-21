@@ -30,4 +30,16 @@ class StrTest extends TestCase
     {
         $this->assertSame('btn', Str::prefix('', 'btn'));
     }
+
+    /** @test */
+    public function implode_strings()
+    {
+        $this->assertSame('class="btn" disabled', Str::implode(['class="btn"', 'disabled']));
+    }
+
+    /** @test */
+    public function implode_strings_only_and_ignore_empty_ones()
+    {
+        $this->assertSame('btn', Str::implode(['btn', '', null, false, true, new \stdClass(), [], 2020]));
+    }
 }

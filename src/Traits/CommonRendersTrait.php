@@ -15,11 +15,6 @@ trait CommonRendersTrait
             : rtrim($this->getConfig()->app_url, '/').'/'.ltrim(trim($element->entity->href), '/');
     }
 
-    protected function renderClass(NavbarElement $element, string $prefix = '', string $postfix = ''): string
-    {
-        return Str::postfix(Str::prefix($prefix, $element->entity->class), $postfix);
-    }
-
     protected function renderLink(
         NavbarElement $element,
         array $attrs_overwrite = []
@@ -35,30 +30,37 @@ trait CommonRendersTrait
             $attrs['rel']    = 'noopener';
         }
 
-        $attrs['class'] = $this->renderString([
-            $this->renderClass($element),
+        $attrs['class'] = Str::postfix(
+            $element->entity->class,
             $this->isLinkActive($element) ? $this->getConfig()->active_link_class : '',
-        ]);
+            );
 
-        $body = $this->renderString([
-            $this->renderIcon($element),
-            $this->renderBody($element),
-        ]);
-
-        return Html::tag('a', array_merge($this->getAttrs($element, $attrs), $attrs_overwrite), $body);
+        return Html::tag(
+            'a',
+            $this->renderLinkBody($element),
+            array_merge($this->getAttrs($element, $attrs), $attrs_overwrite)
+        );
     }
 
-    protected function getAttrs(NavbarElement $element, array $overwrite = []): array
+    protected function renderLinkIcon(NavbarElement $element): string
     {
-        $attrs = $element->entity->attrs
-            ? array_filter(json_decode($element->entity->attrs, true))
-            : [];
-
-        return array_merge($attrs, array_filter($overwrite));
+        return $element->entity->icon
+            ? '<span class="app-icon"><i class="'.$element->entity->icon.'"></i></span>'
+            : '';
     }
 
-    protected function renderString(array $strings, string $glue = ' '): string
+    protected function renderLinkBody(NavbarElement $element)
     {
-        return implode($glue, array_filter($strings));
+        return Str::implode([$this->renderLinkIcon($element), $element->entity->body,], '');
+    }
+
+    protected function renderList(NavbarElement $element): string
+    {
+        $attrs = $this->getAttrs($element, [
+            'class' => $element->entity->class,
+            'title' => $element->entity->title,
+        ]);
+
+        return Html::tag('ul', $this->renderElements($element->content), $attrs);
     }
 }

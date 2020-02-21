@@ -6,6 +6,7 @@ use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 class NavbarElement
 {
+    /** @var NavbarEntityCore|NavbarEntityContract */
     public NavbarEntityContract $entity;
     public array $content;
 

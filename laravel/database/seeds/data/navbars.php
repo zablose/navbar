@@ -6,9 +6,9 @@ class NE extends \Zablose\Navbar\Tests\NavbarEntity
     use \Zablose\Navbar\Traits\ArrayableTrait;
 }
 
-$label = (new NE())->setType(NE::TYPE_BULMA_MENU_LABEL);
-$list  = (new NE())->setType(NE::TYPE_BULMA_MENU_LIST)->setGroup();
-$link  = (new NE())->setType(NE::TYPE_BULMA_MENU_LINK);
+$label = (new NE())->setType(NE::TYPE_LABEL);
+$list  = (new NE())->setType(NE::TYPE_LIST)->setGroup();
+$link  = (new NE())->setType(NE::TYPE_LINK);
 
 return [
     $label->setId()->setBody('General')->toArray(),
