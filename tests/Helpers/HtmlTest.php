@@ -32,26 +32,32 @@ class HtmlTest extends TestCase
     }
 
     /** @test */
-    public function render_attribute_with_value()
+    public function render_attribute_with_value_only()
     {
-        $this->assertSame('disabled="disabled"', Html::attrs(['disabled']));
+        $this->assertSame('disabled', Html::attrs(['disabled']));
     }
 
     /** @test */
     public function render_attribute_with_key_and_empty_value()
     {
-        $this->assertSame('class=""', Html::attrs(['class' => '']));
+        $this->assertSame('', Html::attrs(['class' => '']));
     }
 
     /** @test */
     public function render_attribute_with_key_and_null_value()
     {
-        $this->assertSame('class=""', Html::attrs(['class' => null]));
+        $this->assertSame('', Html::attrs(['class' => null]));
     }
 
     /** @test */
     public function render_attributes_from_an_empty_array_to_an_empty_string()
     {
         $this->assertSame('', Html::attrs([]));
+    }
+
+    /** @test */
+    public function ignore_attribute_as_an_empty_string()
+    {
+        $this->assertSame('class="btn"', Html::attrs(['class' => 'btn', '']));
     }
 }

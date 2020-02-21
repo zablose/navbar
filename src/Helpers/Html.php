@@ -21,8 +21,8 @@ class Html
         $html = [];
 
         if (is_array($attrs) && count($attrs) > 0) {
-            foreach ($attrs as $key => $value) {
-                $html[] = (is_numeric($key)) ? $value.'="'.$value.'"' : $key.'="'.$value.'"';
+            foreach (array_filter($attrs) as $key => $value) {
+                $html[] = (is_numeric($key)) ? $value : $key.'="'.$value.'"';
             }
         }
 
