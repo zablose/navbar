@@ -3,6 +3,7 @@
 namespace Zablose\Navbar\Traits;
 
 use Zablose\Navbar\Helpers\Html;
+use Zablose\Navbar\Helpers\Str;
 use Zablose\Navbar\NavbarElement;
 
 trait CommonRendersTrait
@@ -16,7 +17,7 @@ trait CommonRendersTrait
 
     protected function renderClass(NavbarElement $element, string $prefix = '', string $postfix = ''): string
     {
-        return Html::postfix(Html::prefix($element->entity->class, $prefix), $postfix);
+        return Str::postfix(Str::prefix($prefix, $element->entity->class), $postfix);
     }
 
     protected function renderLink(
@@ -25,7 +26,7 @@ trait CommonRendersTrait
     ): string
     {
         $attrs = [
-            'href'  => $this->renderHref($element),
+            'href' => $this->renderHref($element),
             'title' => $element->entity->title,
         ];
 

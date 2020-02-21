@@ -28,44 +28,4 @@ class Html
 
         return (count($html) > 0) ? implode(' ', $html) : '';
     }
-
-    /**
-     * Prefix or postfix string with a string.
-     *
-     * @param  string   $string
-     * @param  string   $value
-     * @param  boolean  $pre
-     *
-     * @return string
-     */
-    private static function fix(string $string, string $value, bool $pre = true): string
-    {
-        return ($string && $value) ? (($pre) ? $value.' '.$string : $string.' '.$value) : $string.$value;
-    }
-
-    /**
-     * Prefix string with a string.
-     *
-     * @param  string  $string
-     * @param  string  $value
-     *
-     * @return string
-     */
-    public static function prefix(string $string, string $value): string
-    {
-        return self::fix($string, $value);
-    }
-
-    /**
-     * Postfix string with a string.
-     *
-     * @param  string  $string
-     * @param  string  $value
-     *
-     * @return string
-     */
-    public static function postfix(string $string, string $value): string
-    {
-        return self::fix($string, $value, false);
-    }
 }

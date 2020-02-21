@@ -54,28 +54,4 @@ class HtmlTest extends TestCase
     {
         $this->assertSame('', Html::attrs([]));
     }
-
-    /** @test */
-    public function postfix_a_string()
-    {
-        $this->assertSame('nav navbar active', Html::postfix('nav navbar', 'active'));
-    }
-
-    /** @test */
-    public function postfix_an_empty_string()
-    {
-        $this->assertSame('active', Html::postfix('', 'active'));
-    }
-
-    /** @test */
-    public function prefix_a_string()
-    {
-        $this->assertSame('Mega Dropdown', Html::prefix('Dropdown', 'Mega'));
-    }
-
-    /** @test */
-    public function prefix_an_empty_string()
-    {
-        $this->assertSame('Dropdown', Html::prefix('', 'Dropdown'));
-    }
 }
