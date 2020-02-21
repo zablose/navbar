@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Renders;
 
@@ -165,10 +165,10 @@ class CommonRendersTest extends TestCase
         $link = (new NE())->setType(NE::TYPE_LINK);
 
         $this->insert([
-            $link->setId()->setBody('Home')->setHref('/home')->setRole(2)->toArray(),
-            $link->setId()->setBody('About')->setHref('/about')->setRole(4)->toArray(),
-            $link->setId()->setBody('Forum')->setHref('/forum')->setRole(6)->toArray(),
-            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setRole(8)->toArray(),
+            $link->setId()->setBody('Home')->setHref('/home')->setRole('2')->toArray(),
+            $link->setId()->setBody('About')->setHref('/about')->setRole('4')->toArray(),
+            $link->setId()->setBody('Forum')->setHref('/forum')->setRole('6')->toArray(),
+            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setRole('admin')->toArray(),
         ]);
 
         $this->assertSame(
@@ -185,15 +185,15 @@ class CommonRendersTest extends TestCase
         $link = (new NE())->setType(NE::TYPE_LINK);
 
         $this->insert([
-            $link->setId()->setBody('Home')->setHref('/home')->setPermission(2)->toArray(),
-            $link->setId()->setBody('About')->setHref('/about')->setPermission(4)->toArray(),
-            $link->setId()->setBody('Forum')->setHref('/forum')->setPermission(6)->toArray(),
-            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setPermission(8)->toArray(),
+            $link->setId()->setBody('Home')->setHref('/home')->setPermission('2')->toArray(),
+            $link->setId()->setBody('About')->setHref('/about')->setPermission('4')->toArray(),
+            $link->setId()->setBody('Forum')->setHref('/forum')->setPermission('6')->toArray(),
+            $link->setId()->setBody('Dashboard')->setHref('/dashboard')->setPermission('admin')->toArray(),
         ]);
 
         $this->assertSame(
             '<li><a href="/forum"><p>Forum</p></a></li><li><a href="/dashboard"><p>Dashboard</p></a></li>',
-            $this->builder((new NavbarConfig())->setPath('about')->setPermissions(['6', '8']))->render()
+            $this->builder((new NavbarConfig())->setPath('about')->setPermissions(['6', 'admin']))->render()
         );
     }
 

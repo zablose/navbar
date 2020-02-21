@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "illuminate/database": "^6.0",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.0",
         "ext-pdo": "*"
     },
     "autoload": {
