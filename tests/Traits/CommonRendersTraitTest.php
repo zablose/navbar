@@ -5,7 +5,7 @@ namespace Zablose\Navbar\Tests\Traits;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
 use Zablose\Navbar\Tests\TestCase;
 
-class CommonRendersTest extends TestCase
+class CommonRendersTraitTest extends TestCase
 {
     use DatabaseTrait;
 

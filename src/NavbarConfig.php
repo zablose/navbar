@@ -7,12 +7,14 @@ use Zablose\Navbar\Tests\NavbarEntity;
 
 class NavbarConfig implements NavbarConfigContract
 {
-    public function __construct(array $config = [])
+    public function __construct(array $overwrites = [])
     {
-        if (! empty($config)) {
-            $this->app_url             = $config['app_url'];
-            $this->navbar_entity_class = $config['navbar_entity_class'];
-            $this->active_link_class   = $config['active_link_class'];
+        if (! empty($overwrites)) {
+            foreach (get_object_vars($this) as $key => $null) {
+                if (isset($overwrites[$key])) {
+                    $this->{$key} = $overwrites[$key];
+                }
+            }
         }
     }
 

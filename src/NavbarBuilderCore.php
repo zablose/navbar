@@ -15,6 +15,9 @@ abstract class NavbarBuilderCore
         $this->processor = new NavbarDataProcessor($data, $config);
     }
 
+    /**
+     * @return NavbarConfig|NavbarConfigContract
+     */
     public function getConfig(): NavbarConfigContract
     {
         return $this->processor->getConfig();
