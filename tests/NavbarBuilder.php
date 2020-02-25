@@ -3,11 +3,11 @@
 namespace Zablose\Navbar\Tests;
 
 use Zablose\Navbar\NavbarBuilderCore;
-use Zablose\Navbar\Traits\ExampleRendersTrait;
+use Zablose\Navbar\Traits\BasicRendersTrait;
 use Zablose\Navbar\Traits\CommonRendersTrait;
 
 class NavbarBuilder extends NavbarBuilderCore
 {
     use CommonRendersTrait;
-    use ExampleRendersTrait;
+    use BasicRendersTrait;
 }

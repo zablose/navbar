@@ -5,7 +5,7 @@ namespace Zablose\Navbar\Traits;
 use Zablose\Navbar\Helpers\Html;
 use Zablose\Navbar\NavbarElement;
 
-trait ExampleRendersTrait
+trait BasicRendersTrait
 {
     public function render_list(NavbarElement $element): string
     {

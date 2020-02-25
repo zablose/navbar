@@ -2,12 +2,12 @@
 
 namespace Zablose\Navbar\Tests;
 
-use Zablose\Navbar\Contracts\ExampleRendersContract;
+use Zablose\Navbar\Contracts\BasicRendersContract;
 use Zablose\Navbar\NavbarEntityCore;
 use Zablose\Navbar\Traits\ArrayableTrait;
 use Zablose\Navbar\Traits\NavbarSettersTrait;
 
-class NavbarEntity extends NavbarEntityCore implements ExampleRendersContract
+class NavbarEntity extends NavbarEntityCore implements BasicRendersContract
 {
     use ArrayableTrait;
     use NavbarSettersTrait;

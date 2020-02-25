@@ -6,7 +6,7 @@ use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
 use Zablose\Navbar\Tests\TestCase;
 
-class ExampleRendersTraitTest extends TestCase
+class BasicRendersTraitTest extends TestCase
 {
     use DatabaseTrait;
 

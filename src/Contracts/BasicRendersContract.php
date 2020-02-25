@@ -2,7 +2,7 @@
 
 namespace Zablose\Navbar\Contracts;
 
-interface ExampleRendersContract
+interface BasicRendersContract
 {
     const TYPE_LABEL   = 'render_label';
     const TYPE_LINK    = 'render_link';

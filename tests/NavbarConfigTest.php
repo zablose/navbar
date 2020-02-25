@@ -2,7 +2,7 @@
 
 namespace Zablose\Navbar\Tests\Traits;
 
-use Zablose\Navbar\Contracts\ExampleRendersContract;
+use Zablose\Navbar\Contracts\BasicRendersContract;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\NavbarEntityCore;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
@@ -30,7 +30,7 @@ class NavbarConfigTest extends TestCase
     /** @test */
     public function render_link_with_custom_entity_class()
     {
-        $entity = new Class() extends NavbarEntityCore implements ExampleRendersContract {
+        $entity = new Class() extends NavbarEntityCore implements BasicRendersContract {
             use ArrayableTrait;
             use NavbarSettersTrait;
         };
