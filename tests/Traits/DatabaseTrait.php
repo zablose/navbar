@@ -53,7 +53,7 @@ trait DatabaseTrait
 
         $table->integer('pid')->unsigned()->default(0);
         $table->string('filter', 32)->nullable();
-        $table->string('type', 32)->default('bootstrap_link');
+        $table->string('type', 32);
         $table->boolean('group')->default(false);
         $table->string('body', 64)->nullable();
         $table->string('title')->nullable();
@@ -65,9 +65,6 @@ trait DatabaseTrait
         $table->string('role')->nullable();
         $table->string('permission')->nullable();
         $table->integer('position')->unsigned()->default(0);
-
-        $table->dateTime('created_at')->default(self::db()->raw('CURRENT_TIMESTAMP'));
-        $table->dateTime('updated_at')->default(self::db()->raw('CURRENT_TIMESTAMP'));
 
         $table->build(self::db(), new SQLiteGrammar());
     }

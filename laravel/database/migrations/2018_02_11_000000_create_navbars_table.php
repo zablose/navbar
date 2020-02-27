@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -32,9 +31,6 @@ class CreateNavbarsTable extends Migration
             $table->string('role')->nullable();
             $table->string('permission')->nullable();
             $table->integer('position')->unsigned()->default(0);
-
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

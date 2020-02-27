@@ -1,9 +1,14 @@
-<?php /** @noinspection PhpFullyQualifiedNameUsageInspection */
+<?php
 
-class NE extends \Zablose\Navbar\Tests\NavbarEntity
+use Zablose\Navbar\Contracts\BasicRendersContract;
+use Zablose\Navbar\NavbarEntityCore;
+use Zablose\Navbar\Traits\ArrayableTrait;
+use Zablose\Navbar\Traits\NavbarSettersTrait;
+
+class NE extends NavbarEntityCore implements BasicRendersContract
 {
-    use \Zablose\Navbar\Traits\NavbarSettersTrait;
-    use \Zablose\Navbar\Traits\ArrayableTrait;
+    use ArrayableTrait;
+    use NavbarSettersTrait;
 }
 
 $label = (new NE())->setType(NE::TYPE_LABEL);
