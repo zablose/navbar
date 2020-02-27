@@ -1,17 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests;
 
 use Zablose\Navbar\NavbarBuilderCore;
-use Zablose\Navbar\Traits\BootstrapRendersTrait;
-use Zablose\Navbar\Traits\BulmaRendersTrait;
+use Zablose\Navbar\Traits\BasicRendersTrait;
 use Zablose\Navbar\Traits\CommonRendersTrait;
 
 class NavbarBuilder extends NavbarBuilderCore
 {
-
     use CommonRendersTrait;
-    use BootstrapRendersTrait;
-    use BulmaRendersTrait;
-
+    use BasicRendersTrait;
 }

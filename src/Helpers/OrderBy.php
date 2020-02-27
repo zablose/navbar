@@ -1,14 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Helpers;
 
 class OrderBy
 {
-
-    /** @var string */
-    public $column = 'id';
-
-    /** @var string */
-    public $direction = 'asc';
-
+    public string $column = 'position';
+    public string $direction = 'asc';
 }

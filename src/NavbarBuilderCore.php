@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -8,16 +8,8 @@ use Zablose\Navbar\Contracts\NavbarRepoContract;
 
 abstract class NavbarBuilderCore
 {
+    private NavbarDataProcessor $processor;
 
-    /**
-     * @var NavbarDataProcessor
-     */
-    private $processor;
-
-    /**
-     * @param NavbarRepoContract   $data
-     * @param NavbarConfigContract $config
-     */
     public function __construct(NavbarRepoContract $data, NavbarConfigContract $config = null)
     {
         $this->processor = new NavbarDataProcessor($data, $config);
@@ -26,63 +18,48 @@ abstract class NavbarBuilderCore
     /**
      * @return NavbarConfig|NavbarConfigContract
      */
-    public function getConfig()
+    public function getConfig(): NavbarConfigContract
     {
         return $this->processor->getConfig();
     }
 
-    /**
-     * Render navigation entities to the HTML string.
-     *
-     * @param array|string $filter
-     *
-     * @return string
-     */
-    final public function render($filter = 'main')
+    final public function render(array $filter = ['main']): string
     {
         return $this->prepare($filter)->renderElements($this->processor->getElements($filter));
     }
 
-    /**
-     * Prepare navigation entities for rendering.
-     *
-     * @param array|string $filter
-     *
-     * @return NavbarBuilderCore
-     */
-    final public function prepare($filter = null)
+    final public function prepare(array $filter = []): self
     {
         $this->processor->prepare($filter);
 
         return $this;
     }
 
-    /**
-     * @param string $column
-     * @param string $direction
-     *
-     * @return $this
-     */
-    final public function orderBy($column, $direction = 'asc')
+    final public function orderBy(string $column, string $direction = 'asc'): self
     {
         $this->processor->orderBy($column, $direction);
 
         return $this;
     }
 
-    /**
-     * @param array $elements
-     *
-     * @return string
-     */
-    protected function renderElements($elements)
+    protected function renderElement(NavbarElement $element): string
+    {
+        $method = $element->entity->type;
+
+        $method_exists_and_public = (
+            method_exists(get_class($this), $method)
+            && (new ReflectionMethod($this, $method))->isPublic()
+        );
+
+        return $method_exists_and_public ? $this->{$method}($element) : '';
+    }
+
+    protected function renderElements(array $elements): string
     {
         $html = '';
 
-        if (is_array($elements) && count($elements) > 0)
-        {
-            foreach ($elements as $element)
-            {
+        if (is_array($elements) && count($elements) > 0) {
+            foreach ($elements as $element) {
                 $html .= $this->renderElement($element);
             }
         }
@@ -90,48 +67,17 @@ abstract class NavbarBuilderCore
         return $html;
     }
 
-    /**
-     * @param NavbarElement $element
-     *
-     * @return string
-     */
-    protected function renderElement(NavbarElement $element)
-    {
-        return $this->{$this->validateMethod($this, $element->entity->type)}($element);
-    }
-
-    /**
-     * Check if the entity's href attribute matches the current path of the application.
-     *
-     * @param NavbarElement $element
-     *
-     * @return string
-     */
-    protected function isActive(NavbarElement $element)
+    protected function isLinkActive(NavbarElement $element): bool
     {
         return (trim($this->processor->getConfig()->getPath(), '/') === trim($element->entity->href, '/'));
     }
 
-    /**
-     * @param mixed  $object
-     * @param string $method
-     *
-     * @return string
-     */
-    private function validateMethod($object, $method)
+    protected function getAttrs(NavbarElement $element, array $overwrite = []): array
     {
-        return method_exists(get_class($object), $method) && (new ReflectionMethod($object, $method))->isPublic()
-            ? $method
-            : 'renderEmptyString';
+        $attrs = $element->entity->attrs
+            ? array_filter(json_decode($element->entity->attrs, true))
+            : [];
+
+        return array_merge($attrs, array_filter($overwrite));
     }
-
-    /**
-     * Used by validateMethod() when method is invalid.
-     *
-     * @param mixed $param
-     *
-     * @return string
-     */
-    private function renderEmptyString($param = null) { return ''; }
-
 }
