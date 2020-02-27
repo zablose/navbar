@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Contracts;
 
@@ -6,36 +6,33 @@ use Zablose\Navbar\Helpers\OrderBy;
 
 interface NavbarRepoContract
 {
-
     /**
-     * Get an array of arrays or an array of objects to be used by NavbarDataProcessor
-     * to transform them to navigation entities.
+     * Get an array of rows as arrays to be used by NavbarDataProcessor to transform them into navigation entities.
      *
-     * Example of an array element structure.
+     * Navigation entity as array:
      *
      *     [
      *         'id'         => 1,
      *         'pid'        => 0,
      *         'filter'     => 'main',
-     *         'type'       => 'bootstrap_navbar',
-     *         'group'      => true,
-     *         'body'       => '',
+     *         'type'       => 'render_link',
+     *         'group'      => false,
+     *         'body'       => 'Home',
      *         'title'      => '',
-     *         'href'       => '',
+     *         'href'       => '/',
      *         'external'   => false,
-     *         'class'      => 'nav navbar-nav',
-     *         'icon'       => '',
+     *         'class'      => 'app-link',
+     *         'icon'       => 'fas fa-home',
      *         'attrs'      => '',
      *         'role'       => '',
      *         'permission' => '',
-     *         'position'   => '',
+     *         'position'   => 1,
      *     ]
      *
-     * @param array|string $filter
-     * @param OrderBy      $order_by
+     * @param  array    $filter
+     * @param  OrderBy  $order_by
      *
      * @return array
      */
-    public function getRawNavbarEntities($filter = null, OrderBy $order_by = null);
-
+    public function getRawNavbarEntities(array $filter, OrderBy $order_by): array;
 }

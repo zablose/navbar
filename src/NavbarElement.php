@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -6,35 +6,21 @@ use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 class NavbarElement
 {
-
     /** @var NavbarEntityCore|NavbarEntityContract */
-    public $entity;
+    public NavbarEntityContract $entity;
+    public array $content;
 
-    /** @var array */
-    public $content;
-
-    /**
-     * @param NavbarEntityCore|NavbarEntityContract $entity
-     *
-     * @return NavbarElement
-     */
-    public function setEntity(NavbarEntityContract $entity)
+    public function setEntity(NavbarEntityContract $entity): self
     {
         $this->entity = $entity;
 
         return $this;
     }
 
-    /**
-     * @param array $content
-     *
-     * @return NavbarElement
-     */
-    public function setContent(array $content)
+    public function setContent(array $content): self
     {
         $this->content = $content;
 
         return $this;
     }
-
 }

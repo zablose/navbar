@@ -1,14 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Traits;
 
 trait ArrayableTrait
 {
-
-    /** @return array */
-    public function toArray()
+    public function toArray(): array
     {
         return get_object_vars($this);
     }
-
 }

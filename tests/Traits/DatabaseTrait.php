@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Traits;
 
@@ -9,29 +9,22 @@ use Illuminate\Database\Schema\Grammars\SQLiteGrammar;
 use PDO;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\Tests\NavbarBuilder;
-use Zablose\Navbar\Tests\NavbarEntity;
 use Zablose\Navbar\Tests\NavbarRepo;
 use Zablose\Navbar\Tests\Table;
 
 trait DatabaseTrait
 {
+    private static ?PDO $pdo = null;
+    private static ?Connection $db = null;
 
-    /** @var PDO */
-    private static $pdo;
-
-    /** @var Connection */
-    private static $db;
-
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::setUpTable();
     }
 
-    /** @return PDO */
-    protected static function pdo()
+    protected static function pdo(): PDO
     {
-        if (! self::$pdo)
-        {
+        if (! isset(self::$pdo)) {
             self::$pdo = new PDO('sqlite::memory:');
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
@@ -39,18 +32,16 @@ trait DatabaseTrait
         return self::$pdo;
     }
 
-    /** @return Connection */
-    protected static function db()
+    protected static function db(): Connection
     {
-        if (! self::$db)
-        {
+        if (! self::$db) {
             self::$db = new Connection(self::pdo());
         }
 
         return self::$db;
     }
 
-    protected static function setUpTable()
+    protected static function setUpTable(): void
     {
         $table = new Blueprint(Table::NAVBARS);
         $table->create();
@@ -62,7 +53,7 @@ trait DatabaseTrait
 
         $table->integer('pid')->unsigned()->default(0);
         $table->string('filter', 32)->nullable();
-        $table->string('type', 32)->default('bootstrap_link');
+        $table->string('type', 32);
         $table->boolean('group')->default(false);
         $table->string('body', 64)->nullable();
         $table->string('title')->nullable();
@@ -75,46 +66,28 @@ trait DatabaseTrait
         $table->string('permission')->nullable();
         $table->integer('position')->unsigned()->default(0);
 
-        $table->dateTime('created_at')->default(self::db()->raw('CURRENT_TIMESTAMP'));
-        $table->dateTime('updated_at')->default(self::db()->raw('CURRENT_TIMESTAMP'));
-
         $table->build(self::db(), new SQLiteGrammar());
     }
 
-    /**
-     * @param array $data
-     *
-     * @return bool
-     */
-    protected function insert($data)
+    protected function insert(array $data): bool
     {
         return (new Builder(self::db()))->from(Table::NAVBARS)->insert($data);
     }
 
-    /**
-     * @param array|string $filter
-     *
-     * @return string
-     */
-    protected function render($filter = 'main')
+    protected function render(array $filter = ['main']): string
     {
         return (new NavbarBuilder(new NavbarRepo(self::db()), new NavbarConfig()))->render($filter);
     }
 
-    /**
-     * @param NavbarConfig $config
-     *
-     * @return NavbarBuilder
-     */
-    protected function builder($config = null)
+    protected function builder(?NavbarConfig $config = null): NavbarBuilder
     {
         return (new NavbarBuilder(new NavbarRepo(self::db()), $config ?: new NavbarConfig()));
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         (new Builder(self::db()))->from(Table::NAVBARS)->delete();
-        NavbarEntity::resetNextId();
-    }
 
+        parent::tearDown();
+    }
 }

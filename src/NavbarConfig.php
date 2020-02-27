@@ -1,113 +1,73 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
 use Zablose\Navbar\Contracts\NavbarConfigContract;
 use Zablose\Navbar\Tests\NavbarEntity;
-use Zablose\Navbar\Traits\ConstructFromObjectOrArrayTrait;
 
 class NavbarConfig implements NavbarConfigContract
 {
+    public function __construct(array $overwrites = [])
+    {
+        if (! empty($overwrites)) {
+            foreach (get_object_vars($this) as $key => $null) {
+                if (isset($overwrites[$key])) {
+                    $this->{$key} = $overwrites[$key];
+                }
+            }
+        }
+    }
 
-    use ConstructFromObjectOrArrayTrait;
+    public string $app_url = '/';
 
-    /**
-     * Application's URL.
-     *
-     * @var string
-     */
-    public $app_url = '/';
+    /** Class to be used by NavbarDataProcessor to represent NavbarEntity. */
+    public string $navbar_entity_class = NavbarEntity::class;
 
-    /**
-     * Class to be used by NavbarDataProcessor to represent NavbarEntity.
-     *
-     * @var string
-     */
-    public $navbar_entity_class = NavbarEntity::class;
+    /** CSS class to use to make link active. */
+    public string $active_link_class = 'app-is-active';
 
-    /**
-     * The current path of the application.
-     *
-     * @var string
-     */
-    protected $path = '/';
+    /** Current path of the application. */
+    protected string $path = '/';
 
-    /**
-     * Roles of the logged user.
-     *
-     * @var array
-     */
-    protected $roles = [];
+    /** Roles of the logged user as an array of strings. */
+    protected array $roles = [];
 
-    /**
-     * Permissions of the logged user.
-     *
-     * @var array
-     */
-    protected $permissions = [];
+    /** Permissions of the logged user as an array of strings. */
+    protected array $permissions = [];
 
-    /**
-     * Set current path of the application.
-     *
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function setPath($path)
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function getPermissions(): array
+    {
+        return $this->permissions;
+    }
+
+    public function setPath(string $path): self
     {
         $this->path = $path;
 
         return $this;
     }
 
-    /**
-     * @param array $roles An array of strings or integers.
-     *
-     * @return $this
-     */
-    public function setRoles($roles)
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    /**
-     * @param array $permissions An array of strings or integers.
-     *
-     * @return $this
-     */
-    public function setPermissions($permissions)
+    public function setPermissions(array $permissions): self
     {
         $this->permissions = $permissions;
 
         return $this;
     }
-
-    /**
-     * Get current path of the application.
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPermissions()
-    {
-        return $this->permissions;
-    }
-
 }

@@ -1,20 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests;
 
-use Zablose\Navbar\Contracts\BootstrapConstantsContract;
-use Zablose\Navbar\Contracts\BulmaConstantsContract;
+use Zablose\Navbar\Contracts\BasicRendersContract;
 use Zablose\Navbar\NavbarEntityCore;
 use Zablose\Navbar\Traits\ArrayableTrait;
 use Zablose\Navbar\Traits\NavbarSettersTrait;
 
-class NavbarEntity extends NavbarEntityCore
-    implements
-    BootstrapConstantsContract,
-    BulmaConstantsContract
+class NavbarEntity extends NavbarEntityCore implements BasicRendersContract
 {
-
-    use NavbarSettersTrait;
     use ArrayableTrait;
-
+    use NavbarSettersTrait;
 }

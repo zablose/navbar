@@ -1,48 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zablose\Navbar\Contracts;
 
 interface NavbarConfigContract
 {
+    public function setPath(string $path): NavbarConfigContract;
 
-    /**
-     * Set current path of the application.
-     *
-     * @param string $path
-     *
-     * @return NavbarConfigContract
-     */
-    public function setPath($path);
+    public function setRoles(array $roles): NavbarConfigContract;
 
-    /**
-     * @param array $roles An array of strings or integers.
-     *
-     * @return NavbarConfigContract
-     */
-    public function setRoles($roles);
+    public function setPermissions(array $permissions): NavbarConfigContract;
 
-    /**
-     * @param array $permissions An array of strings or integers.
-     *
-     * @return NavbarConfigContract
-     */
-    public function setPermissions($permissions);
+    public function getPath(): string;
 
-    /**
-     * Get current path of the application.
-     *
-     * @return string
-     */
-    public function getPath();
+    public function getRoles(): array;
 
-    /**
-     * @return array
-     */
-    public function getRoles();
-
-    /**
-     * @return array
-     */
-    public function getPermissions();
-
+    public function getPermissions(): array;
 }
