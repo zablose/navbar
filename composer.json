@@ -39,7 +39,7 @@
     "autoload-dev": {
         "psr-4": {
             "App\\": "laravel/app/",
-            "Zablose\\Navbar\\Tests\\": "tests/"
+            "Zablose\\Navbar\\Tests\\": "laravel/tests/"
         },
         "classmap": [
             "laravel/database/seeders"

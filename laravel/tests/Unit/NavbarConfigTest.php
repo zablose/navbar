@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests;
+namespace Zablose\Navbar\Tests\Unit;
 
 use Zablose\Navbar\Contracts\BasicRendersContract;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\NavbarEntityCore;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
-use Zablose\Navbar\Tests\Traits\DatabaseTrait;
+use Zablose\Navbar\Tests\DatabaseTrait;
+use Zablose\Navbar\Tests\UnitTestCase;
 use Zablose\Navbar\Traits\ArrayableTrait;
 use Zablose\Navbar\Traits\NavbarSettersTrait;
 
-class NavbarConfigTest extends TestCase
+class NavbarConfigTest extends UnitTestCase
 {
     use DatabaseTrait;
 

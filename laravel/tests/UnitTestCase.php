@@ -2,7 +2,9 @@
 
 namespace Zablose\Navbar\Tests;
 
-abstract class TestCase extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class UnitTestCase extends TestCase
 {
     public function tearDown(): void
     {

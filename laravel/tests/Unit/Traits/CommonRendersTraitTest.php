@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Traits;
+namespace Zablose\Navbar\Tests\Unit\Traits;
 
+use Zablose\Navbar\Tests\DatabaseTrait;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
-use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Tests\UnitTestCase;
 
-class CommonRendersTraitTest extends TestCase
+class CommonRendersTraitTest extends UnitTestCase
 {
     use DatabaseTrait;
 

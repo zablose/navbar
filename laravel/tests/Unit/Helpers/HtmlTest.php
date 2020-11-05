@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Helpers;
+namespace Zablose\Navbar\Tests\Unit\Helpers;
 
 use Zablose\Navbar\Helpers\Html;
-use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Tests\UnitTestCase;
 
-class HtmlTest extends TestCase
+class HtmlTest extends UnitTestCase
 {
     /** @test */
     public function render_tag_only()

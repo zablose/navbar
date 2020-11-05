@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Traits;
+namespace Zablose\Navbar\Tests\Unit\Traits;
 
 use Zablose\Navbar\Tests\NavbarEntity as NE;
-use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Tests\UnitTestCase;
 
-class NavbarSettersTraitTest extends TestCase
+class NavbarSettersTraitTest extends UnitTestCase
 {
     /** @test */
     public function set_id_and_reset_next_id()

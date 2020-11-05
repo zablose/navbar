@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Helpers;
+namespace Zablose\Navbar\Tests\Unit\Helpers;
 
+use stdClass;
 use Zablose\Navbar\Helpers\Str;
-use Zablose\Navbar\Tests\TestCase;
+use Zablose\Navbar\Tests\UnitTestCase;
 
-class StrTest extends TestCase
+class StrTest extends UnitTestCase
 {
     /** @test */
     public function postfix_a_string()
@@ -40,6 +41,6 @@ class StrTest extends TestCase
     /** @test */
     public function implode_strings_only_and_ignore_empty_ones()
     {
-        $this->assertSame('btn', Str::implode(['btn', '', null, false, true, new \stdClass(), [], 2020]));
+        $this->assertSame('btn', Str::implode(['btn', '', null, false, true, new stdClass(), [], 2020]));
     }
 }

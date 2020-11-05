@@ -24,7 +24,7 @@
     </coverage>
     <testsuites>
         <testsuite name="all">
-            <directory>./tests</directory>
+            <directory>./laravel/tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -30,9 +30,9 @@ return [
         ->setClass('nav-item')
         ->setIcon('fa fa-external-link')
         ->setBody('Laravel')
-        ->setHref('http://laravel.com/')
+        ->setHref('https://laravel.com/')
         ->setExternal()
-        ->setRole('public')
+        ->setRole('')
         ->toArray(),
 
     $navbar->setId()
@@ -47,6 +47,7 @@ return [
         ->setBody('Login')
         ->setHref('/login')
         ->setExternal(false)
+        ->setRole('public')
         ->toArray(),
     $link->setId()
         ->setClass('dropdown-item')

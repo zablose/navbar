@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zablose\Navbar\Tests\Traits;
+namespace Zablose\Navbar\Tests;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
@@ -8,9 +8,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Grammars\SQLiteGrammar;
 use PDO;
 use Zablose\Navbar\NavbarConfig;
-use Zablose\Navbar\Tests\NavbarBuilder;
-use Zablose\Navbar\Tests\NavbarRepo;
-use Zablose\Navbar\Tests\Table;
 
 trait DatabaseTrait
 {
