@@ -1,7 +1,6 @@
-language: php
+dist: bionic
 
-sudo: false
-dist: trusty
+language: php
 
 php:
   - 7.4
