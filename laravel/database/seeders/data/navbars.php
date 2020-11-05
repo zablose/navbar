@@ -23,7 +23,8 @@ return [
         ->setClass('nav-item')
         ->setIcon('fa fa-home')
         ->setBody('Home')
-        ->setHref('/')
+        ->setHref('/home')
+        ->setRole('user')
         ->toArray(),
     $link->setId()->setPid($navbar->id)
         ->setClass('nav-item')
@@ -31,6 +32,7 @@ return [
         ->setBody('Laravel')
         ->setHref('http://laravel.com/')
         ->setExternal()
+        ->setRole('public')
         ->toArray(),
 
     $navbar->setId()
@@ -57,5 +59,6 @@ return [
         ->setIcon('fa fa-sign-out')
         ->setBody('Logout')
         ->setHref('/logout')
+        ->setRole('user')
         ->toArray(),
 ];
