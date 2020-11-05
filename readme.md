@@ -10,11 +10,31 @@ Render an HTML from the navigation entities, stored in a database.
 
     composer require zablose/navbar
 
-### Laravel goodies
+## Usage example with Laravel
 
-Checkout `/laravel` folder to get `config`, `migration` and `seeder` to use with your application.
+Check [Laravel App](./laravel) folder for a usage example.
 
-## Usage
+Main files and folders to look at:
+* [Config](./laravel/config/navbar.php)
+* [Migrations](./laravel/database/migrations)
+* [Seeders](./laravel/database/seeders)
+* [ComposerServiceProvider](./laravel/app/Providers/ComposerServiceProvider.php)
+* [NavbarComposer](./laravel/app/Http/ViewComposers/NavbarComposer.php)
+* [Navigation](./laravel/app/Http/Navigation)
+
+## Development
+
+> Check submodule [readme](https://github.com/zablose/docker-damp/blob/master/readme.md) for more details about
+> development environment used.
+
+### Hosts
+
+Append to `/etc/hosts`.
+
+```
+127.0.0.1       navbar.zdev
+127.0.0.1       www.navbar.zdev
+```
 
 ## License
 
