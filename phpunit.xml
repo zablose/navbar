@@ -23,8 +23,11 @@
         </report>
     </coverage>
     <testsuites>
-        <testsuite name="all">
-            <directory>./laravel/tests</directory>
+        <testsuite name="Demo">
+            <directory>./laravel/tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory>./laravel/tests/Unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>
