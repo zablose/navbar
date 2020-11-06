@@ -36,6 +36,16 @@ Append to `/etc/hosts`.
 127.0.0.1       www.navbar.zdev
 ```
 
+## Demo
+
+### Index Page
+
+![](./readme/pictures/demo/index.png)
+
+### Home Page
+
+![](./readme/pictures/demo/home.png)
+
 ## License
 
 This package is free software distributed under the terms of the MIT license.
