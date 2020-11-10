@@ -19,19 +19,31 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "illuminate/database": "^6.0",
-        "phpunit/phpunit": "^9.0",
+        "facade/ignition": "^2.5.0",
+        "fideloper/proxy": "^4.4.1",
+        "fruitcake/laravel-cors": "^2.0.3",
+        "fzaninotto/faker": "^1.9.1",
+        "guzzlehttp/guzzle": "^7.2.0",
+        "laravel/framework": "^8.13.0",
+        "laravel/tinker": "^2.5.0",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.1.0",
+        "phpunit/phpunit": "^9.4.2",
         "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
-            "Zablose\\Navbar\\": ""
+            "Zablose\\Navbar\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zablose\\Navbar\\Tests\\": "tests/"
-        }
+            "App\\": "laravel/app/",
+            "Zablose\\Navbar\\Tests\\": "laravel/tests/"
+        },
+        "classmap": [
+            "laravel/database/seeders"
+        ]
     },
     "config": {
         "preferred-install": "dist",
