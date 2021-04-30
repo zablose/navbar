@@ -38,6 +38,8 @@ Append to `/etc/hosts`.
 
 ## Demo
 
+Visit [https://navbar.zdev:44305/](https://navbar.zdev:44305/) to play with navigation on your development environment.
+
 ### Index Page
 
 ![](./readme/pictures/demo/index.png)

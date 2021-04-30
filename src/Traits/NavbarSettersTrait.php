@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Traits;
 
@@ -14,7 +16,7 @@ trait NavbarSettersTrait
     public function setId(int $id = null): self
     {
         if ($id) {
-            $this->id      = $id;
+            $this->id = $id;
             self::$next_id = $id;
         } else {
             $this->id = ++self::$next_id;

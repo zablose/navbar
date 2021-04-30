@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests;
 
 class Table
 {
-    const NAVBARS = 'navbars';
+    public const NAVBARS = 'navbars';
 }

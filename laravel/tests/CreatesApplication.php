@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests;
 
@@ -12,7 +14,7 @@ trait CreatesApplication
      *
      * @return Application
      */
-    public function createApplication()
+    public function createApplication(): Application
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 

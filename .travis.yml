@@ -4,6 +4,12 @@ language: php
 
 php:
   - 7.4
+  - 8.0
+
+branches:
+  only:
+    - master
+    - dev
 
 before_script:
   - composer self-update

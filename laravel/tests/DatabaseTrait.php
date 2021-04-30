@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests;
 
@@ -43,7 +45,7 @@ trait DatabaseTrait
         $table = new Blueprint(Table::NAVBARS);
         $table->create();
 
-        $table->charset   = 'utf8';
+        $table->charset = 'utf8';
         $table->collation = 'utf8_unicode_ci';
 
         $table->increments('id');

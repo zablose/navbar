@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -18,9 +20,9 @@ final class NavbarDataProcessor
 
     public function __construct(NavbarRepoContract $repo, NavbarConfigContract $config = null)
     {
-        $this->config   = $config ?: new NavbarConfig();
+        $this->config = $config ?: new NavbarConfig();
         $this->order_by = new OrderBy();
-        $this->repo     = $repo;
+        $this->repo = $repo;
     }
 
     public function getConfig(): NavbarConfigContract
@@ -66,7 +68,7 @@ final class NavbarDataProcessor
 
     public function orderBy(string $column, string $direction = 'asc'): self
     {
-        $this->order_by->column    = $column;
+        $this->order_by->column = $column;
         $this->order_by->direction = $direction;
 
         return $this;
@@ -76,11 +78,11 @@ final class NavbarDataProcessor
     {
         $elements = [];
 
-        $pid = $parent ? (int) $parent->id : 0;
+        $pid = $parent ? (int)$parent->id : 0;
 
         /** @var NavbarEntityCore $entity */
         foreach ($this->entities as $entity) {
-            if ($pid === (int) $entity->pid) {
+            if ($pid === (int)$entity->pid) {
                 if ($pid === 0) {
                     $elements[$entity->filter][$entity->id] = $this->makeElement($entity);
                 } else {

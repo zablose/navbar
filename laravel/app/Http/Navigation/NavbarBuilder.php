@@ -29,19 +29,20 @@ class NavbarBuilder extends NavbarBuilderCore
             $element,
             [
                 'id' => $id,
-                'href' => $element->entity->href,
-                'class' => Str::postfix($element->entity->class, 'nav-link dropdown-toggle'),
+                'type' => 'button',
+                'class' => Str::prefix($element->entity->class, 'btn btn-secondary dropdown-toggle'),
                 'data-toggle' => 'dropdown',
-                'role' => 'button',
                 'aria-haspopup' => 'true',
                 'aria-expanded' => 'false',
             ]
         );
 
         return
-            '<li class="nav-item dropleft">'.$this->renderLink($element, $attrs).
-            '<ul class="dropdown-menu" aria-labelledby="'.$id.'">'.$this->renderElements($element->content).'</ul>'.
-            '</li>';
+            '<div class="dropdown">'
+            .Html::tag('button', $this->renderLinkBody($element), $attrs).
+            '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="'.$id.'">'
+            .$this->renderElements($element->content).'</div>'.
+            '</div>';
     }
 
     public function render_link(NavbarElement $element, array $link_attrs_overwrite = []): string
@@ -58,16 +59,23 @@ class NavbarBuilder extends NavbarBuilderCore
 
     public function render_logout(NavbarElement $element): string
     {
-        $form = Html::tag('form', '', [
-            'id' => 'logout-form',
-            'action' => $this->renderHref($element),
-            'method' => 'POST',
-            'style' => 'display: none;',
-        ]);
+        $form = Html::tag(
+            'form',
+            '',
+            [
+                'id' => 'logout-form',
+                'action' => $this->renderHref($element),
+                'method' => 'POST',
+                'style' => 'display: none;',
+            ]
+        );
 
-        return $this->render_link($element, [
-                'onclick' => 'event.preventDefault();document.getElementById(\'logout-form\').submit();',
-            ]).$form;
+        return $this->render_link(
+                $element,
+                [
+                    'onclick' => 'event.preventDefault();document.getElementById(\'logout-form\').submit();',
+                ]
+            ).$form;
     }
 
     protected function renderLinkIcon(NavbarElement $element): string
