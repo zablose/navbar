@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Traits;
 
@@ -18,8 +20,7 @@ trait CommonRendersTrait
     protected function renderLink(
         NavbarElement $element,
         array $attrs_overwrite = []
-    ): string
-    {
+    ): string {
         $attrs = [
             'href' => $this->renderHref($element),
             'title' => $element->entity->title,
@@ -27,13 +28,13 @@ trait CommonRendersTrait
 
         if ($element->entity->external) {
             $attrs['target'] = '_blank';
-            $attrs['rel']    = 'noopener';
+            $attrs['rel'] = 'noopener';
         }
 
         $attrs['class'] = Str::postfix(
             $element->entity->class,
             $this->isLinkActive($element) ? $this->getConfig()->active_link_class : '',
-            );
+        );
 
         return Html::tag(
             'a',
@@ -56,10 +57,13 @@ trait CommonRendersTrait
 
     protected function renderList(NavbarElement $element): string
     {
-        $attrs = $this->getAttrs($element, [
-            'class' => $element->entity->class,
-            'title' => $element->entity->title,
-        ]);
+        $attrs = $this->getAttrs(
+            $element,
+            [
+                'class' => $element->entity->class,
+                'title' => $element->entity->title,
+            ]
+        );
 
         return Html::tag('ul', $this->renderElements($element->content), $attrs);
     }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit;
 
@@ -18,9 +20,11 @@ class NavbarConfigTest extends UnitTestCase
     /** @test */
     public function render_link_with_custom_app_url()
     {
-        $this->insert([
-            (new NE())->setId()->setType(NE::TYPE_LINK)->setHref('/home')->setBody('Home')->toArray(),
-        ]);
+        $this->insert(
+            [
+                (new NE())->setId()->setType(NE::TYPE_LINK)->setHref('/home')->setBody('Home')->toArray(),
+            ]
+        );
 
         $this->assertSame(
             '<li><a href="/laravel/home">Home</a></li>',
@@ -31,16 +35,18 @@ class NavbarConfigTest extends UnitTestCase
     /** @test */
     public function render_link_with_custom_entity_class()
     {
-        $entity = new Class() extends NavbarEntityCore implements BasicRendersContract {
+        $entity = new class() extends NavbarEntityCore implements BasicRendersContract {
             use ArrayableTrait;
             use NavbarSettersTrait;
         };
 
         $config = new NavbarConfig(['navbar_entity_class' => get_class($entity)]);
 
-        $this->insert([
-            (new NE())->setId()->setType($entity::TYPE_LINK)->setHref('/home')->setBody('Home')->toArray(),
-        ]);
+        $this->insert(
+            [
+                (new NE())->setId()->setType($entity::TYPE_LINK)->setHref('/home')->setBody('Home')->toArray(),
+            ]
+        );
 
         $this->assertSame(
             '<li><a href="/home">Home</a></li>',
@@ -56,9 +62,11 @@ class NavbarConfigTest extends UnitTestCase
     /** @test */
     public function render_link_with_custom_active_link_class()
     {
-        $this->insert([
-            (new NE())->setId()->setType(NE::TYPE_LINK)->setHref('/me')->setBody('Me')->toArray(),
-        ]);
+        $this->insert(
+            [
+                (new NE())->setId()->setType(NE::TYPE_LINK)->setHref('/me')->setBody('Me')->toArray(),
+            ]
+        );
 
         $this->assertSame(
             '<li><a href="/me" class="here-i-am">Me</a></li>',

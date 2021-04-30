@@ -59,16 +59,23 @@ class NavbarBuilder extends NavbarBuilderCore
 
     public function render_logout(NavbarElement $element): string
     {
-        $form = Html::tag('form', '', [
-            'id' => 'logout-form',
-            'action' => $this->renderHref($element),
-            'method' => 'POST',
-            'style' => 'display: none;',
-        ]);
+        $form = Html::tag(
+            'form',
+            '',
+            [
+                'id' => 'logout-form',
+                'action' => $this->renderHref($element),
+                'method' => 'POST',
+                'style' => 'display: none;',
+            ]
+        );
 
-        return $this->render_link($element, [
-                'onclick' => 'event.preventDefault();document.getElementById(\'logout-form\').submit();',
-            ]).$form;
+        return $this->render_link(
+                $element,
+                [
+                    'onclick' => 'event.preventDefault();document.getElementById(\'logout-form\').submit();',
+                ]
+            ).$form;
     }
 
     protected function renderLinkIcon(NavbarElement $element): string

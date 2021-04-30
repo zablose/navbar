@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit\Traits;
 
@@ -13,9 +15,11 @@ class CommonRendersTraitTest extends UnitTestCase
     /** @test */
     public function ignore_protected_methods()
     {
-        $this->insert([
-            (new NE())->setId()->setType('renderLink')->toArray(),
-        ]);
+        $this->insert(
+            [
+                (new NE())->setId()->setType('renderLink')->toArray(),
+            ]
+        );
 
         $this->assertSame('', $this->render());
     }
@@ -23,9 +27,11 @@ class CommonRendersTraitTest extends UnitTestCase
     /** @test */
     public function ignore_unknown_entity_type()
     {
-        $this->insert([
-            (new NE())->setId()->setType('unknown')->toArray(),
-        ]);
+        $this->insert(
+            [
+                (new NE())->setId()->setType('unknown')->toArray(),
+            ]
+        );
 
         $this->assertSame('', $this->render());
     }

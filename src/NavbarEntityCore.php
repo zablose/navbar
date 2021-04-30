@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zablose\Navbar;
 
@@ -10,21 +12,21 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     public function __construct(object $raw_entity = null)
     {
         if ($raw_entity instanceof stdClass) {
-            $this->id         = (int) $raw_entity->id;
-            $this->pid        = (int) $raw_entity->pid;
-            $this->filter     = (string) $raw_entity->filter;
-            $this->type       = (string) $raw_entity->type;
-            $this->group      = (bool) $raw_entity->group;
-            $this->body       = (string) $raw_entity->body;
-            $this->title      = (string) $raw_entity->title;
-            $this->href       = (string) $raw_entity->href;
-            $this->external   = (bool) $raw_entity->external;
-            $this->class      = (string) $raw_entity->class;
-            $this->icon       = (string) $raw_entity->icon;
-            $this->attrs      = (string) $raw_entity->attrs;
-            $this->role       = (string) $raw_entity->role;
-            $this->permission = (string) $raw_entity->permission;
-            $this->position   = (int) $raw_entity->position;
+            $this->id = (int)$raw_entity->id;
+            $this->pid = (int)$raw_entity->pid;
+            $this->filter = (string)$raw_entity->filter;
+            $this->type = (string)$raw_entity->type;
+            $this->group = (bool)$raw_entity->group;
+            $this->body = (string)$raw_entity->body;
+            $this->title = (string)$raw_entity->title;
+            $this->href = (string)$raw_entity->href;
+            $this->external = (bool)$raw_entity->external;
+            $this->class = (string)$raw_entity->class;
+            $this->icon = (string)$raw_entity->icon;
+            $this->attrs = (string)$raw_entity->attrs;
+            $this->role = (string)$raw_entity->role;
+            $this->permission = (string)$raw_entity->permission;
+            $this->position = (int)$raw_entity->position;
         }
     }
 
