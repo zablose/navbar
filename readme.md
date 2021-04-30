@@ -1,6 +1,6 @@
 # Navbar
 
-[![Build Status](https://travis-ci.org/zablose/navbar.svg?branch=dev)](https://travis-ci.org/zablose/navbar)
+[![Build Status](https://travis-ci.org/zablose/navbar.svg?branch=master)](https://travis-ci.org/zablose/navbar)
 
 Render an HTML from the navigation entities, stored in a database.
 
