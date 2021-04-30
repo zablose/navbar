@@ -48,7 +48,7 @@ class NavbarConfigTest extends UnitTestCase
         );
 
         $this->assertStringContainsString(
-            'class@anonymous',
+            get_class($entity),
             $this->builder($config)->getConfig()->navbar_entity_class
         );
     }
