@@ -82,7 +82,7 @@ final class NavbarDataProcessor
 
         /** @var NavbarEntityCore $entity */
         foreach ($this->entities as $entity) {
-            if ($pid === (int)$entity->pid) {
+            if ($pid === $entity->pid) {
                 if ($pid === 0) {
                     $elements[$entity->filter][$entity->id] = $this->makeElement($entity);
                 } else {

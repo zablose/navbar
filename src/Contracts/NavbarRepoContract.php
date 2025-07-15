@@ -11,7 +11,7 @@ interface NavbarRepoContract
     /**
      * Get an array of rows as arrays to be used by NavbarDataProcessor to transform them into navigation entities.
      *
-     * Navigation entity as array:
+     * Navigation entity as an array:
      *
      *     [
      *         'id'         => 1,

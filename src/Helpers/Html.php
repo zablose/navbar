@@ -22,7 +22,7 @@ class Html
     {
         $strings = [];
 
-        if (is_array($attrs) && count($attrs) > 0) {
+        if (count($attrs) > 0) {
             foreach (array_filter($attrs) as $key => $value) {
                 $strings[] = (is_numeric($key)) ? $value : $key.'="'.$value.'"';
             }

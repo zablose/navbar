@@ -52,7 +52,7 @@ abstract class NavbarEntityCore implements NavbarEntityContract
     /** Tag's href attribute. */
     public string $href = '';
 
-    /** Is this link external or not, if it's a link entity? */
+    /** Is this link external or not if it's a link entity? */
     public bool $external = false;
 
     /** Tag's class attribute. */
