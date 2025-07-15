@@ -13,6 +13,7 @@ jobs:
       navbar-mariadb:
         image: mariadb:10.6
         env:
+          MARIADB_ROOT_PASSWORD: password
           MYSQL_DATABASE: navbar
           MYSQL_PASSWORD: password
           MYSQL_USER: navbar
