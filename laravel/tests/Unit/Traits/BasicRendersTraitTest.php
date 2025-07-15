@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit\Traits;
 
+use PHPUnit\Framework\Attributes\Test;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\Tests\DatabaseTrait;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
@@ -13,7 +14,7 @@ class BasicRendersTraitTest extends UnitTestCase
 {
     use DatabaseTrait;
 
-    /** @test */
+    #[Test]
     public function render_with_order_by_href_asc()
     {
         $list = (new NE())->setId()->setType(NE::TYPE_LIST)->setGroup()->setBody('General');
@@ -39,7 +40,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_with_order_by_href_desc()
     {
         $sublist = (new NE())->setId()->setType(NE::TYPE_SUBLIST)->setGroup();
@@ -64,7 +65,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_link()
     {
         $this->insert(
@@ -81,7 +82,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_external_link()
     {
         $this->insert(
@@ -98,7 +99,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_link_with_custom_attributes()
     {
         $this->insert(
@@ -119,7 +120,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function ignore_elements_if_root_element_inaccessible()
     {
         $sublist = (new NE())->setType(NE::TYPE_SUBLIST)->setRole('admin')->setGroup();
@@ -139,7 +140,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_with_filter()
     {
         $link = (new NE())->setType(NE::TYPE_LINK);
@@ -157,7 +158,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_links_with_roles()
     {
         $link = (new NE())->setType(NE::TYPE_LINK);
@@ -179,7 +180,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_links_with_permissions()
     {
         $link = (new NE())->setType(NE::TYPE_LINK);
@@ -199,7 +200,7 @@ class BasicRendersTraitTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_links_with_positioning()
     {
         $link = (new NE())->setType(NE::TYPE_LINK);

@@ -13,7 +13,7 @@ trait NavbarSettersTrait
         self::$next_id = 0;
     }
 
-    public function setId(int $id = null): self
+    public function setId(?int $id = null): self
     {
         if ($id) {
             $this->id = $id;

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Zablose\Navbar\Tests\FeatureTestCase;
 
 class RoutesTest extends FeatureTestCase
 {
-    /** @test */
+    #[Test]
     public function index()
     {
         $this->get('/')->assertOk()
@@ -16,7 +17,7 @@ class RoutesTest extends FeatureTestCase
             ->assertDontSee('/home')->assertDontSee('/logout');
     }
 
-    /** @test */
+    #[Test]
     public function home()
     {
         $this->get('/home')->assertOk()
@@ -24,19 +25,19 @@ class RoutesTest extends FeatureTestCase
             ->assertDontSee('/login')->assertDontSee('/register');
     }
 
-    /** @test */
+    #[Test]
     public function login()
     {
         $this->get('/login')->assertRedirect('/home');
     }
 
-    /** @test */
+    #[Test]
     public function register()
     {
         $this->get('/register')->assertRedirect('/home');
     }
 
-    /** @test */
+    #[Test]
     public function logout()
     {
         $this->post('/logout')->assertRedirect('/');

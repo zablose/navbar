@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit\Traits;
 
+use PHPUnit\Framework\Attributes\Test;
 use Zablose\Navbar\Tests\DatabaseTrait;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
 use Zablose\Navbar\Tests\UnitTestCase;
@@ -12,7 +13,7 @@ class CommonRendersTraitTest extends UnitTestCase
 {
     use DatabaseTrait;
 
-    /** @test */
+    #[Test]
     public function ignore_protected_methods()
     {
         $this->insert(
@@ -24,7 +25,7 @@ class CommonRendersTraitTest extends UnitTestCase
         $this->assertSame('', $this->render());
     }
 
-    /** @test */
+    #[Test]
     public function ignore_unknown_entity_type()
     {
         $this->insert(

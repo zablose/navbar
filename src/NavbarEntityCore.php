@@ -9,7 +9,7 @@ use Zablose\Navbar\Contracts\NavbarEntityContract;
 
 abstract class NavbarEntityCore implements NavbarEntityContract
 {
-    public function __construct(object $raw_entity = null)
+    public function __construct(?object $raw_entity = null)
     {
         if ($raw_entity instanceof stdClass) {
             $this->id = (int)$raw_entity->id;

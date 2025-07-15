@@ -35,6 +35,8 @@ trait DatabaseTrait
     {
         if (! self::$db) {
             self::$db = new Connection(self::pdo());
+
+            self::$db->setSchemaGrammar(new SQLiteGrammar(self::db()));
         }
 
         return self::$db;
@@ -42,7 +44,7 @@ trait DatabaseTrait
 
     protected static function setUpTable(): void
     {
-        $table = new Blueprint(Table::NAVBARS);
+        $table = new Blueprint(self::db(), Table::NAVBARS);
         $table->create();
 
         $table->charset = 'utf8';
@@ -65,7 +67,7 @@ trait DatabaseTrait
         $table->string('permission')->nullable();
         $table->integer('position')->unsigned()->default(0);
 
-        $table->build(self::db(), new SQLiteGrammar());
+        $table->build();
     }
 
     protected function insert(array $data): bool
