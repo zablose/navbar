@@ -1,3 +1,6 @@
+![](https://github.com/zablose/navbar/actions/workflows/tests-on-master.yml/badge.svg)
+![](https://github.com/zablose/navbar/actions/workflows/tests-on-dev.yml/badge.svg)
+
 # Navbar
 
 [![Build Status](https://travis-ci.org/zablose/navbar.svg?branch=dev)](https://travis-ci.org/zablose/navbar)
