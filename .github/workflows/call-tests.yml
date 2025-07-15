@@ -48,8 +48,8 @@ jobs:
 
       - name: Migrate and Seed DB
         run: |
-          php artisan migrate:fresh
-          php artisan db:seed
+          php laravel/artisan migrate:fresh
+          php laravel/artisan db:seed
 
       - name: Run PHPUnit tests
         run: |
