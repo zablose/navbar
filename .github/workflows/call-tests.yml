@@ -10,7 +10,7 @@ jobs:
         php-versions: [ '8.4' ]
 
     services:
-      navbar-mariadb:
+      mariadb:
         image: mariadb:10.6
         env:
           MARIADB_ROOT_PASSWORD: password
@@ -33,6 +33,10 @@ jobs:
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Update host in .env file
+        run: |
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
 
       - name: Disable XDebug
         run: sudo phpdismod xdebug
