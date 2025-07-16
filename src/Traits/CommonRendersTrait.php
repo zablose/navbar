@@ -50,7 +50,7 @@ trait CommonRendersTrait
             : '';
     }
 
-    protected function renderLinkBody(NavbarElement $element)
+    protected function renderLinkBody(NavbarElement $element): string
     {
         return Str::implode([$this->renderLinkIcon($element), $element->entity->body,], '');
     }

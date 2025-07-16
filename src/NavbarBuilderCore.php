@@ -60,7 +60,7 @@ abstract class NavbarBuilderCore
     {
         $html = '';
 
-        if (is_array($elements) && count($elements) > 0) {
+        if (count($elements) > 0) {
             foreach ($elements as $element) {
                 $html .= $this->renderElement($element);
             }

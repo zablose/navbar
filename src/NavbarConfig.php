@@ -25,7 +25,7 @@ class NavbarConfig implements NavbarConfigContract
     /** Class to be used by NavbarDataProcessor to represent NavbarEntity. */
     public string $navbar_entity_class = NavbarEntity::class;
 
-    /** CSS class to use to make link active. */
+    /** CSS class to use to make a link active. */
     public string $active_link_class = 'app-is-active';
 
     /** Current path of the application. */

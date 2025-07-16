@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit\Traits;
 
+use PHPUnit\Framework\Attributes\Test;
 use Zablose\Navbar\Tests\NavbarEntity as NE;
 use Zablose\Navbar\Tests\UnitTestCase;
 
 class NavbarSettersTraitTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function set_id_and_reset_next_id()
     {
         $entity = (new NE())->setId(3)->setId();
@@ -23,7 +24,7 @@ class NavbarSettersTraitTest extends UnitTestCase
         $this->assertTrue($entity->id === 1);
     }
 
-    /** @test */
+    #[Test]
     public function set_position_after_id()
     {
         $entity = (new NE())->setPosition(34)->setId();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zablose\Navbar\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\Test;
 use Zablose\Navbar\Contracts\BasicRendersContract;
 use Zablose\Navbar\NavbarConfig;
 use Zablose\Navbar\NavbarEntityCore;
@@ -17,7 +18,7 @@ class NavbarConfigTest extends UnitTestCase
 {
     use DatabaseTrait;
 
-    /** @test */
+    #[Test]
     public function render_link_with_custom_app_url()
     {
         $this->insert(
@@ -32,7 +33,7 @@ class NavbarConfigTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_link_with_custom_entity_class()
     {
         $entity = new class() extends NavbarEntityCore implements BasicRendersContract {
@@ -59,7 +60,7 @@ class NavbarConfigTest extends UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function render_link_with_custom_active_link_class()
     {
         $this->insert(
